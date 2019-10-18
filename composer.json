@@ -1,0 +1,27 @@
+{
+    "name":"Team1/proiect-colectiv",
+    "description": "A site for random meetings",
+    "authors": [
+             {
+	          "name": "Pop Sorin",
+              "email": "popsorin15@gmail.com"
+             }
+            ],
+    "require-dev": {
+      "squizlabs/php_codesniffer": "3.*"
+    },
+
+    "autoload":
+    {
+      "psr-4": {
+                "Popsorin\\": "src"
+               }
+    },
+
+  "require": {
+    "ext-json": "*",
+    "ext-mysqli": "*",
+    "ext-pdo": "*",
+    "ext-curl": "*"
+  }
+}
