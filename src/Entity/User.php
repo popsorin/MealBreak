@@ -2,17 +2,14 @@
 
 namespace Team1\Entity;
 
+use Popsorin\Entity\HasId;
+
 /**
  * Class User
  * This is the class that holds informations about the user
  */
-class User
+class User extends HasId
 {
-    /**
-     * @var int
-     */
-    private $id;
-
     /**
      * @var string
      */
@@ -22,22 +19,6 @@ class User
      * @var string
      */
     private $password;
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
 
     /**
      * @return string
