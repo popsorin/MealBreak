@@ -21,6 +21,11 @@ class User extends HasId
     private $password;
 
     /**
+     * @var string
+     */
+    private $email;
+
+    /**
      * @return string
      */
     public function getName(): string
@@ -51,4 +56,21 @@ class User extends HasId
     {
         $this->password = $password;
     }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
 }

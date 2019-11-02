@@ -16,11 +16,6 @@ class Account extends User
     private $desctiption;
 
     /**
-     * @var string
-     */
-    private $email;
-
-    /**
      * @return string
      */
     public function getDesctiption()
@@ -34,21 +29,5 @@ class Account extends User
     public function setDesctiption($desctiption)
     {
         $this->desctiption = $desctiption;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param string $email
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
     }
 }
