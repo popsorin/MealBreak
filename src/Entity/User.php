@@ -2,7 +2,7 @@
 
 namespace Team1\Entity;
 
-use Popsorin\Entity\HasId;
+use Team1\Entity\HasId;
 
 /**
  * Class User
@@ -24,6 +24,11 @@ class User extends HasId
      * @var string
      */
     private $email;
+
+    /**
+     * @var boolean
+     */
+    private $confirmed;
 
     /**
      * @return string
@@ -72,5 +77,22 @@ class User extends HasId
     {
         $this->email = $email;
     }
+
+    /**
+     * @return bool
+     */
+    public function getIsConfirmed()
+    {
+        return $this->confirmed;
+    }
+
+    /**
+     * @param bool $confirmed
+     */
+    public function setConfirmed($confirmed)
+    {
+        $this->confirmed = $confirmed;
+    }
+
 
 }

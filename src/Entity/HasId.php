@@ -1,10 +1,10 @@
 <?php
 
-namespace Popsorin\Entity;
+namespace Team1\Entity;
 
 /**
  * Class HasId
- * @package Popsorin\Entity
+ * @package Team1\Entity
  */
 class HasId
 {
