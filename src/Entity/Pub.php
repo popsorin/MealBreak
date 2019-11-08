@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Popsorin\Entity;
+namespace Team1\Entity;
 
 /**
  * Class Pub
- * @package Popsorin\Entity
+ * @package Team1\Entity
  */
 class Pub extends HasId
 {

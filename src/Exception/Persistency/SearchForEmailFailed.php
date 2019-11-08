@@ -1,24 +1,23 @@
 <?php
 
-
 namespace Team1\Exception\Persistency;
 
 use Team1\Exception\AbstractException;
 use Throwable;
 
 /**
- * Class NameAlreadyExistsException
+ * Class SearchForEmailFailed
  * @package Team1\Exception\Persistency
  */
-class NameAlreadyExistsException extends AbstractException
+class SearchForEmailFailed extends AbstractException
 {
     /**
-     * NameAlreadyExistsException constructor.
+     * SearchForEmailFailed constructor.
      * @param string $message
      * @param int $code
      * @param Throwable|null $previous
      */
-    public function __construct($message = "Username is already taken", $code = 0, Throwable $previous = null)
+    public function __construct($message = "Search for email failed", $code = 0, Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }

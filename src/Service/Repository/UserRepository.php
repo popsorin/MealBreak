@@ -10,6 +10,7 @@ use Team1\Exception\Persistency\EmailAlreadyUsedException;
 use Team1\Exception\Persistency\InsertionFailedException;
 use Team1\Exception\Persistency\NameAlreadyExistsException;
 use Team1\Exception\Persistency\ReturnAllFailedException;
+use Team1\Exception\Persistency\SearchForEmailFailed;
 use Team1\Exception\Persistency\UpdateFailedException;
 use Team1\Exception\Persistency\UserNotFoundException;
 
@@ -41,22 +42,25 @@ class UserRepository implements InterfaceRepository
     public function add(User $user): User
     {
         try {
-            $sqlQuery = $this->connection->prepare("SELECT name,email FROM USER;");
-            $sqlQuery->execute();
+            $name = $user->getName();
+            $password = $user->getPassword();
+            $email = $user->getEmail();
+            $confirm = $user->getIsConfirmed();
+            $sqlQuery = $this->connection->prepare("SELECT name FROM User WHERE name = ?;");
+            $sqlQuery->execute(array($name));
             $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
             if($row["name"] !== null)
                 throw new NameAlreadyExistsException();
-            if($row["emial"] !== null)
+            $sqlQuery = $this->connection->prepare("SELECT email FROM User WHERE email = ?;");
+            $sqlQuery->execute(array($email));
+            $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
+            if($row["email"] !== null)
                 throw new EmailAlreadyUsedException();
             $sqlQuery = $this->connection->prepare(
                 "INSERT INTO User (name, password, email,confirmed) 
                       VALUES (?, ?, ?,?);"
             );
-            $name = $user->getName();
-            $password = $user->getPassword();
-            $email = $user->getEmail();
-            $confirm = $user->getIsConfirmed();
-            $queryResult = $sqlQuery->execute(array($name,$password),$email,$confirm);
+            $queryResult = $sqlQuery->execute(array($name,$password,$email,$confirm));
             $id = $this->connection->lastInsertId();
             $user->setId($id);
 
@@ -99,7 +103,7 @@ class UserRepository implements InterfaceRepository
     public function delete(int $id)
     {
         try {
-            $sqlQuery = $this->connection->prepare("SELECT id FROM Tickets WHERE id = ?;");
+            $sqlQuery = $this->connection->prepare("SELECT id FROM User WHERE id = ?;");
             $queryResult = $sqlQuery->execute(array($id));
             $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
             if ($row === false) {
@@ -120,7 +124,7 @@ class UserRepository implements InterfaceRepository
         try {
             $id = $user->getId();
             $confirm = $user->getIsConfirmed();
-            $sqlQuery = $this->connection->prepare("SELECT id FROM Tickets WHERE id = ?;");
+            $sqlQuery = $this->connection->prepare("SELECT id FROM User WHERE id = ?;");
             $queryResult = $sqlQuery->execute(array($id));
             $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
             if ($row === false) {
@@ -137,4 +141,25 @@ class UserRepository implements InterfaceRepository
             throw new UpdateFailedException();
         }
     }
+
+    /**
+     * @param User $user
+     * @return bool
+     * @throws EmailAlreadyUsedException
+     *
+    public function searchEmail(User $user): boolean
+    {
+        try{
+            $email = $user->getEmail();
+            $sqlQuery = $this->connection->prepare("SELECT email FROM User WHERE email = ?");
+            $queryResult = $sqlQuery->execute(array($email));
+            $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
+            if($row !== false)
+                throw new EmailAlreadyUsedException();
+
+            return false;
+        } catch (PDOException $exception) {
+            throw new SearchForEmailFailed();
+        }
+    }*/
 }

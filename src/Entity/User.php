@@ -41,7 +41,7 @@ class User extends HasId
     /**
      * @param string $name
      */
-    public function setName(string $name): void
+    public function setName(string $name)
     {
         $this->name = $name;
     }
@@ -57,7 +57,7 @@ class User extends HasId
     /**
      * @param string $password
      */
-    public function setPassword(string $password): void
+    public function setPassword(string $password)
     {
         $this->password = $password;
     }
@@ -65,7 +65,7 @@ class User extends HasId
     /**
      * @return string
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -81,7 +81,7 @@ class User extends HasId
     /**
      * @return bool
      */
-    public function getIsConfirmed()
+    public function getIsConfirmed(): bool
     {
         return $this->confirmed;
     }

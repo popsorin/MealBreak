@@ -22,6 +22,8 @@ class UserBuilder implements Builder
           $user = new User();
           $user->setName($request->getName());
           $user->setPassword($request->getPassword());
+          $user->setEmail($request->getEmail());
+          $user->setConfirmed($request->getIsConfirmed());
 
           return $user;
     }
