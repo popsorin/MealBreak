@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Popsorin\Exception\Validator;
+namespace Team1\Exception\Validator;
 
 
 use Team1\Exception\AbstractException;
@@ -9,7 +9,7 @@ use Throwable;
 
 /**
  * Class WrongEmailFormatException
- * @package Popsorin\Exception\Validator
+ * @package Team1\Exception\Validator
  */
 class WrongEmailFormatException extends AbstractException
 {

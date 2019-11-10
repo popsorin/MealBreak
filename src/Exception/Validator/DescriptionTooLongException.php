@@ -1,13 +1,13 @@
 <?php
 
-namespace Popsorin\Exception\Validator;
+namespace Team1\Exception\Validator;
 
 use Team1\Exception\AbstractException;
 use Throwable;
 
 /**
  * Class DescriptionTooLongException
- * @package Popsorin\Exception\Validator
+ * @package Team1\Exception\Validator
  */
 class DescriptionTooLongException extends AbstractException
 {

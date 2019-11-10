@@ -76,6 +76,12 @@ class RegisterController
         $myfile = file_get_contents($file);
         echo $myfile;
     }
+    public function displayCSS($file)
+    {
+        $myfile = file_get_contents($file);
+        $myfile = "<style>" . PHP_EOL . $myfile . "\n" . "</style>";
+        echo $myfile;
+    }
 /*
     public function searchEmail(CreateRequest $request)
     {

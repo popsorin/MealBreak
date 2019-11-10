@@ -3,7 +3,7 @@
 
 namespace Team1\Service\Validator;
 
-use Team1\Exception\Persistency\PasswordTooShortException;
+use Team1\Exception\Validator\PasswordTooShortException;
 use Team1\Exception\Validator\WrongEmailFormatException;
 use Team1\Api\Data\Request\CreateRequest;
 

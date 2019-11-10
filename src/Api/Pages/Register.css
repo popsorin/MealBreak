@@ -1,11 +1,94 @@
-body{
-    background-color: #525252;
+body {
+    background-image: url("https://img-9gag-fun.9cache.com/photo/aKd6px3_700bwp.webp");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .centered-form{
     margin-top: 60px;
 }
 
-.centered-form .panel{
+.centered-form.panel{
     background: rgba(255, 255, 255, 0.8);
     box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
 }
+
+#username::placeholder{
+    color: white;
+    opacity: 1;
+}
+
+#username{
+    background-color:rgba(0, 0, 0, 0);
+    color: white;
+    height:30px;
+    transition:height 1s;
+    -webkit-transition:height 1s;
+    border-width: thick;
+}
+
+#email::placeholder{
+    color: white;
+    opacity: 1;
+}
+
+#email{
+    background-color:rgba(0, 0, 0, 0);
+    color: white;
+    height:30px;
+    transition:height 1s;
+    -webkit-transition:height 1s;
+    border-width: thick;
+}
+
+#password::placeholder{
+    color: white;
+    opacity: 1;
+}
+
+#password{
+    background-color:rgba(0, 0, 0, 0);
+    color: white;
+    height:30px;
+    transition:height 1s;
+    -webkit-transition:height 1s;
+    border-width: thick;
+}
+
+#password_confirm::placeholder{
+    color: white;
+    opacity: 1;
+}
+
+#password_confirm{
+    background-color:rgba(0, 0, 0, 0);
+    color: white;
+    height:30px;
+    transition:height 1s;
+    -webkit-transition:height 1s;
+    border-width: thick;
+}
+
+.control-register{
+    color: white;
+}
+
+#register{
+    position: relative;
+    margin-left: 400px;
+    background-color:rgba(0, 0, 0, 0);
+    color: white;
+    height:50px;
+    width: 150px;
+    transition:height 1s;
+    -webkit-transition:height 1s;
+    border-width: thick;
+    font-size: 20px;
+}
+
+#checkbox{
+    color: white;
+    position: relative;
+    margin-left: 180px;
+}
+

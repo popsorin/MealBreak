@@ -1,13 +1,13 @@
 <?php
 
-namespace Popsorin\Exception\Persistency;
+namespace Team1\Exception\Validator;
 
 use Team1\Exception\AbstractException;
 use Throwable;
 
 /**
  * Class PasswordTooShortException
- * @package Popsorin\Exception\Persistency
+ * @package Team1\Exception\Validator
  */
 class PasswordTooShortException extends AbstractException
 {
