@@ -17,16 +17,15 @@ class AccountBuilder implements Builder
      * @param UpdateRequest $request
      * @return Account
      */
-    public static function buildAccount(UpdateRequest $request): Account
+    public static function buildAccount(Request $request): Account
     {
             $account = new Account();
-            $account->setConfirmed(true);
             $account->setEmail($request->getEmail());
-            $account->setDesctiption($request->getDescription());
-            $account->setName($request->getName());
-            $account->setNickname($request->getNickname());
             $account->setPassword($request->getPassword());
-            $account->setIsOnline(true);
+            $account->setDescription("");
+            $account->setName("");
+            $account->setConfirmed(true);
+            $account->setIsOnline(false);
 
             return $account;
     }
