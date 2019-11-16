@@ -1,9 +1,13 @@
 <?php
 
+/*
+ * Written by Pop Sorin
+ */
 
 namespace Team1\Api\Controller;
 
 use Team1\Api\Data\Request\ConfirmRequest;
+use Team1\Exception\Persistency\ConnectionLostException;
 use Team1\Exception\Persistency\EmailAlreadyUsedException;
 use Team1\Exception\Persistency\InsertionFailedException;
 use Team1\Exception\Persistency\NameAlreadyExistsException;
@@ -16,7 +20,7 @@ use Team1\Service\Repository\UserRepository;
  * Class RegisterController
  * @package Team1\Api\Controller
  */
-class RegisterController
+class RegisterController extends Controller
 {
     /**
      * @var UserRepository
@@ -25,6 +29,7 @@ class RegisterController
 
     /**
      * RegisterController constructor.
+     * @throws ConnectionLostException
      */
     public function __construct()
     {
@@ -67,25 +72,4 @@ class RegisterController
         $user = UserBuilder::buildUser($request);
         $this->update($user);
     }
-
-    /**
-     * @param string $file
-     */
-    public function displayHTML(string $file)
-    {
-        $myfile = file_get_contents($file);
-        echo $myfile;
-    }
-    public function displayCSS($file)
-    {
-        $myfile = file_get_contents($file);
-        $myfile = "<style>" . PHP_EOL . $myfile . "\n" . "</style>";
-        echo $myfile;
-    }
-/*
-    public function searchEmail(CreateRequest $request)
-    {
-        $user = UserBuilder::buildUser();
-        $this->repository->searchEmail($user);
-    }*/
 }

@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * Written by Pop Sorin
+ */
+
 namespace Team1\Api\Data\Response;
 
 /**

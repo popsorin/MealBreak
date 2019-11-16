@@ -5,7 +5,6 @@
 
 namespace Team1\Exception\Persistency;
 
-
 use Team1\Exception\AbstractException;
 
 /**

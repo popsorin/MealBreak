@@ -1,9 +1,10 @@
 body {
     background-image: url("https://img-9gag-fun.9cache.com/photo/aKd6px3_700bwp.webp");
-    background-position: center;
+    background-position: top;
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 .centered-form{
     margin-top: 60px;
 }

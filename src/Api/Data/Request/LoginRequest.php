@@ -5,7 +5,6 @@
 
 namespace Team1\Api\Data\Request;
 
-
 class LoginRequest implements Request
 {
     /**
@@ -25,14 +24,14 @@ class LoginRequest implements Request
      */
     public function __construct(
         $mail,
-        $pass)
-    {
+        $pass
+    ) {
         $this->email = $mail;
         $this->password = $pass;
     }
 
     /**
-     * @return username
+     * @return email
      */
     public function getEmail()
     {

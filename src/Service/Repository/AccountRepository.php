@@ -5,7 +5,6 @@
 
 namespace Team1\Service\Repository;
 
-
 use PDOException;
 use Team1\Entity\Account;
 use Team1\Entity\User;
@@ -19,15 +18,23 @@ use Team1\Exception\Persistency\ReturnAllFailedException;
 use Team1\Exception\Persistency\SearchAccountFailedException;
 use Team1\Exception\Persistency\UpdateFailedException;
 
+/**
+ * Class AccountRepository
+ * @package Team1\Service\Repository
+ */
 class AccountRepository implements InterfaceRepository
 {
     private $connection;
 
+    /**
+     * AccountRepository constructor.
+     * @throws ConnectionLostException
+     */
     public function __construct()
     {
         try {
             $this->connection = new \PDO(
-                'mysql:host=localhost;dbname=mealbreak',
+                'mysql:host=localhost;dbname=MealBreak',
                 'root',
                 '123456789',
                 array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION)
@@ -50,14 +57,16 @@ class AccountRepository implements InterfaceRepository
             $sqlQuery = $this->connection->prepare("SELECT name FROM Account WHERE name = ?;");
             $sqlQuery->execute(array($name));
             $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
-            if($row["name"] !== null)
+            if ($row["name"] !== null) {
                 throw new NameAlreadyExistsException();
+            }
 
             $sqlQuery = $this->connection->prepare("SELECT email FROM Account WHERE email = ?;");
             $sqlQuery->execute(array($email));
             $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
-            if($row["email"] !== null)
+            if ($row["email"] !== null) {
                 throw new EmailAlreadyUsedException();
+            }
 
             $sqlQuery = $this->connection->prepare(
                 "INSERT INTO Account (name, password, email)
@@ -102,7 +111,7 @@ class AccountRepository implements InterfaceRepository
 
     public function search(User $account)
     {
-        try{
+        try {
             $sqlQuery = $this->connection->prepare("SELECT * FROM Account WHERE email = ? AND password = ?;");
             $sqlQuery->execute(array($account->getEmail(), $account->getPassword()));
             $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
@@ -117,9 +126,7 @@ class AccountRepository implements InterfaceRepository
 
 
             return $result;
-        }
-        catch (PDOException $exception)
-        {
+        } catch (PDOException $exception) {
             throw new SearchAccountFailedException();
         }
     }
@@ -145,12 +152,12 @@ class AccountRepository implements InterfaceRepository
     }
 
     /**
-     * @param int $id
-     * @param Account $user
+     * @param User $user
      * @return User
+     * @throws AccountNotFoundException
      * @throws UpdateFailedException
      */
-    public function update(int $id, Account $user): User
+    public function update(User $user): User
     {
         try {
             $sqlQuery = $this->connection->prepare("SELECT id FROM Account WHERE id = ?;");
@@ -163,7 +170,10 @@ class AccountRepository implements InterfaceRepository
                 "UPDATE Account SET (password = ?), (description = ?), (email = ?)
                          WHERE id = ?;"
             );
-            $queryResult = $sqlQuery->execute(array($user->getPassword(), $user->getDescription(), $user->getEmail(), $id));
+            $queryResult = $sqlQuery->execute(array(
+                $user->getPassword(),
+                $user->getDescription(),
+                $user->getEmail(), $user->getId()));
 
             return $user;
         } catch (PDOException $exception) {

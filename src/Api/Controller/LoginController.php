@@ -5,13 +5,15 @@
 
 namespace Team1\Api\Controller;
 
-
 use Team1\Api\Data\Request\LoginRequest;
 use Team1\Entity\Account;
+use Team1\Exception\Persistency\AccountNotFoundException;
+use Team1\Exception\Persistency\ConnectionLostException;
+use Team1\Exception\Persistency\SearchAccountFailedException;
 use Team1\Service\Repository\AccountRepository;
 use Team1Service\Builder\AccountBuilder;
 
-class LoginController
+class LoginController extends Controller
 {
     /**
      * @var AccountRepository
@@ -19,13 +21,20 @@ class LoginController
     private $repository;
 
     /**
-     * RegisterController constructor.
+     * LoginController constructor.
+     * @throws ConnectionLostException
      */
     public function __construct()
     {
         $this->repository = new AccountRepository();
     }
 
+    /**
+     * @param LoginRequest $request
+     * @return Account
+     * @throws AccountNotFoundException
+     * @throws SearchAccountFailedException
+     */
     public function logIn(LoginRequest $request)
     {
         $account = AccountBuilder::buildAccount($request);

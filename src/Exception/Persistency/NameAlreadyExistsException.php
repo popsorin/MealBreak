@@ -1,5 +1,8 @@
 <?php
 
+/*
+ * Written by Pop Sorin
+ */
 
 namespace Team1\Exception\Persistency;
 

@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * Written by Pop Sorin
+ */
+
 namespace Team1\Service\Repository;
 
 use PDOException;
@@ -26,7 +30,7 @@ class UserRepository implements InterfaceRepository
     {
         try {
             $this->connection = new \PDO(
-                'mysql:host=localhost;dbname=User',
+                'mysql:host=localhost;dbname=MealBreak',
                 'root',
                 '123456789',
                 array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION)
