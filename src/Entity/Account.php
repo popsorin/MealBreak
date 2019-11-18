@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * Written by Pop Sorin
+ */
+
 namespace Team1\Entity;
 
 use Team1\Entity\User;
@@ -72,6 +76,4 @@ class Account extends User
     {
         $this->isOnline = $isOnline;
     }
-
-
 }

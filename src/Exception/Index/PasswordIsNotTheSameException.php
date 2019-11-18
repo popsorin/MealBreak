@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * Written by Pop Sorin
+ */
+
 namespace Team1\Exception\Index;
 
 use Team1\Exception\AbstractException;

@@ -1,31 +1,35 @@
 <?php
-
 /*
- * Written by Pop Sorin
+ * Written by Andrei
  */
 
 namespace Team1\Service\Repository;
 
 use PDOException;
+use Team1\Entity\Account;
 use Team1\Entity\User;
+use Team1\Exception\Persistency\AccountNotFoundException;
 use Team1\Exception\Persistency\ConnectionLostException;
 use Team1\Exception\Persistency\DeletionFailedException;
 use Team1\Exception\Persistency\EmailAlreadyUsedException;
 use Team1\Exception\Persistency\InsertionFailedException;
 use Team1\Exception\Persistency\NameAlreadyExistsException;
 use Team1\Exception\Persistency\ReturnAllFailedException;
-use Team1\Exception\Persistency\SearchForEmailFailed;
+use Team1\Exception\Persistency\SearchAccountFailedException;
 use Team1\Exception\Persistency\UpdateFailedException;
-use Team1\Exception\Persistency\UserNotFoundException;
 
 /**
- * Class UserRepository
+ * Class AccountRepository
  * @package Team1\Service\Repository
  */
-class UserRepository implements InterfaceRepository
+class AccountRepository implements InterfaceRepository
 {
     private $connection;
 
+    /**
+     * AccountRepository constructor.
+     * @throws ConnectionLostException
+     */
     public function __construct()
     {
         try {
@@ -43,32 +47,36 @@ class UserRepository implements InterfaceRepository
     /**
      * {@inheritDoc}
      */
-    public function add(User $user): User
+    public function add(User $account): User
     {
         try {
-            $name = $user->getName();
-            $password = $user->getPassword();
-            $email = $user->getEmail();
-            $confirm = $user->getIsConfirmed();
-            $sqlQuery = $this->connection->prepare("SELECT name FROM User WHERE name = ?;");
+            $name = $account->getName();
+            $password = $account->getPassword();
+            $email = $account->getEmail();
+            $confirm = $account->getIsConfirmed();
+            $sqlQuery = $this->connection->prepare("SELECT name FROM Account WHERE name = ?;");
             $sqlQuery->execute(array($name));
             $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
-            if($row["name"] !== null)
+            if ($row["name"] !== null) {
                 throw new NameAlreadyExistsException();
-            $sqlQuery = $this->connection->prepare("SELECT email FROM User WHERE email = ?;");
+            }
+
+            $sqlQuery = $this->connection->prepare("SELECT email FROM Account WHERE email = ?;");
             $sqlQuery->execute(array($email));
             $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
-            if($row["email"] !== null)
+            if ($row["email"] !== null) {
                 throw new EmailAlreadyUsedException();
+            }
+
             $sqlQuery = $this->connection->prepare(
-                "INSERT INTO User (name, password, email,confirmed) 
-                      VALUES (?, ?, ?,?);"
+                "INSERT INTO Account (name, password, email)
+                      VALUES (?, ?, ?);"
             );
             $queryResult = $sqlQuery->execute(array($name,$password,$email,$confirm));
             $id = $this->connection->lastInsertId();
-            $user->setId($id);
+            $account->setId($id);
 
-            return $user;
+            return $account;
         } catch (PDOException $exception) {
             throw new InsertionFailedException();
         }
@@ -81,25 +89,48 @@ class UserRepository implements InterfaceRepository
     {
         try {
             $records = array();
-            $sqlQuery = $this->connection->prepare("SELECT * FROM User;");
+            $sqlQuery = $this->connection->prepare("SELECT * FROM Account;");
             $sqlQuery->execute();
             $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
             while ($row !== false) {
-                $user = new User();
+                $user = new Account();
                 $user->setId($row['id']);
                 $user->setName($row['name']);
                 $user->setPassword($row['password']);
                 $user->setEmail($row['email']);
-                $user->setConfirmed($row['confirmed']);
+                $user->setDescription($row['description']);
+                $user->setNickname($row['nickname']);
                 array_push($records, $user);
                 $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
             }
-
             return $records;
         } catch (PDOException $exception) {
             throw new ReturnAllFailedException();
         }
     }
+
+    public function search(User $account)
+    {
+        try {
+            $sqlQuery = $this->connection->prepare("SELECT * FROM Account WHERE email = ? AND password = ?;");
+            $sqlQuery->execute(array($account->getEmail(), $account->getPassword()));
+            $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
+            if ($row === false) {
+                throw new AccountNotFoundException();
+            }
+            $result = new Account();
+            $result->setName($row['name']);
+            $result->setEmail($row['email']);
+            $result->setDescription($row['description']);
+            $result->setPassword($row['password']);
+
+
+            return $result;
+        } catch (PDOException $exception) {
+            throw new SearchAccountFailedException();
+        }
+    }
+
 
     /**
      * {@inheritDoc}
@@ -107,11 +138,11 @@ class UserRepository implements InterfaceRepository
     public function delete(int $id)
     {
         try {
-            $sqlQuery = $this->connection->prepare("SELECT id FROM User WHERE id = ?;");
+            $sqlQuery = $this->connection->prepare("SELECT id FROM Account WHERE id = ?;");
             $queryResult = $sqlQuery->execute(array($id));
             $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
             if ($row === false) {
-                throw new UserNotFoundException();
+                throw new AccountNotFoundException();
             }
             $sqlQuery = $this->connection->prepare("DELETE FROM User WHERE id = ?;");
             $queryResult = $sqlQuery->execute(array($id));
@@ -121,49 +152,32 @@ class UserRepository implements InterfaceRepository
     }
 
     /**
-     * {@inheritDoc}
+     * @param User $user
+     * @return User
+     * @throws AccountNotFoundException
+     * @throws UpdateFailedException
      */
     public function update(User $user): User
     {
         try {
-            $id = $user->getId();
-            $confirm = $user->getIsConfirmed();
-            $sqlQuery = $this->connection->prepare("SELECT id FROM User WHERE id = ?;");
+            $sqlQuery = $this->connection->prepare("SELECT id FROM Account WHERE id = ?;");
             $queryResult = $sqlQuery->execute(array($id));
             $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
             if ($row === false) {
-                throw new UserNotFoundException();
+                throw new AccountNotFoundException();
             }
             $sqlQuery = $this->connection->prepare(
-                "UPDATE User SET (confirmed = ?) 
+                "UPDATE Account SET (password = ?), (description = ?), (email = ?)
                          WHERE id = ?;"
             );
-            $queryResult = $sqlQuery->execute(array($confirm, $id));
+            $queryResult = $sqlQuery->execute(array(
+                $user->getPassword(),
+                $user->getDescription(),
+                $user->getEmail(), $user->getId()));
 
             return $user;
         } catch (PDOException $exception) {
             throw new UpdateFailedException();
         }
     }
-
-    /**
-     * @param User $user
-     * @return bool
-     * @throws EmailAlreadyUsedException
-     *
-    public function searchEmail(User $user): boolean
-    {
-        try{
-            $email = $user->getEmail();
-            $sqlQuery = $this->connection->prepare("SELECT email FROM User WHERE email = ?");
-            $queryResult = $sqlQuery->execute(array($email));
-            $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
-            if($row !== false)
-                throw new EmailAlreadyUsedException();
-
-            return false;
-        } catch (PDOException $exception) {
-            throw new SearchForEmailFailed();
-        }
-    }*/
 }

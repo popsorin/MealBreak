@@ -1,27 +1,26 @@
 <?php
-
 /*
- * Written by Pop Sorin
+ * Written by Andrei
  */
+
 
 namespace Team1\Exception\Persistency;
 
 use Team1\Exception\AbstractException;
-use Throwable;
 
 /**
- * Class ReturnAllFailedException
+ * Class AccountNotFoundException
  * @package Team1\Exception\Persistency
  */
-class ReturnAllFailedException extends AbstractException
+class AccountNotFoundException extends AbstractException
 {
     /**
-     * ReturnAllFailedException constructor.
+     * AccountNotFoundException constructor.
      * @param string $message
      * @param int $code
      * @param Throwable|null $previous
      */
-    public function __construct($message = "Failed to return all the users", $code = 0, Throwable $previous = null)
+    public function __construct($message = "Account not found", $code = 0, Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }
