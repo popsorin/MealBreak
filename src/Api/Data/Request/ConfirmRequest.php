@@ -14,6 +14,12 @@ use Team1\Api\Data\Request\CreateRequest;
  */
 class ConfirmRequest extends CreateRequest
 {
+    /**
+     * ConfirmRequest constructor.
+     * @param string $name
+     * @param string $apassword
+     * @param string $email
+     */
     public function __construct(string $name, string $password, string $email)
     {
         parent::__construct($name, $password, $email);

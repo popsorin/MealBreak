@@ -1,8 +1,12 @@
+html,body{
+    height: 100%;
+}
 body {
+    background-color: white;
     background-image: url("https://gitlab.com/proiectcolectiv_333-1/mealbreak/uploads/92b9f307fe4eca9ae3dbbd7bd008e66a/restaurant-group-report-30-per-cent-fall-profits-846013.jpg");
     background-position: top;
     background-repeat: no-repeat;
-    background-size: cover;
+    -webkit-background-size: cover;
 }
 
 #email::placeholder{
@@ -13,7 +17,8 @@ body {
 #email{
     background-color:rgba(0, 0, 0, 0);
     color: white;
-    height:30px;
+    height:60px;
+    width: 400px;
     transition:height 1s;
     -webkit-transition:height 1s;
     border-width: thick;
@@ -27,7 +32,8 @@ body {
 #password{
     background-color:rgba(0, 0, 0, 0);
     color: white;
-    height:30px;
+    height:60px;
+    width: 400px;
     transition:height 1s;
     -webkit-transition:height 1s;
     border-width: thick;
@@ -35,48 +41,51 @@ body {
 
 div.form-group-email{
     position: absolute;
-    left: 800px;
-    top: 270px;
-    font-size: large;
+    right: 18px;
+    top: 330px;
+    font-size: x-large;
 }
 
 div.form-group-password{
     position: absolute;
-    left: 800px;
-    top: 320px;
-    font-size: large;
+    right: 10px;
+    top: 470px;
+    font-size: x-large;
 }
 
 div.form-group-login{
     position: absolute;
-    left: 920px;
-    top: 400px;
-    font-size: large;
+    right: 10px;
+    bottom: 320px;
 }
 
 #login{
     background-color:rgba(0, 0, 0, 0);
     color: white;
-    height:30px;
-    width: 120px;
+    height:55px;
+    width: 200px;
     transition:height 1s;
     -webkit-transition:height 1s;
     border-width: thick;
-    font-size: 15px;
+    font-size: 30px;
 }
 div.form-group-createAcount{
     position: absolute;
-    left: 800px;
-    top: 440px;
+    right: 10px;
+    bottom: 260px;
     color: white;
-    font-size: large;
+    font-size: xx-large;
 }
 
 div.form-group-Title{
     position: absolute;
-    left: 800px;
+    right: 150px;
     top: 100px;
     color: white;
-    font-size: x-large;
+    font-size: 300%;
+}
+
+#Title{
+    font-size: 100px;
 }
 
