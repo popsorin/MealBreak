@@ -33,6 +33,12 @@ try {
     echo $connectionLostException->getMessage();
 }
 
+if($_SERVER["REQUEST_URI"] === "/")
+{
+    $requestController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/StartPage.html");
+    $requestController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/StartPage.css");
+
+}
 
 if($_SERVER["REQUEST_URI"] === "/register")
 {

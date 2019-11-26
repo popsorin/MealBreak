@@ -5,14 +5,6 @@ body {
     background-size: cover;
 }
 
-.centered-form{
-    margin-top: 60px;
-}
-
-.centered-form.panel{
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
-}
 
 #username::placeholder{
     color: white;
@@ -20,12 +12,17 @@ body {
 }
 
 #username{
+    position: absolute;
     background-color:rgba(0, 0, 0, 0);
     color: white;
-    height:30px;
     transition:height 1s;
     -webkit-transition:height 1s;
     border-width: thick;
+    margin-left: 500px;
+    top: 300px;
+    height:50px;
+    width: 400px;
+    font-size: xx-large;
 }
 
 #email::placeholder{
@@ -34,12 +31,17 @@ body {
 }
 
 #email{
+    position: absolute;
     background-color:rgba(0, 0, 0, 0);
     color: white;
-    height:30px;
     transition:height 1s;
     -webkit-transition:height 1s;
     border-width: thick;
+    margin-left: 500px;
+    top: 400px;
+    height:50px;
+    width: 400px;
+    font-size: xx-large;
 }
 
 #password::placeholder{
@@ -48,12 +50,17 @@ body {
 }
 
 #password{
+    position: absolute;
     background-color:rgba(0, 0, 0, 0);
     color: white;
-    height:30px;
     transition:height 1s;
     -webkit-transition:height 1s;
     border-width: thick;
+    margin-left: 500px;
+    top: 500px;
+    height:50px;
+    width: 400px;
+    font-size: xx-large;
 }
 
 #password_confirm::placeholder{
@@ -62,34 +69,50 @@ body {
 }
 
 #password_confirm{
+    position: absolute;
     background-color:rgba(0, 0, 0, 0);
     color: white;
-    height:30px;
     transition:height 1s;
     -webkit-transition:height 1s;
     border-width: thick;
+    margin-left: 500px;
+    top: 600px;
+    height:50px;
+    width: 400px;
+    font-size: xx-large;
 }
 
 .control-register{
     color: white;
+    margin-left: 700px;
 }
 
 #register{
     position: relative;
-    margin-left: 400px;
+    margin-left: 700px;
     background-color:rgba(0, 0, 0, 0);
     color: white;
-    height:50px;
-    width: 150px;
+    height:60px;
+    width: 200px;
     transition:height 1s;
     -webkit-transition:height 1s;
     border-width: thick;
-    font-size: 20px;
+    top: 600px;
+    font-size: x-large;
 }
 
 #checkbox{
     color: white;
     position: relative;
-    margin-left: 180px;
+    top: 550px;
+    margin-left: 680px;
+    font-size: x-large;
+}
+
+#Title{
+    position: relative;
+    top: 100px;
+    font-size: 100px;
+    margin-left: 680px;
 }
 
