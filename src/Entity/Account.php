@@ -25,14 +25,14 @@ class Account extends User
     private $nickname;
 
     /**
-     * @var boolean
+     * @var int
      */
-    private $isOnline;
+    private $token;
 
     /**
      * @return string
      */
-    public function getDesctiption()
+    public function getDesctiption(): string
     {
         return $this->desctiption;
     }
@@ -48,7 +48,7 @@ class Account extends User
     /**
      * @return string
      */
-    public function getNickname()
+    public function getNickname(): string
     {
         return $this->nickname;
     }
@@ -62,18 +62,18 @@ class Account extends User
     }
 
     /**
-     * @return boolean
+     * @return int
      */
-    public function isOnline()
+    public function getToken()
     {
-        return $this->isOnline;
+        return $this->token;
     }
 
     /**
-     * @param boolean $isOnline
+     * @param int $token
      */
-    public function setIsOnline($isOnline)
+    public function setToken($token)
     {
-        $this->isOnline = $isOnline;
+        $this->token = $token;
     }
 }

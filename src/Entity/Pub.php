@@ -35,7 +35,7 @@ class Pub extends HasId
     /**
      * @return stirng
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -51,7 +51,7 @@ class Pub extends HasId
     /**
      * @return string
      */
-    public function getSpecific()
+    public function getSpecific(): string
     {
         return $this->specific;
     }
@@ -67,7 +67,7 @@ class Pub extends HasId
     /**
      * @return string
      */
-    public function getLocation()
+    public function getLocation(): string
     {
         return $this->location;
     }
@@ -83,7 +83,7 @@ class Pub extends HasId
     /**
      * @return stirng
      */
-    public function getBoardgames()
+    public function getBoardgames(): string
     {
         return $this->boardgames;
     }

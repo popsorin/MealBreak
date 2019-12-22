@@ -28,33 +28,18 @@ class UpdateRquest extends CreateRequest
     private $nickname;
 
     /**
-     * @var boolean
-     */
-    private $isOnline;
-
-    /**
      * UpdateRquest constructor.
-     * @param string $name
-     * @param string $password
      * @param int $id
      * @param string $description
      * @param string $nickname
-     * @param boolean $isOnline
      */
-    public function __construct(
-        string $name,
-        string $password,
-        int $id,
-        string $description,
-        string $nickname,
-        boolean $isOnline
-    ) {
-        parent::__construct($name, $password);
+    public function __construct($id, $description, $nickname)
+    {
         $this->id = $id;
         $this->description = $description;
         $this->nickname = $nickname;
-        $this->isOnline = $isOnline;
     }
+
 
     /**
      * @return int
@@ -78,13 +63,5 @@ class UpdateRquest extends CreateRequest
     public function getNickname()
     {
         return $this->nickname;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getIsOnline()
-    {
-        return $this->isOnline;
     }
 }

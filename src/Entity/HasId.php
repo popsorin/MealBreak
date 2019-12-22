@@ -15,12 +15,12 @@ class HasId
     /**
      * @var int
      */
-    private $id;
+    protected $id;
 
     /**
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
