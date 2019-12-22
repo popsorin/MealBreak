@@ -8,30 +8,35 @@ namespace Team1\Api\Data\Request;
 class LoginRequest implements Request
 {
     /**
-     * @var email
+     * @var string
      */
     private $email;
 
     /**
-     * @var password
+     * @var string
      */
     private $password;
 
     /**
-     * LoginRequest constructor.
-     * @param $user
-     * @param $pass
+     * @var int
      */
-    public function __construct(
-        $mail,
-        $pass
-    ) {
-        $this->email = $mail;
-        $this->password = $pass;
+    private $token;
+
+    /**
+     * LoginRequest constructor.
+     * @param string $email
+     * @param string $password
+     * @param int $token
+     */
+    public function __construct($email, $password, $token)
+    {
+        $this->email = $email;
+        $this->password = $password;
+        $this->token = $token;
     }
 
     /**
-     * @return email
+     * @return string
      */
     public function getEmail()
     {
@@ -39,10 +44,18 @@ class LoginRequest implements Request
     }
 
     /**
-     * @return password
+     * @return string
      */
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * @return int
+     */
+    public function getToken()
+    {
+        return $this->token;
     }
 }

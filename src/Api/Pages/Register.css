@@ -101,6 +101,13 @@ body {
     font-size: x-large;
 }
 
+#username_span{
+    position: absolute;
+    margin-right: 700px;
+    top: 600px;
+    visibility: hidden;
+}
+
 #checkbox{
     color: white;
     position: relative;

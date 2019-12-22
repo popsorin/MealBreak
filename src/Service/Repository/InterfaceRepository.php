@@ -6,7 +6,7 @@
 
 namespace Team1\Service\Repository;
 
-use Team1\Entity\User;
+use Team1\Entity\HasId;
 
 /**
  * Interface InterfaceRepository
@@ -15,21 +15,21 @@ use Team1\Entity\User;
 interface InterfaceRepository
 {
     /**
-     * @param User $user
-     * @return User
+     * @param HasId $hasId
+     * @return HasId
      */
-    public function add(User $user): User;
+    public function add(HasId $hasId): HasId;
 
     /**
-     * @return User[]
+     * @return HasId[]
      */
     public function getAll(): array;
 
     /**
-     * @param User $user
-     * @return User
+     * @param HasId $hasId
+     * @return HasId
      */
-    public function update(User $user): User;
+    public function update(HasId $hasId): HasId;
 
     /**
      * @param int $id

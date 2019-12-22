@@ -7,7 +7,7 @@ namespace Team1\Service\Repository;
 
 use PDOException;
 use Team1\Entity\Account;
-use Team1\Entity\User;
+use Team1\Entity\HasId;
 use Team1\Exception\Persistency\AccountNotFoundException;
 use Team1\Exception\Persistency\ConnectionLostException;
 use Team1\Exception\Persistency\DeletionFailedException;
@@ -22,6 +22,7 @@ use Team1\Exception\Persistency\UpdateFailedException;
  * Class AccountRepository
  * @package Team1\Service\Repository
  */
+
 class AccountRepository implements InterfaceRepository
 {
     private $connection;
@@ -47,7 +48,7 @@ class AccountRepository implements InterfaceRepository
     /**
      * {@inheritDoc}
      */
-    public function add(User $account): User
+    public function add(HasId $account): HasId
     {
         try {
             $name = $account->getName();
@@ -93,15 +94,16 @@ class AccountRepository implements InterfaceRepository
             $sqlQuery->execute();
             $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
             while ($row !== false) {
-                $user = new Account();
-                $user->setId($row['id']);
-                $user->setName($row['name']);
-                $user->setPassword($row['password']);
-                $user->setEmail($row['email']);
-                $user->setDescription($row['description']);
-                $user->setNickname($row['nickname']);
-                array_push($records, $user);
+                $hasId = new Account();
+                $hasId->setId($row['id']);
+                $hasId->setName($row['name']);
+                $hasId->setPassword($row['password']);
+                $hasId->setEmail($row['email']);
+                $hasId->setDescription($row['description']);
+                $hasId->setNickname($row['nickname']);
+                array_push($records, $hasId);
                 $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
+                $_SESSION['id'] = $row['id'];
             }
             return $records;
         } catch (PDOException $exception) {
@@ -109,7 +111,13 @@ class AccountRepository implements InterfaceRepository
         }
     }
 
-    public function search(User $account)
+    /**
+     * @param HasId $account
+     * @return HasId
+     * @throws AccountNotFoundException
+     * @throws SearchAccountFailedException
+     */
+    public function search(HasId $account): HasId
     {
         try {
             $sqlQuery = $this->connection->prepare("SELECT * FROM Account WHERE email = ? AND password = ?;");
@@ -121,9 +129,10 @@ class AccountRepository implements InterfaceRepository
             $result = new Account();
             $result->setName($row['name']);
             $result->setEmail($row['email']);
-            $result->setDescription($row['description']);
+            $result->setDesctiption($row['description']);
             $result->setPassword($row['password']);
-
+            $result->setId($row['id']);
+            $result->setNickname($row['nickname']);
 
             return $result;
         } catch (PDOException $exception) {
@@ -144,7 +153,7 @@ class AccountRepository implements InterfaceRepository
             if ($row === false) {
                 throw new AccountNotFoundException();
             }
-            $sqlQuery = $this->connection->prepare("DELETE FROM User WHERE id = ?;");
+            $sqlQuery = $this->connection->prepare("DELETE FROM HasId WHERE id = ?;");
             $queryResult = $sqlQuery->execute(array($id));
         } catch (PDOException $exception) {
             throw new DeletionFailedException();
@@ -152,12 +161,9 @@ class AccountRepository implements InterfaceRepository
     }
 
     /**
-     * @param User $user
-     * @return User
-     * @throws AccountNotFoundException
-     * @throws UpdateFailedException
+     * {@inheritDoc}
      */
-    public function update(User $user): User
+    public function update(HasId $hasId): HasId
     {
         try {
             $sqlQuery = $this->connection->prepare("SELECT id FROM Account WHERE id = ?;");
@@ -171,11 +177,12 @@ class AccountRepository implements InterfaceRepository
                          WHERE id = ?;"
             );
             $queryResult = $sqlQuery->execute(array(
-                $user->getPassword(),
-                $user->getDescription(),
-                $user->getEmail(), $user->getId()));
+                $hasId->getPassword(),
+                $hasId->getDescription(),
+                $hasId->getEmail(),
+                $hasId->getId()));
 
-            return $user;
+            return $hasId;
         } catch (PDOException $exception) {
             throw new UpdateFailedException();
         }

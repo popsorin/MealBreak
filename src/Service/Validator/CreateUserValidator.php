@@ -16,6 +16,11 @@ use Team1\Api\Data\Request\CreateRequest;
  */
 class CreateUserValidator
 {
+    /**
+     * @param CreateRequest $request
+     * @throws PasswordTooShortException
+     * @throws WrongEmailFormatException
+     */
     public static function validateUser(CreateRequest $request)
     {
         if(strlen($request->getPassword()) < 8)
