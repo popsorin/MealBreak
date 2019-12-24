@@ -6,12 +6,13 @@
 namespace Team1\Api\Controller;
 
 use Team1\Api\Data\Request\LoginRequest;
+use Team1\Api\Data\Request\UpdateRquest;
 use Team1\Entity\Account;
 use Team1\Exception\Persistency\AccountNotFoundException;
 use Team1\Exception\Persistency\ConnectionLostException;
 use Team1\Exception\Persistency\SearchAccountFailedException;
 use Team1\Service\Repository\AccountRepository;
-use Team1Service\Builder\AccountBuilder;
+use Team1\Service\Builder\AccountBuilder;
 
 class LoginController extends Controller
 {
@@ -41,6 +42,15 @@ class LoginController extends Controller
         $answer = $this->repository->search($account);
 
         return $answer;
+    }
+
+    /**
+     * @param UpdateRquest $request
+     */
+    public function addAcc(UpdateRquest $request)
+    {
+        $account = AccountBuilder::buildAccount($request);
+        $this->repository->add($account);
     }
 
 }

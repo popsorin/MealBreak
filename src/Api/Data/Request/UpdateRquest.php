@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Written by Pop Sorin
+ * Written by Pop Sorin & Popa Alexandru
  */
 
 namespace Team1\Api\Data\Request;
@@ -25,10 +25,20 @@ class UpdateRquest extends CreateRequest
     /**
      * @var string
      */
-    private $nickname;
+    private $lastName;
 
     /**
-     * @var boolean
+     * @var string
+     */
+    private $firstName;
+
+    /**
+     * @var string
+     */
+    private $queueStartTime;
+
+    /**
+     * @var int
      */
     private $isOnline;
 
@@ -39,21 +49,26 @@ class UpdateRquest extends CreateRequest
      * @param int $id
      * @param string $description
      * @param string $nickname
-     * @param boolean $isOnline
+     * @param int $isOnline
      */
     public function __construct(
-        string $name,
-        string $password,
         int $id,
+        string $username,
+        string $email,
+        string $password,
         string $description,
-        string $nickname,
-        boolean $isOnline
+        string $firstName,
+        string $lastName,
+        string $queueStartTime,
+        int $isOnline
     ) {
-        parent::__construct($name, $password);
+        parent::__construct($username, $password, $email);
         $this->id = $id;
         $this->description = $description;
-        $this->nickname = $nickname;
+        $this->queueStartTime = $queueStartTime;
         $this->isOnline = $isOnline;
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
     }
 
     /**
@@ -75,16 +90,48 @@ class UpdateRquest extends CreateRequest
     /**
      * @return string
      */
-    public function getNickname()
+    public function getQueueStartTime()
     {
-        return $this->nickname;
+        return $this->queueStartTime;
     }
 
     /**
-     * @return boolean
+     * @return int
      */
     public function getIsOnline()
     {
         return $this->isOnline;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param string $lastName
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * @param string $firstName
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
     }
 }

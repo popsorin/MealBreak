@@ -36,7 +36,7 @@ class AccountRepository implements InterfaceRepository
             $this->connection = new \PDO(
                 'mysql:host=localhost;dbname=MealBreak',
                 'root',
-                '123456789',
+                'root',
                 array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION)
             );
         } catch (PDOException $exception) {
@@ -50,31 +50,32 @@ class AccountRepository implements InterfaceRepository
     public function add(User $account): User
     {
         try {
+            $id = $account->getId();
             $name = $account->getName();
             $password = $account->getPassword();
             $email = $account->getEmail();
-            $confirm = $account->getIsConfirmed();
-            $sqlQuery = $this->connection->prepare("SELECT name FROM Account WHERE name = ?;");
+
+            $sqlQuery = $this->connection->prepare("SELECT username FROM Accounts WHERE username = ?;");
             $sqlQuery->execute(array($name));
             $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
-            if ($row["name"] !== null) {
+            if ($row["username"] !== null)
                 throw new NameAlreadyExistsException();
-            }
 
-            $sqlQuery = $this->connection->prepare("SELECT email FROM Account WHERE email = ?;");
+            $sqlQuery = $this->connection->prepare("SELECT email FROM Accounts WHERE email = ?;");
             $sqlQuery->execute(array($email));
             $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
-            if ($row["email"] !== null) {
+            if ($row["email"] !== null)
                 throw new EmailAlreadyUsedException();
-            }
 
-            $sqlQuery = $this->connection->prepare(
-                "INSERT INTO Account (name, password, email)
-                      VALUES (?, ?, ?);"
-            );
-            $queryResult = $sqlQuery->execute(array($name,$password,$email,$confirm));
-            $id = $this->connection->lastInsertId();
-            $account->setId($id);
+            $query = $this->connection->prepare("INSERT INTO Accounts (username, email, password, first_name, last_name, is_online, queue_start_time, description) values (:username, :email, :password, '', '', 0, CURRENT_TIMESTAMP, '')");
+            $query->bindParam(":username", $name);
+            $query->bindParam(":email", $email);
+            $query->bindParam(":password", $password);
+
+            $query->execute();
+
+            $sqlQuery = $this->connection->prepare("DELETE FROM Users WHERE id = ?;");
+            $sqlQuery->execute(array($id));
 
             return $account;
         } catch (PDOException $exception) {
@@ -95,11 +96,14 @@ class AccountRepository implements InterfaceRepository
             while ($row !== false) {
                 $user = new Account();
                 $user->setId($row['id']);
-                $user->setName($row['name']);
+                $user->setName($row['username']);
                 $user->setPassword($row['password']);
                 $user->setEmail($row['email']);
                 $user->setDescription($row['description']);
-                $user->setNickname($row['nickname']);
+                $user->setLastName($row['last_name']);
+                $user->setLastName($row['first_name']);
+                $user->setIsOnline($row['is_online']);
+                $user->setQueuedStartTime($row['queue_start_time']);
                 array_push($records, $user);
                 $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
             }

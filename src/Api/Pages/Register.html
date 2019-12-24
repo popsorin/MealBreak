@@ -4,10 +4,41 @@
         <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="Functions.js"></script>
+        <script src="/var/www/html/my_project/mealbreak/src/Api/Pages/Functions.js"></script>
         <title>Register</title>
+        <script>
+            function display_er(type) {
+                var data = document.getElementById(type).value;
+                var password = document.getElementById("password").value;
+                //alert("sa ma suji");
+                $.ajax
+                ({
+                    type: 'post',
+                    url: '/Ajax_request',
+                    data: {
+                        type: type,
+                        data: data,
+                        password: password
+                    },
+                    success: function (response) {
+                        //alert(response);
+                        if(response ===""){
+                            $("#"+type+"-error").addClass("d-none");
+                        }
+                        else {
+                            $("#"+type+"-error").removeClass("d-none");
+                            document.getElementById(type+"-message").innerHTML = response;
+                        }
+
+                    }
+                });
+            }
+        </script>
     </head>
     <body>
-        <form class="form-horizontal" action='/Dummy.html' method="POST">
+        <form id="register1" class="form-horizontal" action='/register' method="POST">
             <fieldset>
                 <div id="legend">
                     <legend class="control-register">Sign up</legend>
@@ -16,7 +47,12 @@
                     <!-- Username -->
                     <div class="controls">
                         <label for="username"></label>
-                           <input type="text" id="username" name="username" placeholder="Username" class="input-xlarge">
+                           <input type="text" id="username" name="username" placeholder="Username" class="input-xlarge" onkeyup="display_er(this.id);" style="width:270px; height:44px;">
+                    </div>
+                    <div id="username-error" class="error_message validation-error d-none">
+                        <!----> <span id="username-message">
+                                „ale” este prea scurt. Lungimea minimă este de 4 caractere.
+                                </span>
                     </div>
                 </div>
     
@@ -24,7 +60,12 @@
                     <!-- E-mail -->
                     <div class="controls">
                         <label for="email">
-                           </label><input type="text" id="email" name="email" placeholder="Email Adress" class="input-xlarge">
+                           </label><input type="text" id="email" name="email" placeholder="Email Adress" class="input-xlarge" onkeyup="display_er(this.id)" style="width:270px; height:44px;">
+                    </div>
+                    <div id="email-error" class="error_message validation-error d-none">
+                        <!----> <span id="email-message" style="top:106px">
+                                „ale” este prea scurt. Lungimea minimă este de 4 caractere.
+                                </span>
                     </div>
                 </div>
     
@@ -32,7 +73,12 @@
                     <!-- Password-->
                     <div class="controls">
                         <label for="password"></label>
-                          <input type="password" id="password" name="password" placeholder="Password" class="input-xlarge">
+                          <input type="password" id="password" name="password" placeholder="Password" class="input-xlarge" onkeyup="display_er(this.id)" style="width:270px; height:44px;">
+                    </div>
+                    <div id="password-error" class="error_message validation-error d-none">
+                        <!----> <span id="password-message"  style="top:171px">
+                                „ale” este prea scurt. Lungimea minimă este de 4 caractere.
+                                </span>
                     </div>
                 </div>
     
@@ -41,7 +87,12 @@
                     <div class="controls">
                         <label for="password_confirm"></label>
                         <input type="password" id="password_confirm" name="password_confirm"
-                                                                     placeholder="Confirm password" class="input-xlarge">
+                                                                     placeholder="Confirm password" class="input-xlarge" onkeyup="display_er(this.id)" style="width:270px; height:44px;">
+                    </div>
+                    <div id="password_confirm-error" class="error_message validation-error d-none">
+                        <!----> <span id="password_confirm-message" style="top:235px">
+                                „ale” este prea scurt. Lungimea minimă este de 4 caractere.
+                                </span>
                     </div>
                 </div>
                 <div class="control-group">
@@ -54,7 +105,7 @@
                 <div class="control-group">
                     <!-- Button -->
                     <div class="controls">
-                        <button id="register">Create Acount</button>
+                        <input type="submit" id="register_submit2" name="register_sub" value="Submit" class="btn btn-danger">
                     </div>
                 </div>
             </fieldset>

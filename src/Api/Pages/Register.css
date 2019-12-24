@@ -93,3 +93,44 @@ body {
     margin-left: 180px;
 }
 
+#register1 .validation-error > span {
+
+    width: 250px;
+    height: 40px;
+    position: absolute;
+    left: 475px;
+    top: 40px;
+    z-index: 1300;
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.validation-error > span, .validation-message-error {
+
+    display: block;
+    background-color: #801105;
+    width: auto;
+    border: 1px solid #000;
+    border: 1px solid rgba(0,0,0,.5);
+    padding: 5px 8px;
+    margin: 5px auto;
+    font-size: 14px;
+    line-height: 1.2em;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    top: 0;
+    left: 0;
+    border-radius: 5px;
+    box-shadow: 0 0 3px #000;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
+
+}

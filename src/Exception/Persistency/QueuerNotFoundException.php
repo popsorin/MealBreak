@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Written by Pop Sorin
+ * Written by Popa Alexandru
  */
 
 namespace Team1\Exception\Persistency;
@@ -10,18 +10,18 @@ use Team1\Exception\AbstractException;
 use Throwable;
 
 /**
- * Class ReturnAllFailedException
+ * Class QueuerNotFoundException
  * @package Team1\Exception\Persistency
  */
-class ReturnAllFailedException extends AbstractException
+class QueuerNotFoundException extends AbstractException
 {
     /**
-     * ReturnAllFailedException constructor.
+     * QueuerNotFoundException constructor.
      * @param string $message
      * @param int $code
      * @param Throwable|null $previous
      */
-    public function __construct($message = "Failed to return all the users", $code = 0, Throwable $previous = null)
+    public function __construct($message = "Queuer not found", $code = 0, Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }

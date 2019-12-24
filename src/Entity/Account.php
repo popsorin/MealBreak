@@ -17,12 +17,27 @@ class Account extends User
     /**
      * @var string
      */
-    private $desctiption;
+    private $description;
 
     /**
      * @var string
      */
-    private $nickname;
+    private $queued_start_time;
+
+    /**
+     * @var string
+     */
+    private $firstName;
+
+    /**
+     * @var string
+     */
+    private $lastName;
+
+    /**
+     * @var string
+     */
+    private $queue_start_time;
 
     /**
      * @var boolean
@@ -32,39 +47,23 @@ class Account extends User
     /**
      * @return string
      */
-    public function getDesctiption()
+    public function getDescription()
     {
-        return $this->desctiption;
+        return $this->description;
     }
 
     /**
-     * @param string $desctiption
+     * @param string $description
      */
-    public function setDesctiption($desctiption)
+    public function setDescription($description)
     {
-        $this->desctiption = $desctiption;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNickname()
-    {
-        return $this->nickname;
-    }
-
-    /**
-     * @param string $nickname
-     */
-    public function setNickname($nickname)
-    {
-        $this->nickname = $nickname;
+        $this->description = $description;
     }
 
     /**
      * @return boolean
      */
-    public function isOnline()
+    public function getIsOnline()
     {
         return $this->isOnline;
     }
@@ -75,5 +74,53 @@ class Account extends User
     public function setIsOnline($isOnline)
     {
         $this->isOnline = $isOnline;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQueueStartTime()
+    {
+        return $this->queue_start_time;
+    }
+
+    /**
+     * @param mixed $queued_start_time
+     */
+    public function setQueuedStartTime($queued_start_time)
+    {
+        $this->queued_start_time = $queued_start_time;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * @param string $firstName
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param string $lastName
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
     }
 }
