@@ -10,6 +10,7 @@ use Team1\Api\Controller\ChatterController;
 use Team1\Api\Data\Request\ChatterRequest;
 use Team1\Api\Data\Request\MessageRequest;
 use Team1\Exception\Persistency\EmailNullException;
+use Team1\Exception\Persistency\GetMessagesException;
 use Team1\Exception\Validator\PasswordTooShortException;
 use Team1\Api\Controller\LoginController;
 use Team1\Api\Controller\RegisterController;
@@ -39,15 +40,22 @@ try {
     echo $connectionLostException->getMessage();
 }
 
+//sends to the browser the current user id and email
 if($_SERVER["REQUEST_URI"] === "/chatters")
 {
     echo json_encode(array("id" => $_SESSION['id'], "name" => $_SESSION["email"]));
 }
 
+//sends to the browser the partner of the current user
 if($_SERVER["REQUEST_URI"] === "/partner")
 {
-    $chatter = $chatterController->searchPartner($_POST['to_user_id']);
-    echo json_encode(array("id" => $chatter->getIdPartener(), "name" => $chatter->getName()));
+    try {
+        $chatter = $chatterController->searchPartner($_POST['to_user_id']);
+        echo json_encode(array("id" => $chatter->getIdPartener(), "name" => $chatter->getName()));
+    }
+    catch (AccountNotFoundException $accountNotFoundException){
+        echo $accountNotFoundException->getMessage();
+    }
 }
 
 if($_SERVER["REQUEST_URI"] === "/") {
@@ -81,8 +89,6 @@ if($_SERVER["REQUEST_URI"] === "/register")
             echo $termsAndConditionsNotCheckedException->getMessage();
         } catch (PasswordIsNotTheSameException $passwordIsNotTheSameException){
             echo $passwordIsNotTheSameException->getMessage();
-        } catch (WrongEmailFormatException $wrongEmailFormatException) {
-            $wrongEmailFormatException->getMessage();
         }
 }
 
@@ -96,8 +102,11 @@ if($_SERVER["REQUEST_URI"] === "/chat") {
             echo $exception->getMessage();
         }
 }
+
+//adds the latest message in the database
 if($_SERVER["REQUEST_URI"] === "/updateMessage")
 {
+    try {
         $chatter = $chatterController->searchPartner($_POST['to_user_id']);
         $request = new ChatterRequest(
             $_POST["to_user_name"],
@@ -108,19 +117,36 @@ if($_SERVER["REQUEST_URI"] === "/updateMessage")
         );
         $chatterController->add($request);
         $chatterController->fetchUserChatHistory($chatter->getIdPartener(), $chatter->getIdAccount());
+    }
+    catch (AccountNotFoundException $accountNotFoundException){
+        echo $accountNotFoundException->getMessage();
+    }
+    catch (InsertionFailedException $insertionFailedException){
+        echo $insertionFailedException->getMessage();
+    }
+    catch (GetMessagesException $getMessagesException){
+        echo $getMessagesException->getMessage();
+    }
 }
 
 if($_SERVER["REQUEST_URI"] === "/getLatestMessage")
 {
-    $chatter = $chatterController->searchPartner($_POST['to_user_id']);
-    $request = new ChatterRequest(
-        $_POST["to_user_name"],
-        $_POST["chat_message"],
-        date('m/d/Y h:i:s a', time()),
-        $chatter->getIdPartener(),
-        $chatter->getIdAccount()
-    );
-    $chatterController->fetchUserChatHistory($chatter->getIdPartener(), $chatter->getIdAccount());
+    try {
+        $chatter = $chatterController->searchPartner($_POST['to_user_id']);
+        $request = new ChatterRequest(
+            $_POST["to_user_name"],
+            $_POST["chat_message"],
+            date('m/d/Y h:i:s a', time()),
+            $chatter->getIdPartener(),
+            $chatter->getIdAccount()
+        );
+        $chatterController->fetchUserChatHistory($chatter->getIdPartener(), $chatter->getIdAccount());
+    }
+    catch (AccountNotFoundException $accountNotFoundException){
+        echo $accountNotFoundException->getMessage();
+    } catch (GetMessagesException $getMessagesException){
+        echo $getMessagesException->getMessage();
+    }
 }
 
 if($_SERVER["REQUEST_URI"] === "/login")
@@ -149,12 +175,7 @@ if($_SERVER["REQUEST_URI"] === "/loginRedirect")
     catch(SearchAccountFailedException $exc)
     {
         echo $exc->getMessage();
-    }
-    catch (ConnectionLostException $exception)
-    {
-        echo $exception->getMessage();
-    }
-    catch (EmailNullException $exception){
+    } catch (EmailNullException $exception){
         echo $exception->getMessage();
     }
 }
