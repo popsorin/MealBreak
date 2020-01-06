@@ -1,0 +1,145 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.body-container {
+    background-image: url("https://images.unsplash.com/photo-1457609171594-20fa2108dc41?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1303&q=80");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.hero {
+    margin-left: 100px;
+    background-repeat: no-repeat;
+}
+
+.logo {
+    margin-left: 15%;
+}
+
+.hero__header {
+    padding-top: 60px;
+    margin-bottom: 50px;
+}
+
+    .header__nav {
+        float: right;
+
+        margin-right: 15%;
+    }
+        .nav__wrapper {
+            font-size: 20px;
+            padding-top: 25px;
+            list-style: none;
+        }
+
+        .nav__item {
+            display: inline-block;
+            padding: 20px;
+            letter-spacing: 1px;
+        }
+
+        .nav__link {
+            text-decoration: none;
+            color: white;
+        }
+
+.main__content {
+    margin-top: 159px;
+}
+
+.hero__footer {
+    text-align: center;
+}
+
+label {
+    font-size: 20px;
+    font-family: Helvetica;
+    font-weight: bold;
+    color: #252525;
+    margin-left: 70px;
+    margin-bottom: 10px;
+}
+
+.reglabel {
+    display:inline-block;
+}
+
+.wrapper {
+     opacity: 1;
+     background-color: #fafafa;
+     border-radius: 9px;
+     margin: 0 auto;
+     width: 390px;
+     display: flex;
+     justify-content: center;
+ }
+
+.form {
+    font-family: Helvetica;
+    padding-top: 45px;
+}
+
+.form-input {
+    padding: 6px;
+    width: 90px;
+}
+
+.form-control {
+    font-family: Helvetica;
+    margin-left: 80px;
+}
+
+.form-group {
+    font-family: Helvetica;
+    width: 100%;
+    padding: 6px;
+    margin-left: 3em;
+}
+
+p {
+    padding: 5px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    margin-left: 3em;
+    font-size: 13px;
+    color: dimgrey;
+}
+
+a {
+    color: dodgerblue;
+}
+
+.btn__register {
+    background-color: #63abd0;
+    box-shadow: 1px 1px #888888;
+    padding: 10px 100px;
+    border-radius: 6px;
+    margin-left: 10px;
+}
+
+.login {
+    margin-top: 5px;
+}
+
+p1 {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    font-size: 14px;
+    color: dimgrey;
+}
+
+h5 {
+    color: whitesmoke;
+    text-align: center;
+}
+
+.footer__copy{
+    color: white;
+    margin-top: 220px;
+    font-size: 20px;
+    letter-spacing: 1px;
+}

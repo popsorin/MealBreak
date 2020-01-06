@@ -1,64 +1,91 @@
 <!DOCTYPE html>
-<html lang="">
-    <head>
-        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
-        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-        <title>Register</title>
-    </head>
-    <body>
-        <form class="form-horizontal" action='' method="POST">
-            <fieldset>
-                <div id="legend">
-                    <h1 id="Title" class="control-register">Sign up</h1>
+<html lang="EN">
+
+<head>
+    <meta charset="utf-8">
+    <title>Mealbreak</title>
+    <link rel="stylesheet" href="css\register.css">
+</head>
+
+<body>
+<div class="body-container">
+    <header class="page__header">
+        <div class="hero">
+            <header class="hero__header header">
+                <a class="headerlogo logo" href="#" title="MB Logo">
+                    <img class="logoimage" src="https://i.imgur.com/qeTnZJW.png" alt="Mealbreak">
+                </a>
+                <nav class="header__nav nav">
+                    <ul class="nav__wrapper">
+                        <li class="nav__item">
+                            <a class="nav__link" href="mainpage.html">
+                                Home
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="login.html">
+                                Account
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+
+            <main class="main__content content">
+                <div class="content__wrapper wrapper">
+                    <form class="form" method="POST" novalidate="" action="/">
+
+                        <label class="reglabel">Register</label>
+
+                        <div class="form-input">
+                            <input id="email" type="text" class="form-control" maxlength="25" placeholder="    Email" size="30" name="email" value="" required
+                                   autofocus>
+                        </div>
+
+                        <div class="form-input">
+                            <input id="psw" type="password" maxlength="25" class="form-control" placeholder="    Password" size="30" name="psw" required
+                                   data-eye>
+                        </div>
+
+                        <div class="form-input">
+                            <input id="pswrepeat" type="password" maxlength="25" class="form-control" placeholder="    Repeat password" size="30" name="pswrepeat" required
+                                   data-eye>
+                        </div>
+
+                        <p>By creating an account you agree to our
+                            <a href="#">Terms & Privacy
+                            </a>
+                        </p>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn__register">
+                                Register
+                            </button>
+                        </div>
+
+                        <div class="wrapper login">
+                            <p1>Already have an account? <a href="login.html">Sign in</a>.</p1>
+                        </div>
+
+                    </form>
+
                 </div>
-                <div class="control-group">
-                    <!-- Username -->
-                    <div class="controls">
-                        <label for="username"></label>
-                           <input type="text" id="username" name="username" placeholder="Username" class="input-xlarge">
-                           <span id="username_span">Username already used</span>
-                    </div>
+            </main>
+
+            <footer class="hero__footer footer">
+                <div class="footer__copy">
+                    <h4>Copyright &copy;2019 Mealbreak.</h4>
                 </div>
-    
-                <div class="control-group">
-                    <!-- E-mail -->
-                    <div class="controls">
-                        <label for="email">
-                           </label><input type="text" id="email" name="email" placeholder="Email Adress" class="input-xlarge">
-                    </div>
+
+                <div class="footer_contact">
+                    <h5>Contact: support@mealbreak.com</h5>
                 </div>
-    
-                <div class="control-group">
-                    <!-- Password-->
-                    <div class="controls">
-                        <label for="password"></label>
-                          <input type="password" id="password" name="password" placeholder="Password" class="input-xlarge">
-                    </div>
-                </div>
-    
-                <div class="control-group">
-                    <!-- Password -->
-                    <div class="controls">
-                        <label for="password_confirm"></label>
-                        <input type="password" id="password_confirm" name="password_confirm"
-                                                                     placeholder="Confirm password" class="input-xlarge">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <div class="checkbox" id="checkbox">
-                        <!-- Checkbox -->
-                            <input  id="terms_and_conditions" type="checkbox" name="terms_and_conditions" value="True">
-                            <label for="terms_and_conditions"> I agree to the Terms of Use<br></label>
-                           </div>
-                </div>
-                <div class="control-group">
-                    <!-- Button -->
-                    <div class="controls">
-                        <button id="register">Create Acount</button>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-    </body>
+            </footer>
+        </div>
+    </header>
+</div>
+
+
+</body>
+
 </html>

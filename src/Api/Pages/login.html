@@ -1,43 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="EN">
+
 <head>
-	<meta charset="utf-8">
-	<meta name="author" content="Kodinger">
-	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>My Login Page</title>
-	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
-	<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <title>Mealbreak</title>
+    <link rel="stylesheet" href="css\login.css">
 </head>
 
 <body>
-	<form class="my-login-validation" method="post" action="/loginRedirect">
-		<fieldset>
-		<div class="form-group-Title">
-			<h1 id="Title">Log In</h1>
-		</div>
-		<div class="form-group-email">
-			<label for="email"></label>
-			<input id="email" type="email" class="input-xlarge" name="email" placeholder="Email adress">
-		</div>
-		<div class="form-group-password">
-			<label for="password"></label>
-			<input id="password" type="password" class="input-xlarge" name="password" placeholder="Password">
-			<br>
-			<a href="src/Api/Pages/forgot.html" class="float-left">
-				Forgot Password?
-			</a>
-		</div>
-		<div class="form-group-login">
-			<button type="submit" id="login">
-				Login
-			</button>
-		</div>
-		<div class="form-group-createAcount">
-			Don't have an account? <a href="register">Create One</a>
-		</div>
-	 	</fieldset>
-	</form>
+<div class="body-container">
+    <header class="page__header">
+        <div class="hero">
+            <header class="hero__header header">
+                <a class="headerlogo logo" href="#" title="MB Logo">
+                    <img class="logoimage" src="https://i.imgur.com/qeTnZJW.png" alt="Mealbreak">
+                </a>
+                <nav class="header__nav nav">
+                    <ul class="nav__wrapper">
+                        <li class="nav__item">
+                            <a class="nav__link" href="mainpage.html">
+                                Home
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="login.html">
+                                Account
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+
+            <main class="main__content content">
+                <div class="content__wrapper wrapper">
+                    <form class="form" method="POST" novalidate="" action="/loginRedirect">
+
+                        <label1 class="loglabel">Login</label1>
+
+                        <div class="form-input">
+                            <!-- <label class="form-label" for="email">Email</label> -->
+                            <input id="email" type="email" class="form-control" maxlength="25" placeholder="    Email" size="30" name="email" value="" required
+                                   autofocus>
+                        </div>
+
+                        <div class="form-input">
+                            <!-- <label class="form-label" for="password">Password</label> -->
+                            <input id="password" type="password" class="form-control" maxlength="25" placeholder="    Password" size="30" name="password" required
+                                   data-eye>
+                        </div>
+
+                        <div class="form-group">
+                            <a href="src/Api/Pages/forgot.html" class="float-right">
+                                Forgot Password?
+                            </a>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="custom-checkbox custom-control">
+                                <input type="checkbox" name="remember" id="remember" class="custom-control-input">
+                                <label for="remember" class="custom-control-label">Remember Me</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn__login">
+                                Login
+                            </button>
+                        </div>
+
+                        <div class="form-forgot">
+                            Don't have an account? <a href="register.html">Create One</a>
+                        </div>
+
+                    </form>
+
+                </div>
+            </main>
+
+            <footer class="hero__footer footer">
+                <div class="footer__copy">
+                    <h4>Copyright &copy;2019 Mealbreak.</h4>
+                </div>
+
+                <div class="footer_contact">
+                    <h5>Contact: support@mealbreak.com</h5>
+                </div>
+            </footer>
+        </div>
+    </header>
+</div>
+
 
 </body>
+
 </html>
