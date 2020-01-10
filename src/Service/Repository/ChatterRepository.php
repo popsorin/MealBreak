@@ -19,8 +19,6 @@ use Team1\Exception\Persistency\PartnerNotFoundException;
 use Team1\Exception\Persistency\ReturnAllFailedException;
 use Team1\Exception\Persistency\UpdateFailedException;
 
-session_start();
-
 /**
  * Class ChatterRepository
  * @package Team1\Service\Repository
@@ -206,5 +204,45 @@ class ChatterRepository implements InterfaceRepository
         }
 
         return $output;
+    }
+
+    /**
+     * @param int $id
+     * @param string $username
+     */
+    public function getChatPage(int $id, string $username)
+    {
+        $statement = $this->connection->prepare("SELECT * FROM Chatter WHERE idAccount = ?");
+        $statement->execute(array($id));
+        $result = $statement->fetchAll();
+
+        foreach ($result as $row) {
+            $output .= '
+               <div id="user_dialog_';
+            $output .= $id;
+            $output .= '"';
+            $output .= '
+               class="user_dialog" title="You have a chat with ';
+            $output .= $username;
+            $output .= '"';
+            $output .= '
+               <div style="height:400px; border:1px solid #ccc; overflow-y: scroll; margin-bottom:24px; padding:16px;" class="chat_history" data-touserid="';
+            $output .= $id;
+            $output .='" id="chat_history_';
+            $output .= $id;
+            $output .='"
+                </div>;
+               <div class="form-group">;
+               <textarea name="chat_message_';
+            $output .= $id;
+            $output .='" id="chat_message_';
+            $output .= $id;
+            $output .='" class="form-control"></textarea>;
+               </div><div class="form-group" align="right">;
+               <button type="button" name="send_chat" id="send_chat" class="btn btn-info send_chat">Send</button></div></div>;
+                 ';
+        }
+
+        echo $output;
     }
 }

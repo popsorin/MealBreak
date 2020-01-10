@@ -1,27 +1,23 @@
 <?php
 
-/*
- * Written by Pop Sorin
- */
-
 namespace Team1\Exception\Persistency;
 
 use Team1\Exception\AbstractException;
 use Throwable;
 
 /**
- * Class ReturnAllFailedException
+ * Class AlreadyOnlineException
  * @package Team1\Exception\Persistency
  */
-class ReturnAllFailedException extends AbstractException
+class AlreadyOnlineException extends AbstractException
 {
     /**
-     * ReturnAllFailedException constructor.
+     * AlreadyOnlineException constructor.
      * @param string $message
      * @param int $code
      * @param Throwable|null $previous
      */
-    public function __construct($message = "Failed to return all the users", $code = 0, Throwable $previous = null)
+    public function __construct($message = "User already logged", $code = 0, Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }

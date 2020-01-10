@@ -1,0 +1,192 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.body-container {
+    background-image: url("https://images.unsplash.com/photo-1457609171594-20fa2108dc41?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1303&q=80");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.hero {
+    margin-left: 100px;
+    background-repeat: no-repeat;
+}
+
+.logo {
+    margin-left: 15%;
+}
+
+.hero__header {
+    padding-top: 60px;
+    margin-bottom: 50px;
+}
+
+.header__nav {
+    float: right;
+    margin-right: 15%;
+}
+.nav__wrapper {
+    font-size: 20px;
+    padding-top: 25px;
+    list-style: none;
+}
+
+.nav__item {
+    display: inline-block;
+    padding: 20px;
+    letter-spacing: 1px;
+}
+
+.nav__link {
+    text-decoration: none;
+    color: white;
+}
+
+.main__content {
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper {
+    opacity: 1;
+    border-radius: 9px;
+    margin: 0 auto;
+    width: 800px;
+    padding-right: 90px;
+}
+
+.intro {
+    padding: 40px;
+    padding-top: 120px;
+}
+
+.title {
+    text-align: center;
+    color: whitesmoke;
+}
+
+hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+    width: 9%;
+}
+
+h4#motto {
+    color: whitesmoke;
+    text-align: center;
+    margin-bottom: 450px;
+}
+
+h4#copyright {
+    color: whitesmoke;
+    text-align: center;
+}
+
+h5 {
+    color: whitesmoke;
+    text-align: center;
+}
+
+
+.second__body__container {
+    margin-top: 7px;
+    background-image: linear-gradient(to bottom, #2c2223, #2b2424);
+}
+
+#header__about {
+    padding-top: 37px;
+    text-align: center;
+    color: whitesmoke;
+    font-family: Helvetica;
+    font-weight: bold;
+}
+
+#welcome_hr {
+    height: 2px;
+    background-color: whitesmoke;
+    width: 8%;
+    display: block;
+    margin-top: -1px;
+}
+
+.about__wrapper {
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+}
+
+#quote {
+    margin-top: 150px;
+    text-indent: 50px;
+    font-size: 18px;
+    margin-bottom: 90px;
+}
+
+#author {
+    margin-top: 150px;
+    float: left;
+    width: 100px;
+    color: whitesmoke;
+    position: relative;
+
+}
+
+#author::before {
+    font-family: Georgia;
+    content: open-quote;
+    font-size: 80px;
+    top: -45px;
+    position: absolute;
+    color: whitesmoke;
+}
+
+.wrapper__details {
+    float: right;
+    color: dimgrey;
+    width: 950px;
+    padding-left: 25px;
+    padding-right: 25px;
+    background-color: white;
+    border-radius: 3px;
+    margin-bottom: 50px;
+}
+
+.details__title {
+    padding-bottom: 25px;
+    text-align: center;
+}
+
+.details__contents {
+    letter-spacing: 1px;
+    text-indent: 25px;
+}
+
+p {
+    line-height: 30px;
+    margin-bottom: 30px;
+}
+
+p#romanian {
+    margin-bottom: 120px;
+}
+
+.hero__footer {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.footer__copy {
+    color: white;
+    font-size: 20px;
+    padding-bottom: 4px;
+    letter-spacing: 1px;
+}

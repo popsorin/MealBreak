@@ -1,0 +1,147 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.body-container {
+    background-image: url("https://images.unsplash.com/photo-1457609171594-20fa2108dc41?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1303&q=80");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.hero {
+    margin-left: 100px;
+    background-repeat: no-repeat;
+}
+
+.logo {
+    margin-left: 15%;
+}
+
+.hero__header {
+    padding-top: 60px;
+    margin-bottom: 50px;
+}
+
+.header__nav {
+    float: right;
+
+    margin-right: 15%;
+}
+.nav__wrapper {
+    font-size: 20px;
+    padding-top: 25px;
+    list-style: none;
+}
+
+.nav__item {
+    display: inline-block;
+    padding: 20px;
+    letter-spacing: 1px;
+}
+
+.nav__link {
+    text-decoration: none;
+    color: white;
+}
+
+.main__content {
+    margin-top: 159px;
+}
+
+.hero__footer {
+    text-align: center;
+}
+
+label1 {
+    font-size: 20px;
+    font-family: Helvetica;
+    font-weight: bold;
+    color: #252525;
+    margin-bottom: 12px;
+}
+
+.loglabel {
+    display:inline-block;
+}
+
+.wrapper {
+    opacity: 1;
+    background-color: #fafafa;
+    border-radius: 9px;
+    margin: 0 auto;
+    width: 400px;
+    display: flex;
+    justify-content: center;
+}
+
+.form {
+    font-family: Helvetica;
+    padding-top: 60px;
+    padding-bottom: 42px;
+}
+
+.form-input {
+    padding: 6px;
+    width: 90px;
+}
+
+.form-forgot {
+    color: dimgrey;
+    font-family: Helvetica;
+    font-size: 15px;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+label {
+    color: dimgrey;
+    font-family: Helvetica;
+    font-weight: normal;
+}
+
+.float-right {
+    color: dodgerblue;
+    font-size: 15px;
+    padding-left: 10px;
+}
+
+.form-group {
+    font-family: Helvetica;
+    width: 100%;
+    padding: 6px;
+}
+
+.form-control {
+    margin-left: 10px;
+}
+
+.custom-control {
+    padding-left: 10px;
+}
+
+a {
+    color: dodgerblue;
+}
+
+.btn__login {
+    background-color: #63abd0;
+    box-shadow: 1px 1px #888888;
+    padding: 10px 100px;
+    border-radius: 6px;
+    margin-left: 10px;
+}
+
+h5 {
+    color: whitesmoke;
+    text-align: center;
+}
+
+.footer__copy{
+    margin-top: 189px;
+    color: white;
+    font-size: 20px;
+    letter-spacing: 1px;
+}

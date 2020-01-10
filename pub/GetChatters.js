@@ -1,36 +1,39 @@
+/**
+ * written by Pop Sorin
+ */
 var nameChatter;
 var idChatter;
 
-$(document).ready(function () {
+$(document).on('click', '.start_chat', function () {
     fetch_user();
-    $("#start_chat").click(function () {
-        $.ajax({
-            url:"http://mealbreak.local/partner",
-            method:"POST",
-            data:{to_user_id:idChatter},
-            success:function (data) {
-                var names = JSON.parse(data);
-                idChatter = names.id;
-                nameChatter = names.name;
-                make_chat_dialog_box(idChatter, nameChatter);
-                $("#user_dialog_" + idChatter).dialog({
-                    autoOpen: false,
-                    width: 400
-                });
-                $('#user_dialog_' + idChatter).dialog('open');
-            }
-        })
+    make_chat_dialog_box(idChatter, nameChatter);
+    $("#user_dialog_" + idChatter).dialog({
+        autoOpen: false,
+        width: 400
     });
-    setInterval(function () {
-        getLatestChatData()
-    }, 5000);
+    $('#user_dialog_' + idChatter).dialog('open');
 });
 
+$(document).ready(function () {
+    fetch_user();
+
+    //when the button to start the chat is pressed this function
+    //make a post request to the server and returns the id of the partner
+
+    //every 5 seconds this function makes a call to the server to return the latest
+    /*chat messages
+    setInterval(function () {
+        fetch_user();
+        getLatestChatData()
+    }, 5000);*/
+});
+
+//takes the values of the logged user adn gives them to the idChatter and nameChatter
 function fetch_user()
 {
     $.ajax({
         url:"http://mealbreak.local/chatters",
-        method:"GET",
+        method:"POST",
         success:function (data) {
             var names = JSON.parse(data);
             idChatter = names.id;
@@ -39,6 +42,7 @@ function fetch_user()
     })
 }
 
+//this function creates the chatbox for the user read in fetch_user function
 function make_chat_dialog_box(to_user_id, to_user_name)
 {
     var modal_content = '<div id="user_dialog_'+to_user_id+'" class="user_dialog" title="You have a chat with '+to_user_name+'">';
@@ -55,6 +59,7 @@ $(document).on('click', '.send_chat', function () {
     getChatData();
 });
 
+//this function posts to the server the id of the person who is logged in,it's message and name
 function getChatData()
 {
     var chat_message = $('#chat_message_'+ idChatter).val();
@@ -72,6 +77,7 @@ function getChatData()
     })
 }
 
+//gets the latest chat messages
 function getLatestChatData()
 {
     var chat_message = $('#chat_message_'+ idChatter).val();

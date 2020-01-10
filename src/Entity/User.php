@@ -94,10 +94,8 @@ class User extends HasId
     /**
      * @param bool $confirmed
      */
-    public function setConfirmed($confirmed)
+    public function setIsConfirmed($confirmed)
     {
         $this->confirmed = $confirmed;
     }
-
-
 }

@@ -47,7 +47,7 @@ class CreateRequest implements Request
         $this->password=$password;
         $this->name=$name;
         $this->email = $email;
-        $this->confirmed = false;
+        $this->confirmed = 0;
     }
 
     /**

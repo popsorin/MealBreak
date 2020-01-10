@@ -38,7 +38,7 @@ class Response
     private $email;
 
     /**
-     * Request constructor.
+     * Response constructor.
      * @param int $id
      * @param string $name
      * @param string $password
