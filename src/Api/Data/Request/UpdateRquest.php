@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Written by Pop Sorin
+ * Written by Pop Sorin & Popa Alexandru
  */
 
 namespace Team1\Api\Data\Request;
@@ -25,7 +25,22 @@ class UpdateRquest extends CreateRequest
     /**
      * @var string
      */
-    private $nickname;
+    private $lastName;
+
+    /**
+     * @var string
+     */
+    private $firstName;
+
+    /**
+     * @var string
+     */
+    private $queueStartTime;
+
+    /**
+     * @var int
+     */
+    private $isOnline;
 
     /**
      * UpdateRquest constructor.
@@ -33,13 +48,25 @@ class UpdateRquest extends CreateRequest
      * @param string $description
      * @param string $nickname
      */
-    public function __construct($id, $description, $nickname)
-    {
+    public function __construct(
+        int $id,
+        string $username,
+        string $email,
+        string $password,
+        string $description,
+        string $nickname,
+        string $queueStartTime,
+        int $isOnline,
+        int $age
+    ) {
+        parent::__construct($username, $password, $email);
         $this->id = $id;
         $this->description = $description;
+        $this->queueStartTime = $queueStartTime;
+        $this->isOnline = $isOnline;
         $this->nickname = $nickname;
+        $this->age = $age;
     }
-
 
     /**
      * @return int
@@ -60,8 +87,33 @@ class UpdateRquest extends CreateRequest
     /**
      * @return string
      */
-    public function getNickname()
+    public function getQueueStartTime()
+    {
+        return $this->queueStartTime;
+    }
+    /**
+     * @return int
+     */
+    public function getIsOnline()
+    {
+        return $this->isOnline;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNickname(): string
     {
         return $this->nickname;
     }
+
+    /**
+     * @return int
+     */
+    public function getAge(): int
+    {
+        return $this->age;
+    }
+
+
 }

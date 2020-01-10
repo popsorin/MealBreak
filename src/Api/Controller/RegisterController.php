@@ -31,6 +31,10 @@ class RegisterController extends Controller
      * RegisterController constructor.
      * @throws ConnectionLostException
      */
+    public function getRepo(){
+
+        return $this->repository;
+    }
     public function __construct()
     {
         $this->repository = new UserRepository();
@@ -48,7 +52,6 @@ class RegisterController extends Controller
      * @param CreateRequest $request
      * @throws EmailAlreadyUsedException
      * @throws InsertionFailedException
-     * @throws NameAlreadyExistsException
      */
     public function add(CreateRequest $request)
     {

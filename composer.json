@@ -17,7 +17,6 @@
                 "Team1\\": "src"
                }
     },
-
   "require": {
     "ext-json": "*",
     "ext-mysqli": "*",

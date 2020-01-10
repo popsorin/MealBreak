@@ -20,25 +20,24 @@ class LoginRequest implements Request
     /**
      * @var int
      */
-    private $token;
+    private $isOnline;
 
     /**
      * LoginRequest constructor.
      * @param string $email
      * @param string $password
-     * @param int $token
      */
-    public function __construct($email, $password, $token)
+    public function __construct(string $email, string $password)
     {
         $this->email = $email;
         $this->password = $password;
-        $this->token = $token;
+        $this->isOnline = 1;
     }
 
     /**
      * @return string
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -46,7 +45,7 @@ class LoginRequest implements Request
     /**
      * @return string
      */
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -54,8 +53,8 @@ class LoginRequest implements Request
     /**
      * @return int
      */
-    public function getToken()
+    public function getIsOnline(): int
     {
-        return $this->token;
+        return $this->isOnline;
     }
 }

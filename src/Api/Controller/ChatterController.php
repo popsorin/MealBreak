@@ -59,7 +59,7 @@ class ChatterController extends Controller
     public function add(ChatterRequest $request): HasId
     {
         $chatter = ChatterBuilder::buildChatter($request);
-        $this->repository->add($chatter);
+        return $this->repository->add($chatter);
     }
 
     /**
@@ -100,5 +100,10 @@ class ChatterController extends Controller
     public function searchPartner($idAccount)
     {
         return $this->repository->searchPartner($idAccount);
+    }
+
+    public function getChatPage(int $id, string $username)
+    {
+        echo $this->repository->getChatPage($id, $username);
     }
 }

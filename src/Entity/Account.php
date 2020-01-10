@@ -17,7 +17,7 @@ class Account extends User
     /**
      * @var string
      */
-    private $desctiption;
+    private $description;
 
     /**
      * @var string
@@ -25,24 +25,66 @@ class Account extends User
     private $nickname;
 
     /**
+     * @var string
+     */
+    private $queue_start_time;
+
+    /**
      * @var int
      */
-    private $token;
+    private $isOnline;
+
+    /**
+     * @var int
+     */
+    private $age;
 
     /**
      * @return string
      */
-    public function getDesctiption(): string
+    public function getDescription(): string
     {
-        return $this->desctiption;
+        return $this->description;
     }
 
     /**
-     * @param string $desctiption
+     * @param string $description
      */
-    public function setDesctiption($desctiption)
+    public function setDescription($description)
     {
-        $this->desctiption = $desctiption;
+        $this->description = $description;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getIsOnline()
+    {
+        return $this->isOnline;
+    }
+
+    /**
+     * @param boolean $isOnline
+     */
+    public function setIsOnline($isOnline)
+    {
+        $this->isOnline = $isOnline;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQueueStartTime()
+    {
+        return $this->queue_start_time;
+    }
+
+    /**
+     * @param mixed $queued_start_time
+     */
+    public function setQueueStartTime($queue_start_time)
+    {
+        $this->queue_start_time = $queue_start_time;
     }
 
     /**
@@ -56,7 +98,7 @@ class Account extends User
     /**
      * @param string $nickname
      */
-    public function setNickname($nickname)
+    public function setNickname(string $nickname)
     {
         $this->nickname = $nickname;
     }
@@ -64,16 +106,32 @@ class Account extends User
     /**
      * @return int
      */
-    public function getToken()
+    public function getIsOnlie(): int
     {
-        return $this->token;
+        return $this->isOnlie;
     }
 
     /**
-     * @param int $token
+     * @param int $isOnlie
      */
-    public function setToken($token)
+    public function setIsOnlie(int $isOnlie)
     {
-        $this->token = $token;
+        $this->isOnlie = $isOnlie;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAge(): int
+    {
+        return $this->age;
+    }
+
+    /**
+     * @param int $age
+     */
+    public function setAge(int $age)
+    {
+        $this->age = $age;
     }
 }

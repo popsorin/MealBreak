@@ -9,6 +9,7 @@ use PDOException;
 use Team1\Entity\Account;
 use Team1\Entity\HasId;
 use Team1\Exception\Persistency\AccountNotFoundException;
+use Team1\Exception\Persistency\AlreadyOnlineException;
 use Team1\Exception\Persistency\ConnectionLostException;
 use Team1\Exception\Persistency\DeletionFailedException;
 use Team1\Exception\Persistency\EmailAlreadyUsedException;
@@ -23,7 +24,7 @@ use Team1\Exception\Persistency\UpdateFailedException;
  * @package Team1\Service\Repository
  */
 
-class AccountRepository implements InterfaceRepository
+class AccountRepository extends UserRepository
 {
     private $connection;
 
@@ -55,27 +56,26 @@ class AccountRepository implements InterfaceRepository
             $password = $account->getPassword();
             $email = $account->getEmail();
             $confirm = $account->getIsConfirmed();
-            $sqlQuery = $this->connection->prepare("SELECT name FROM Account WHERE name = ?;");
-            $sqlQuery->execute(array($name));
-            $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
-            if ($row["name"] !== null) {
-                throw new NameAlreadyExistsException();
-            }
-
             $sqlQuery = $this->connection->prepare("SELECT email FROM Account WHERE email = ?;");
             $sqlQuery->execute(array($email));
             $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
             if ($row["email"] !== null) {
                 throw new EmailAlreadyUsedException();
             }
-
-            $sqlQuery = $this->connection->prepare(
-                "INSERT INTO Account (name, password, email)
-                      VALUES (?, ?, ?);"
+            $sqlQuery = $this->connection->prepare("SELECT name FROM Account WHERE name = ?;");
+            $sqlQuery->execute(array($name));
+            $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
+            if ($row["username"] !== null) {
+                throw new NameAlreadyExistsException();
+            }
+            $query = $this->connection->prepare(
+                "INSERT INTO Account 
+            (
+            name, password, email, is_confirmed, description, nickname, isOnline, queueStartTime, age) 
+            values (?, ?, ?, ?, '', '', 0, ?, ?);"
             );
-            $queryResult = $sqlQuery->execute(array($name,$password,$email,$confirm));
-            $id = $this->connection->lastInsertId();
-            $account->setId($id);
+            $query->execute(array(
+            $account->getName(), $account->getPassword(), $account->getEmail(), "true" , $account->getQueueStartTime(), $account->getAge()));
 
             return $account;
         } catch (PDOException $exception) {
@@ -101,6 +101,7 @@ class AccountRepository implements InterfaceRepository
                 $hasId->setEmail($row['email']);
                 $hasId->setDescription($row['description']);
                 $hasId->setNickname($row['nickname']);
+                $hasId->setAge($row['age']);
                 array_push($records, $hasId);
                 $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
                 $_SESSION['id'] = $row['id'];
@@ -126,13 +127,18 @@ class AccountRepository implements InterfaceRepository
             if ($row === false) {
                 throw new AccountNotFoundException();
             }
+            /*
+            if ($row['isOnline'] === "1") {
+                throw new AlreadyOnlineException();
+            }*/
+            $sqlQuery = $this->connection->prepare("UPDATE Account SET isOnline = ? WHERE email = ?");
+            $sqlQuery->execute(array($account->getIsOnline(), $account->getEmail()));
             $result = new Account();
             $result->setName($row['name']);
             $result->setEmail($row['email']);
-            $result->setDesctiption($row['description']);
             $result->setPassword($row['password']);
             $result->setId($row['id']);
-            $result->setNickname($row['nickname']);
+            $result->setIsOnline($account->getIsOnline());
 
             return $result;
         } catch (PDOException $exception) {
@@ -140,6 +146,37 @@ class AccountRepository implements InterfaceRepository
         }
     }
 
+    /**
+     * @param int $id
+     * @return HasId
+     * @throws AccountNotFoundException
+     * @throws SearchAccountFailedException
+     */
+    public function searchById(int $id): HasId
+    {
+        try {
+            $sqlQuery = $this->connection->prepare("SELECT * FROM Account WHERE id = ?;");
+            $sqlQuery->execute(array($id));
+            $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
+            if ($row === false) {
+                throw new AccountNotFoundException();
+            }
+            /*
+            if ($row['isOnline'] === "1") {
+                throw new AlreadyOnlineException();
+            }*/
+            $result = new Account();
+            $result->setName($row['name']);
+            $result->setEmail($row['email']);
+            $result->setDescription($row['description']);
+            $result->setAge($row['age']);
+            $result->setId($row['id']);
+
+            return $result;
+        } catch (PDOException $exception) {
+            throw new SearchAccountFailedException();
+        }
+    }
 
     /**
      * {@inheritDoc}
@@ -167,19 +204,49 @@ class AccountRepository implements InterfaceRepository
     {
         try {
             $sqlQuery = $this->connection->prepare("SELECT id FROM Account WHERE id = ?;");
+            $queryResult = $sqlQuery->execute(array($hasId->getId()));
+            $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
+            if ($row === false) {
+                throw new AccountNotFoundException();
+            }
+            $sqlQuery = $this->connection->prepare(
+                "UPDATE Account SET  description = ?, email = ?, name = ?, nickname = ?, age = ?
+                         WHERE id = ?;"
+            );
+            $queryResult = $sqlQuery->execute(array(
+                $hasId->getDescription(),
+                $hasId->getEmail(),
+                $hasId->getName(),
+                $hasId->getNickname(),
+                $hasId->getAge(),
+                $hasId->getId()));
+
+            return $hasId;
+        } catch (PDOException $exception) {
+            throw new UpdateFailedException();
+        }
+    }
+
+    /**
+     * @param int $id
+     * @return HasId
+     * @throws AccountNotFoundException
+     * @throws UpdateFailedException
+     */
+    public function logOut(int $id): HasId
+    {
+        try {
+            $sqlQuery = $this->connection->prepare("SELECT id FROM Account WHERE id = ?;");
             $queryResult = $sqlQuery->execute(array($id));
             $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
             if ($row === false) {
                 throw new AccountNotFoundException();
             }
             $sqlQuery = $this->connection->prepare(
-                "UPDATE Account SET (password = ?), (description = ?), (email = ?)
+                "UPDATE Account SET (isOnline = 0)
                          WHERE id = ?;"
             );
             $queryResult = $sqlQuery->execute(array(
-                $hasId->getPassword(),
-                $hasId->getDescription(),
-                $hasId->getEmail(),
                 $hasId->getId()));
 
             return $hasId;

@@ -4,35 +4,28 @@
 var nameChatter;
 var idChatter;
 
+$(document).on('click', '.start_chat', function () {
+    fetch_user();
+    make_chat_dialog_box(idChatter, nameChatter);
+    $("#user_dialog_" + idChatter).dialog({
+        autoOpen: false,
+        width: 400
+    });
+    $('#user_dialog_' + idChatter).dialog('open');
+});
+
 $(document).ready(function () {
     fetch_user();
 
     //when the button to start the chat is pressed this function
-    //make a post request to tge server and returns the id of the partner
-    $("#start_chat").click(function () {
-        $.ajax({
-            url:"http://mealbreak.local/partner",
-            method:"POST",
-            data:{to_user_id:idChatter},
-            success:function (data) {
-                var names = JSON.parse(data);
-                idChatter = names.id;
-                nameChatter = names.name;
-                make_chat_dialog_box(idChatter, nameChatter);
-                $("#user_dialog_" + idChatter).dialog({
-                    autoOpen: false,
-                    width: 400
-                });
-                $('#user_dialog_' + idChatter).dialog('open');
-            }
-        })
-    });
+    //make a post request to the server and returns the id of the partner
 
     //every 5 seconds this function makes a call to the server to return the latest
-    //chat messages
+    /*chat messages
     setInterval(function () {
+        fetch_user();
         getLatestChatData()
-    }, 5000);
+    }, 5000);*/
 });
 
 //takes the values of the logged user adn gives them to the idChatter and nameChatter
@@ -40,7 +33,7 @@ function fetch_user()
 {
     $.ajax({
         url:"http://mealbreak.local/chatters",
-        method:"GET",
+        method:"POST",
         success:function (data) {
             var names = JSON.parse(data);
             idChatter = names.id;
