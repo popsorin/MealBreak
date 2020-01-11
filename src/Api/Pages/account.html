@@ -4,7 +4,9 @@
 <head>
     <meta charset="utf-8">
     <title>Mealbreak</title>
-    <link rel="stylesheet" href="css\account.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" media="screen and (min-device-width: 600px)" href="css\account.css">
+    <link rel="stylesheet" media="screen and (max-device-width: 550px)" href="css\mobileaccount.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans&display=swap" rel="stylesheet">
 </head>
 
@@ -28,6 +30,11 @@
                                 Account
                             </a>
                         </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="restaurants.html">
+                                Restaurants
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </header>
@@ -40,9 +47,6 @@
                                  alt="Avatar">
                         </div>
 
-                        <div class="match__button__container">
-                            <button class="match__button">Match me!</button>
-                        </div>
 
                         <div class="btn__group group">
                             <ul class="group__list list">
@@ -61,18 +65,24 @@
                                         </span>
                                     </button>
                                 </li>
-
-                                <!---                   TO DO
-                                <li class="list__item"><button class="profile__button" onclick="currentSlide(2)">Match me<span>&#10095;</span></button></li>
-
                                 <hr>
-                                <li class="list__item"><button class="profile__button" onclick="currentSlide(3)">Change password<span>&#10095;</span></button></li>
-                                --->
                                 <li class="list__item">
-                                    <button class="profile__button">Logout<span>&#10095;</span></button>
+                                    <button class="profile__button">Match me
+                                        <span>
+                                            &#10095;
+                                        </span>
+                                    </button>
+                                </li>
+                                <li class="list__item">
+                                    <button class="profile__button">Logout
+                                        <span>
+                                            &#10095;
+                                        </span>
+                                    </button>
                                 </li>
                             </ul>
                         </div>
+
                     </div>
 
                     <div class="slides__container">

@@ -1,7 +1,7 @@
 * {
-    margin: 0px;
-    padding: 0px;
-    font-family: Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .body-container {
@@ -12,7 +12,7 @@
 }
 
 .hero {
-    margin-left: 100px;
+    margin-left: 5vw;
     background-repeat: no-repeat;
 }
 
@@ -21,8 +21,8 @@
 }
 
 .hero__header {
-    padding-top: 60px;
-    margin-bottom: 50px;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
 }
 
     .header__nav {
@@ -31,13 +31,13 @@
     }
         .nav__wrapper {
             font-size: 20px;
-            padding-top: 25px;
+            padding-top: 3vh;
             list-style: none;
         }
 
         .nav__item {
             display: inline-block;
-            padding: 20px;
+            padding: 1vw;
             letter-spacing: 1px;
         }
 
@@ -53,15 +53,15 @@
 
 .wrapper {
     opacity: 1;
-    border-radius: 9px;
+    border-radius: 1%;
     margin: 0 auto;
-    width: 800px;
-    padding-right: 90px;
+    width: 18vw;
+    text-align: center;
 }
 
 .intro {
     padding: 40px;
-    padding-top: 120px;
+    padding-top: 14vh;
 }
 
 .title {
@@ -83,7 +83,7 @@ hr {
 h4#motto {
     color: whitesmoke;
     text-align: center;
-    margin-bottom: 450px;
+    padding-bottom: 48vh;
 }
 
 h4#copyright {
@@ -96,17 +96,15 @@ h5 {
     text-align: center;
 }
 
-
 .second__body__container {
-    margin-top: 7px;
+    margin-top: 5px;
     background-image: linear-gradient(to bottom, #2c2223, #2b2424);
 }
 
 #header__about {
-    padding-top: 37px;
+    padding-top: 5vh;
     text-align: center;
     color: whitesmoke;
-    font-family: Helvetica;
     font-weight: bold;
 }
 
@@ -121,29 +119,34 @@ h5 {
 .about__wrapper {
     display: flex;
     justify-content: center;
-    padding-top: 40px;
+    padding-top: 5vh;
 }
 
 #quote {
-    margin-top: 150px;
-    text-indent: 50px;
-    font-size: 18px;
+    margin-top: 15vh;
+    text-indent: 5%;
+    font-size: 20px;
     margin-bottom: 90px;
 }
 
+#mobile__author{
+    display: none;
+}
+
 #author {
-    margin-top: 150px;
+    margin-top: 15.5vh;
+    margin-right: 1vw;
+    margin-left: 20vw;
     float: left;
-    width: 100px;
+    width: 5vw;
     color: whitesmoke;
     position: relative;
 
 }
 
 #author::before {
-    font-family: Georgia;
     content: open-quote;
-    font-size: 80px;
+    font-size: 70px;
     top: -45px;
     position: absolute;
     color: whitesmoke;
@@ -152,22 +155,22 @@ h5 {
 .wrapper__details {
     float: right;
     color: dimgrey;
-    width: 950px;
-    padding-left: 25px;
-    padding-right: 25px;
+    margin-right: 20vw;
     background-color: white;
     border-radius: 3px;
-    margin-bottom: 50px;
+    margin-bottom: 5vh;
 }
 
 .details__title {
-    padding-bottom: 25px;
+    padding-bottom: 5%;
     text-align: center;
 }
 
 .details__contents {
     letter-spacing: 1px;
-    text-indent: 25px;
+    text-indent: 2%;
+    padding-left: 3%;
+    padding-right: 3%;
 }
 
 p {
@@ -176,17 +179,96 @@ p {
 }
 
 p#romanian {
-    margin-bottom: 120px;
+    margin-bottom: 15%;
 }
 
 .hero__footer {
      text-align: center;
-     padding-top: 10px;
  }
 
 .footer__copy{
     color: white;
     font-size: 20px;
-    padding-bottom: 4px;
+    margin-top: 10vh;
     letter-spacing: 1px;
+}
+
+@media (max-width: 500px){
+
+    .body-container {
+        background-image: linear-gradient(#2B1B17, #0C090A);
+    }
+
+    .logo{
+        margin-left: 0;
+    }
+
+    .nav__item {
+        letter-spacing: 0;
+        padding: 2vw;
+    }
+
+    .hero__header {
+        margin-bottom: 5vh;
+        text-align: center;
+    }
+
+    .hero{
+        margin-left: 0;
+    }
+
+    .header__nav {
+        float: unset;
+        margin-right: 0;
+    }
+
+    .main__content {
+        margin-top: 5vh;
+        margin-left: 5vw;
+        margin-right: 5vw;
+    }
+
+    .wrapper {
+        width: 100%;
+    }
+
+    .intro{
+        margin-left: 5vw;
+        margin-right: 5vw;
+        margin-bottom: 5vh;
+    }
+
+    #quote {
+        margin-top: 5%;
+        margin-left: 5vw;
+        margin-right: 5vw;
+    }
+
+    #author{
+        margin-left: 0;
+        left: 20vw;
+        top: 10vh;
+        display: none;
+        color: dimgrey;
+
+    }
+
+    #mobile__author{
+        display: unset;
+    }
+
+    .header__about{
+        margin-left: 5vw;
+        margin-right: 5vw;
+    }
+
+    #author::before{
+        display: none;
+        color: dimgrey;
+    }
+
+    .wrapper__details{
+        margin-right: 5vw;
+        margin-left: 5vw;
+    }
 }
