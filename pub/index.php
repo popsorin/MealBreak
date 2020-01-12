@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Written by Pop Sorin & Nita Andrei
+ * Written by Pop Sorin & Nita Andrei & Popa Alexandru
  */
 
 namespace pub;
@@ -13,6 +13,7 @@ use Team1\Api\Data\Request\UpdateProfileRequest;
 use Team1\Exception\Persistency\AlreadyOnlineException;
 use Team1\Exception\Persistency\EmailNullException;
 use Team1\Exception\Persistency\GetMessagesException;
+use Team1\Exception\Persistency\ReturnAllFailedException;
 use Team1\Exception\Validator\PasswordTooShortException;
 use PDO;
 use PDOException;
@@ -22,6 +23,7 @@ use Team1\Api\Controller\QueueController;
 use Team1\Api\Data\Request\CreateRequest;
 use Team1\Api\Data\Request\LoginRequest;
 use Team1\Api\Data\Request\UpdateRquest;
+use Team1\Api\Data\Request\QueuerRequest;
 use Team1\Exception\Index\PasswordIsNotTheSameException;
 use Team1\Exception\Index\TermsAndConditionsNotCheckedException;
 use Team1\Exception\Persistency\AccountNotFoundException;
@@ -34,7 +36,8 @@ use Team1\Exception\Validator\WrongEmailFormatException;
 use Team1\Service\Validator\CreateUserValidator;
 use Team1\Service\Validator\UpdateUserValidator;
 
-require "/home/sorin/Proiect-Colectiv/vendor/autoload.php";
+//require "/home/sorin/Proiect-Colectiv/vendor/autoload.php";
+require "/var/www/html/my_project/mealbreak/vendor/autoload.php";
 
 
 
@@ -46,6 +49,7 @@ try {
 }
 catch (ConnectionLostException $connectionLostException) {
     echo $connectionLostException->getMessage();
+    die();
 }
 
 //sends to the browser the current user id and email
@@ -85,10 +89,15 @@ if($_SERVER["REQUEST_URI"] === "/") {
     $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/css/mainpage.css");
 }
 if($_SERVER["REQUEST_URI"] === "/register") {
- //   if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST["register_sub"]))
-    try {
-        $registerController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/Register.html");
-        $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/css/register.css");
+ //
+    $registerController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/Register.html");
+    $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/css/register.css");
+    if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST["register_sub"])) {
+        $createRequest = new CreateRequest($_POST["username"], $_POST["psw"], $_POST["email"]);
+        CreateUserValidator::validateUser($createRequest);
+        $registerController->add($createRequest);
+    }
+    /*try {
         if ($_POST["password"] !== $_POST["password_confirm"])
             throw new PasswordIsNotTheSameException();
         $createRequest = new CreateRequest($_POST["username"], $_POST["psw"], $_POST["email"]);
@@ -104,7 +113,7 @@ if($_SERVER["REQUEST_URI"] === "/register") {
         echo $wrongEmailFormatException->getMessage();
     } catch (PasswordIsNotTheSameException $passwordIsNotTheSameException) {
         echo $passwordIsNotTheSameException->getMessage();
-    }
+    }*/
 }
 /**
 
@@ -165,10 +174,63 @@ if($_SERVER["REQUEST_URI"] === "/getLatestMessage") {
 
     }
 }
+function connect_to_database()
+{
+    $host = 'localhost';
+    $db = 'MealBreak';
+    $username = 'root';
+    $password = 'root';
+    try {
+        $connection = new PDO("mysql:host=$host;dbname=$db", $username, $password);
+        // set the PDO error mode to exception
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        //echo "Connected successfully";
+        return $connection;
+    } catch (PDOException $e) {
+        echo "Connection failed: " . $e->getMessage();
+        return FALSE;
+    }
+
+}
+
+if ($_SERVER["REQUEST_URI"] === "/php_match_script") {
+    $start = microtime(true);
+    set_time_limit(60);
+    for($i = 0;$i < 60; ++$i) {
+        if(count($queueController->getRepo()->getAll()) >=2) {
+            if($chatters = $queueController->tryToMatch()) {
+                $account1 = $accountController->searchById($chatters[0]);
+                $chatterRequest = new ChatterRequest($account1->getName(),"",date('m/d/Y h:i:s a', time()),$chatters[0],$chatters[1]);
+                $chatterController->add($chatterRequest);
+                $account2 = $accountController->searchById($chatters[1]);
+                $chatterRequest = new ChatterRequest($account2->getName(),"",date('m/d/Y h:i:s a', time()),$chatters[1],$chatters[0]);
+                $chatterController->add($chatterRequest);
+                $queueController->delete($chatters);
+            }
+            time_sleep_until($start + $i + 1);
+        }
+    }
+
+}
+if ($_SERVER["REQUEST_URI"] === "/match") {
+    session_start();
+    $queuerRequest = new QueuerRequest($_SESSION["id"]);
+    $queueController->add($queuerRequest);
+
+    for($second = 0;$second<120;++$second) {
+        echo $second."<br>";
+        if($chatterController->checkIfChatGenerated($_SESSION["id"])) {
+            //give the response to the user
+            //start the chat or redirect him to another page to start the chat
+            $second = 120;
+        }
+        sleep(1);
+    }
+}
 
 if ($_SERVER["REQUEST_URI"] === "/updateProfile"){
     session_start();
-
+    var_dump($_POST);
     if(isset($_POST)){
         $updateRequest = new UpdateRquest(
                          $_SESSION['id'],
@@ -191,6 +253,8 @@ if ($_SERVER["REQUEST_URI"] === "/updateProfile"){
 }
 
 if ($_SERVER["REQUEST_URI"] === "/Dummy.html") {
+    // I guess we should delete this
+    //Its not useful and the functions are not up to date
     var_dump($_SESSION["account_id"]);
     $queueController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/loginRedirect.html");
     $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/Dummy.css");
@@ -239,6 +303,7 @@ if($_SERVER["REQUEST_URI"] === "/logout")
     $_SESSION['email'] = null;
     $_SESSION['id'] = null;
     $_SESSION['name'] = null;
+    header("/login");
 }
 if($_SERVER["REQUEST_URI"] === "/loginRedirect")
 {

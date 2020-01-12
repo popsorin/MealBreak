@@ -2,7 +2,7 @@ var name = $('#email').text();
 function logOut()
 {
     $.ajax({
-        url: "http://mealbreak.local/logout",
+        url: "/logout",
         method: "POST",
         data: {name: name}
     })

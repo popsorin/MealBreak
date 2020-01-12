@@ -13,10 +13,27 @@ use Team1\Exception\Persistency\ConnectionLostException;
 use Team1\Exception\Persistency\DeletionFailedException;
 use Team1\Exception\Persistency\QueuerNotFoundException;
 use Team1\Exception\Persistency\ReturnAllFailedException;
+use Team1\Entity\HasId;
 
 class QueueRepository
 {
     private $connection;
+
+    /**
+     * @return PDO
+     */
+    public function getConnection(): PDO
+    {
+        return $this->connection;
+    }
+
+    /**
+     * @param PDO $connection
+     */
+    public function setConnection(PDO $connection)
+    {
+        $this->connection = $connection;
+    }
 
     public function __construct()
     {
@@ -24,7 +41,7 @@ class QueueRepository
             $host = 'localhost';
             $db = 'MealBreak';
             $username = 'root';
-            $password = '123456789';
+            $password = 'root';
             try {
                 $this->connection = new PDO("mysql:host=$host;dbname=$db", $username, $password);
                 // set the PDO error mode to exception
@@ -32,7 +49,6 @@ class QueueRepository
                 //echo "Connected successfully";
                 return $this->connection;
             } catch (PDOException $e) {
-//            echo "Connection failed: " . $e->getMessage();
                 return FALSE;
             }
         } catch (PDOException $exception) {
@@ -40,15 +56,19 @@ class QueueRepository
         }
     }
 
-    public function add($account_id)
+    public function add(Queuer $queuer) : Queuer
     {
-        $sqlQuery = $this->connection->prepare("SELECT * FROM Queue where (account_id) = ?;");
-        $sqlQuery->execute(array($account_id));
-        $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
-        if(empty($row)) {
-            $query = $this->connection->prepare("INSERT INTO Queue (account_id) values (:account_id)");
-            $query->bindParam(':account_id', $account_id);
-            $query->execute();
+        try {
+            $sqlQuery = $this->connection->prepare("SELECT * FROM Queue where (account_id) = ?;");
+            $sqlQuery->execute(array($queuer->getAccountId()));
+            $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
+            if(empty($row)) {
+                $sqlQuery = $this->connection->prepare("INSERT INTO Queue (account_id) values (?);");
+                $sqlQuery->execute(array($queuer->getAccountId()));
+            }
+            return $queuer;
+        } catch (PDOException $exception) {
+            throw new InsertionFailedException();
         }
 
     }
@@ -73,18 +93,27 @@ class QueueRepository
             throw new ReturnAllFailedException();
         }
     }
-
-    public function delete(int $account_id)
+    public function getAccountsWithAge() {
+        try {
+            $sqlQuery = $this->connection->prepare("SELECT q.account_id,a.age FROM Queue q INNER JOIN (SELECT id, age FROM Account) a on a.id = q.account_id;");
+            $sqlQuery->execute();
+            $records = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
+            return $records;
+        } catch (PDOException $exception) {
+            throw new ReturnAllFailedException();
+        }
+    }
+    public function delete($queuer_id)
     {
         try {
             $sqlQuery = $this->connection->prepare("SELECT id FROM Queue WHERE account_id = ?;");
-            $queryResult = $sqlQuery->execute(array($account_id));
+            $sqlQuery->execute(array($queuer_id));
             $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
             if ($row === false) {
                 throw new QueuerNotFoundException();
             }
             $sqlQuery = $this->connection->prepare("DELETE FROM Queue WHERE account_id = ?;");
-            $queryResult = $sqlQuery->execute(array($account_id));
+            $sqlQuery->execute(array($queuer_id));
         } catch (PDOException $exception) {
             throw new DeletionFailedException();
         }
