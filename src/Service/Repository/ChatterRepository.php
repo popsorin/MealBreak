@@ -1,6 +1,6 @@
 <?php
 /*
- * Written by Pop Sorin
+ * Written by Pop Sorin & Popa Alexandru
  */
 namespace Team1\Service\Repository;
 
@@ -37,7 +37,7 @@ class ChatterRepository implements InterfaceRepository
             $this->connection = new \PDO(
                 'mysql:host=localhost;dbname=MealBreak',
                 'root',
-                '123456789',
+                'root',
                 array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION)
             );
         } catch (PDOException $exception) {
@@ -45,6 +45,11 @@ class ChatterRepository implements InterfaceRepository
         }
     }
 
+    /**
+     * @param HasId $hasId
+     * @return HasId
+     * @throws InsertionFailedException
+     */
     public function add(HasId $hasId): HasId
     {
         try {
@@ -140,10 +145,11 @@ class ChatterRepository implements InterfaceRepository
 
     /**
      * @param $idAccount
-     * @return HasId
+     * @return Chatter
      * @throws AccountNotFoundException
+     * @throws PartnerNotFoundException
      */
-    public function searchPartner($idAccount): HasId
+    public function searchPartner($idAccount): Chatter
     {
 
         try {
@@ -166,6 +172,23 @@ class ChatterRepository implements InterfaceRepository
             throw new PartnerNotFoundException();
         }
     }
+
+    public function checkIfChatGenerated($idAccount)
+    {
+
+        try {
+            $sqlQuery = $this->connection->prepare("SELECT * FROM Chatter WHERE idAccount = ?;");
+            $queryResult = $sqlQuery->execute(array($idAccount));
+            $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
+            if ($row === false) {
+                return false;
+            }
+            return true;
+        } catch (\PDOException $exception) {
+            throw new PartnerNotFoundException();
+        }
+    }
+
 
     /**
      * @param $fromUserId

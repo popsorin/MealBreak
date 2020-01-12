@@ -1,6 +1,6 @@
 <?php
 /*
- * Written by Pop Sorin
+ * Written by Pop Sorin & Popa Alexandru
  */
 namespace Team1\Api\Controller;
 
@@ -105,5 +105,9 @@ class ChatterController extends Controller
     public function getChatPage(int $id, string $username)
     {
         echo $this->repository->getChatPage($id, $username);
+    }
+
+    public function checkIfChatGenerated($idAccount) {
+        return $this->repository->checkIfChatGenerated($idAccount);
     }
 }

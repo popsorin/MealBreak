@@ -17,7 +17,7 @@ use Team1\Exception\Persistency\InsertionFailedException;
 use Team1\Exception\Persistency\NameAlreadyExistsException;
 use Team1\Exception\Persistency\ReturnAllFailedException;
 use Team1\Exception\Persistency\UpdateFailedException;
-use Team1\Exception\Persistency\HasIdNotFoundException;
+use Team1\Exception\Persistency\UserNotFoundException;
 
 /**
  * Class UserRepository
@@ -33,7 +33,7 @@ class UserRepository implements InterfaceRepository
             $host = 'localhost';
             $db = 'MealBreak';
             $username = 'root';
-            $password = '123456789';
+            $password = 'root';
             $this->connection = new PDO("mysql:host=$host;dbname=$db", $username, $password);
                 // set the PDO error mode to exception
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -127,7 +127,7 @@ class UserRepository implements InterfaceRepository
             $queryResult = $sqlQuery->execute(array($id));
             $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
             if ($row === false) {
-                throw new HasIdNotFoundException();
+                throw new UserNotFoundException();
             }
             $sqlQuery = $this->connection->prepare("DELETE FROM User WHERE id = ?;");
             $queryResult = $sqlQuery->execute(array($id));
@@ -148,7 +148,7 @@ class UserRepository implements InterfaceRepository
             $queryResult = $sqlQuery->execute(array($id));
             $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
             if ($row === false) {
-                throw new HasIdNotFoundException();
+                throw new UserNotFoundException();
             }
             $sqlQuery = $this->connection->prepare("UPDATE User SET (confirmed = ?) WHERE id = ?;");
             $queryResult = $sqlQuery->execute(array($confirm, $id));

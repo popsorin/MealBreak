@@ -1,7 +1,7 @@
 function fetchUserData()
 {
     $.ajax({
-        url:"http://mealbreak.local/chatters",
+        url:"/chatters",
         method:"POST",
         success:function (data) {
             var names = JSON.parse(data);

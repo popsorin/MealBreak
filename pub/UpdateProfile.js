@@ -4,7 +4,7 @@ function updateValues()
     var description = $('#desc').val();
     var age = $('#age').val();
     $.ajax({
-        url:"http://mealbreak.local/updateProfile",
+        url:"/updateProfile",
         type:'post',
         data:{name:name,description:description,age:age},
         success:function () {
@@ -18,7 +18,7 @@ function updateValues()
 function updateProfile()
 {
     $.ajax({
-        url:"http://mealbreak.local/chatters",
+        url:"/chatters",
         method:"POST",
         success:function (data) {
             var names = JSON.parse(data);
