@@ -4,7 +4,10 @@ function logOut()
     $.ajax({
         url: "/logout",
         method: "POST",
-        data: {name: name}
+        data: {name: name},
+        success: function (data) {
+            window.location.href = "/login";
+        }
     })
 }
 

@@ -24,7 +24,7 @@ function updateProfile()
             var names = JSON.parse(data);
             idChatter = names.id;
             nameChatter = names.name;
-            descriptionChatter = names.description;
+            let descriptionChatter = names.description;
             emailChatter = names.email;
             ageChatter = names.age;
             $('#nickname').data('value',idChatter);

@@ -23,8 +23,8 @@ class QueuerRequest implements Request
      * @param string $accountId
      */
     public function __construct(
-        string $accountId)
-    {
+        string $accountId
+    ) {
         $this->accountId=$accountId;
     }
 

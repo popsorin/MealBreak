@@ -37,7 +37,7 @@ class ChatterRepository implements InterfaceRepository
             $this->connection = new \PDO(
                 'mysql:host=localhost;dbname=MealBreak',
                 'root',
-                'root',
+                '123456789',
                 array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION)
             );
         } catch (PDOException $exception) {
@@ -180,10 +180,8 @@ class ChatterRepository implements InterfaceRepository
             $sqlQuery = $this->connection->prepare("SELECT * FROM Chatter WHERE idAccount = ?;");
             $queryResult = $sqlQuery->execute(array($idAccount));
             $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
-            if ($row === false) {
-                return false;
-            }
-            return true;
+
+            return $row;
         } catch (\PDOException $exception) {
             throw new PartnerNotFoundException();
         }

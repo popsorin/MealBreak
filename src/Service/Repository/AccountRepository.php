@@ -38,7 +38,7 @@ class AccountRepository extends UserRepository
             $this->connection = new \PDO(
                 'mysql:host=localhost;dbname=MealBreak',
                 'root',
-                'root',
+                '123456789',
                 array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION)
             );
         } catch (PDOException $exception) {
@@ -170,6 +170,11 @@ class AccountRepository extends UserRepository
             $result->setEmail($row['email']);
             $result->setDescription($row['description']);
             $result->setAge($row['age']);
+            $result->setPassword($row['password']);
+            $result->setIsConfirmed($row['is_confirmed']);
+            $result->setNickname($row['nickname']);
+            $result->setIsOnline($row['isOnline']);
+            $result->setQueueStartTime($row['queueStartTime']);
             $result->setId($row['id']);
 
             return $result;
@@ -210,7 +215,7 @@ class AccountRepository extends UserRepository
                 throw new AccountNotFoundException();
             }
             $sqlQuery = $this->connection->prepare(
-                "UPDATE Account SET  description = ?, email = ?, name = ?, nickname = ?, age = ?
+                "UPDATE Account SET  description = ?, email = ?, name = ?, nickname = ?, age = ?, isOnline = ?
                          WHERE id = ?;"
             );
             $queryResult = $sqlQuery->execute(array(
@@ -219,6 +224,7 @@ class AccountRepository extends UserRepository
                 $hasId->getName(),
                 $hasId->getNickname(),
                 $hasId->getAge(),
+                $hasId->getIsOnline(),
                 $hasId->getId()));
 
             return $hasId;

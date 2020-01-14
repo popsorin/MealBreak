@@ -36,8 +36,8 @@ use Team1\Exception\Validator\WrongEmailFormatException;
 use Team1\Service\Validator\CreateUserValidator;
 use Team1\Service\Validator\UpdateUserValidator;
 
-//require "/home/sorin/Proiect-Colectiv/vendor/autoload.php";
-require "/var/www/html/my_project/mealbreak/vendor/autoload.php";
+require "/home/sorin/Proiect-Colectiv/vendor/autoload.php";
+//require "/var/www/html/my_project/mealbreak/vendor/autoload.php";
 
 
 
@@ -59,7 +59,7 @@ if($_SERVER["REQUEST_URI"] === "/chatters")
     try {
         $account = $accountController->searchById($_SESSION['id']);
         echo json_encode(array("id" => $_SESSION['id'],
-                               "name" => $_SESSION['name'],
+                               "name" => $account->getName(),
                                 "description" => $account->getDescription(),
                                 "email" => $account->getEmail(),
                                 "age" => $account->getAge()
@@ -97,23 +97,7 @@ if($_SERVER["REQUEST_URI"] === "/register") {
         CreateUserValidator::validateUser($createRequest);
         $registerController->add($createRequest);
     }
-    /*try {
-        if ($_POST["password"] !== $_POST["password_confirm"])
-            throw new PasswordIsNotTheSameException();
-        $createRequest = new CreateRequest($_POST["username"], $_POST["psw"], $_POST["email"]);
-        CreateUserValidator::validateUser($createRequest);
-        $registerController->add($createRequest);
-    } catch (EmailAlreadyUsedException $emailAlreadyUsedException) {
-        echo $emailAlreadyUsedException->getMessage();
-    } catch (InsertionFailedException $insertionFailedException) {
-        echo $insertionFailedException->getMessage();
-    } catch (PasswordTooShortException $passwordTooShortException) {
-        echo $passwordTooShortException->getMessage();
-    } catch (WrongEmailFormatException $wrongEmailFormatException) {
-        echo $wrongEmailFormatException->getMessage();
-    } catch (PasswordIsNotTheSameException $passwordIsNotTheSameException) {
-        echo $passwordIsNotTheSameException->getMessage();
-    }*/
+
 }
 /**
 
@@ -213,12 +197,12 @@ if ($_SERVER["REQUEST_URI"] === "/php_match_script") {
 
 }
 if ($_SERVER["REQUEST_URI"] === "/match") {
+
     session_start();
     $queuerRequest = new QueuerRequest($_SESSION["id"]);
     $queueController->add($queuerRequest);
 
     for($second = 0;$second<120;++$second) {
-        echo $second."<br>";
         if($chatterController->checkIfChatGenerated($_SESSION["id"])) {
             //give the response to the user
             //start the chat or redirect him to another page to start the chat
@@ -226,22 +210,49 @@ if ($_SERVER["REQUEST_URI"] === "/match") {
         }
         sleep(1);
     }
+
+    try {
+        $account = $chatterController->searchPartner($_SESSION['id']);
+        echo json_encode(array("id" => $account->getId(),
+            "name" => $account->getName()
+        ));
+    } catch (AccountNotFoundException $e) {
+        echo $e->getMessage();
+    } catch (SearchAccountFailedException $e) {
+        echo $e->getMessage();
+    }
 }
 
 if ($_SERVER["REQUEST_URI"] === "/updateProfile"){
     session_start();
-    var_dump($_POST);
+
     if(isset($_POST)){
+        $account = $accountController->searchById($_SESSION['id']);
+        if($_POST['age'] !== '')
+            $age = intval($_POST['age']);
+        else
+            $age = $account->getAge();
+
+        if($_POST['name'] !== '')
+            $name = $_POST['name'];
+        else
+            $name = $account->getName();
+
+        if($_POST['description'] !== '')
+            $description = $_POST['description'];
+        else
+            $description = $account->getDescription();
+
         $updateRequest = new UpdateRquest(
                          $_SESSION['id'],
-                         $_POST['name'],
-                         $_SESSION['email'],
-                         "",
-                         $_POST['description'],
+                         $name,
+                         $account->getEmail(),
+                         $account->getPassword(),
+                         $description,
                          '',
                          '',
                          1,
-                         intval($_POST['age'])
+                         $age
         );
         try {
             $accountController->update($updateRequest);
@@ -298,13 +309,32 @@ if ($_SERVER["REQUEST_URI"] === "/login" || substr($_SERVER["REQUEST_URI"], 0, 7
 if($_SERVER["REQUEST_URI"] === "/logout")
 {
     session_start();
+    try {
+        $account = $accountController->searchById($_SESSION['id']);
+        $updateRequest = new UpdateRquest(
+            $_SESSION['id'],
+            $account->getName(),
+            $account->getEmail(),
+            $account->getPassword(),
+            $account->getDescription(),
+            $account->getNickname(),
+            $account->getQueueStartTime(),
+            0,
+            $account->getAge()
+        );
+        $accountController->update($updateRequest);
+    } catch (AccountNotFoundException $e) {
+        echo $e->getMessage();
+    } catch (SearchAccountFailedException $e) {
+        echo $e->getMessage();
+    }
     session_unset();
 
     $_SESSION['email'] = null;
     $_SESSION['id'] = null;
     $_SESSION['name'] = null;
-    header("/login");
 }
+
 if($_SERVER["REQUEST_URI"] === "/loginRedirect")
 {
     session_start();
@@ -317,6 +347,7 @@ if($_SERVER["REQUEST_URI"] === "/loginRedirect")
         $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/css/account.css");
         $_SESSION["id"] = $account->getId();
         $_SESSION["name"] = $account->getName();
+        $_SESSION['loggedIn'] = 1;
     }
     catch(AccountNotFoundException $exc)
     {

@@ -57,7 +57,8 @@ class QueueController extends Controller
      * @param $minimumNumberOfQueuers
      * @return bool
      */
-    public function checkIfMinimumNumberSatisfied($minimumNumberOfQueuers) {
+    public function checkIfMinimumNumberSatisfied($minimumNumberOfQueuers)
+    {
         return (count($this->repository->getAll()) >= $minimumNumberOfQueuers);
     }
 
@@ -68,7 +69,7 @@ class QueueController extends Controller
      */
     public function delete($queuers_id)
     {
-        foreach($queuers_id as $queuer_id) {
+        foreach ($queuers_id as $queuer_id) {
             $this->repository->delete($queuer_id);
         }
     }
@@ -76,15 +77,17 @@ class QueueController extends Controller
     /**
      * @return int
      */
-    public function selectQueuerToMatch() {
-        $index =(int)floor(rand(1,1000000)/1000000*count($this->repository->getAll()));
+    public function selectQueuerToMatch()
+    {
+        $index =(int)floor(rand(1, 1000000)/1000000*count($this->repository->getAll()));
         return $index;
     }
 
     /**
      * @return array
      */
-    public function getAccountsWithAge() {
+    public function getAccountsWithAge()
+    {
 
         $sqlQuery = $this->repository->getConnection()->prepare("SELECT q.account_id,a.age FROM Queue q INNER JOIN (SELECT id, age FROM Account) a on a.id = q.account_id;");
         $sqlQuery->execute();
@@ -95,7 +98,8 @@ class QueueController extends Controller
     /**
      * @return array
      */
-    public function getMinAndMaxAge() {
+    public function getMinAndMaxAge()
+    {
         $minMax =array();
         $sqlQuery = $this->repository->getConnection()->prepare("SELECT MIN(a.age),MAX(a.age) FROM Queue q INNER JOIN (SELECT id, age FROM Account) a on a.id = q.account_id;");
         $sqlQuery->execute();
@@ -110,7 +114,8 @@ class QueueController extends Controller
      * @param $account_id
      * @return array
      */
-    public function getQueuerAge($account_id) {
+    public function getQueuerAge($account_id)
+    {
         $sqlQuery = $this->repository->getConnection()->prepare("SELECT age FROM Account where id = ?");
         $sqlQuery->execute(array($account_id));
         $age = $sqlQuery->fetchAll(\PDO::FETCH_ASSOC);
@@ -140,19 +145,19 @@ class QueueController extends Controller
         $matchArray = $this->getAccountsWithAge();
 
         //
-        $maxValue = max((int)$age-(int)$minMax["min"],(int)$minMax["max"] -(int)$age);
+        $maxValue = max((int)$age-(int)$minMax["min"], (int)$minMax["max"] -(int)$age);
 
         //array containing the 2 matched
         $chaters = array();
-        for($index =1;$index<=100;$index++) {
-            $generatedAge = (int)floor( ((rand(0,1000000)/1000000) - (rand(0,1000000)/1000000)) * (1 +abs((int)$maxValue -(int)$age)) + (int)$age);
-            foreach($matchArray as $partner)
-                if((int)$generatedAge == (int)$partner["age"] && (int)$queuerSelected->getAccountId() !== (int)$partner["account_id"])
-                {
-                    array_push($chaters,$partner["account_id"]);
-                    array_push($chaters,$queuerSelected->getAccountId());
+        for ($index =1; $index<=100; $index++) {
+            $generatedAge = (int)floor(((rand(0, 1000000)/1000000) - (rand(0, 1000000)/1000000)) * (1 +abs((int)$maxValue -(int)$age)) + (int)$age);
+            foreach ($matchArray as $partner) {
+                if ((int)$generatedAge == (int)$partner["age"] && (int)$queuerSelected->getAccountId() !== (int)$partner["account_id"]) {
+                    array_push($chaters, $partner["account_id"]);
+                    array_push($chaters, $queuerSelected->getAccountId());
                     return $chaters;
                 }
+            }
         }
 
         return false;

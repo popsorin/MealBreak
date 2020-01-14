@@ -106,22 +106,6 @@ class Account extends User
     /**
      * @return int
      */
-    public function getIsOnlie(): int
-    {
-        return $this->isOnlie;
-    }
-
-    /**
-     * @param int $isOnlie
-     */
-    public function setIsOnlie(int $isOnlie)
-    {
-        $this->isOnlie = $isOnlie;
-    }
-
-    /**
-     * @return int
-     */
     public function getAge(): int
     {
         return $this->age;
