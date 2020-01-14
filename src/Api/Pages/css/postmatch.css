@@ -1,0 +1,168 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.body-container {
+    background-image: linear-gradient(#2B1B17, #0C090A);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.hero {
+    margin-left: 5vw;
+    background-repeat: no-repeat;
+}
+
+.logo {
+    margin-left: 15%;
+}
+
+.hero__header {
+    padding-top: 5vh;
+    margin-bottom: 5vh;
+}
+
+.header__nav {
+    float: right;
+    margin-right: 15%;
+}
+
+.nav__wrapper {
+    font-size: 20px;
+    padding-top: 3vh;
+    list-style: none;
+}
+
+.nav__item {
+    display: inline-block;
+    padding: 1vw;
+    letter-spacing: 1px;
+}
+
+.nav__link {
+    text-decoration: none;
+    color: white;
+}
+
+.main__wrapper{
+    margin-left: 10vw;
+    border-radius: 5px;
+    word-wrap: break-word;
+    width: 30vw;
+    margin-top: 10vh;
+}
+
+h3{
+    color: whitesmoke;
+    margin-left: 10%;
+}
+
+.match__details{
+    background-color: #FFFFFE;
+    text-align: center;
+    border: 2px solid #FFFAF2;
+    border-radius: 5px;
+    padding-bottom: 30px;
+}
+
+.pair__photo__container{
+    float: left;
+    position: relative;
+    bottom: 30px;
+    left: 3%;
+    -webkit-box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+    background-color: #ddd;
+    border: 1px solid #FFFAF2;
+}
+
+.pair__photo__container img{
+    display: block;
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+}
+
+#pair__age{
+    padding: 2%;
+}
+
+.description__container{
+    width: 100%;
+    border-top: 1px solid #FFFAF2;
+    border-bottom: 1px solid #FFFAF2;
+    height: 30%;
+    background-color: #FFF0DC;
+    margin-bottom: 5%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#pair__description{
+    font-size: 15px;
+}
+
+#pair__name{
+    color: black;
+    padding-top: 50px;
+}
+
+.found__local__details{
+    text-align: left;
+    margin-left: 15%;
+    margin-right: 45%;
+}
+
+.local__photo__container{
+    position: relative;
+    width: 200px;
+    float: right;
+    right: 10%;
+    bottom: 80px;
+    height: auto;
+    -webkit-box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+    background-color: #ddd;
+    border: 1px solid #FFFAF2;
+}
+
+.local__photo__container img{
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+#local__name{
+    padding-top: 10%;
+}
+
+#local__address{
+    padding-bottom: 10%;
+}
+
+.hero__footer {
+    text-align: center;
+    margin-top: 50vh;
+}
+
+h5{
+    color: whitesmoke;
+    text-align: center;
+}
+
+h4{
+    color: whitesmoke;
+}
+
+.footer {
+    font-size: 15px;
+}
+
+.footer__copy{
+    color: white;
+    letter-spacing: 1px;
+}

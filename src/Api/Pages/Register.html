@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
+
 <body>
 <div class="body-container">
     <header class="page__header">
@@ -40,7 +41,7 @@
 
             <main class="main__content content">
                 <div class="content__wrapper wrapper">
-                    <form class="form" method="POST" novalidate="" action="/">
+                    <form class="form" method="POST" novalidate="" action="/" onsubmit="return validateRegister()">
 
                         <h2 class="reglabel">Register</h2>
 
@@ -93,7 +94,8 @@
     </header>
 </div>
 
-
+<script type="text/javascript" src="js/validator.min.js"></script>
+<script src="js/register.js"></script>
 </body>
 
 </html>
