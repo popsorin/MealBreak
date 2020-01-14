@@ -1,0 +1,144 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.body-container {
+    background-image: linear-gradient(#2B1B17, #0C090A);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.logo {
+    margin-left: 0;
+}
+
+.nav__item {
+    display: inline-block;
+    padding: 2vw;
+    letter-spacing: 0;
+}
+
+.hero__header {
+    padding-top: 5vh;
+    text-align: center;
+    padding-bottom: 15vh;
+}
+
+.header__nav {
+    float: unset;
+}
+
+.nav__wrapper {
+    font-size: 20px;
+    padding-top: 3vh;
+    list-style: none;
+}
+
+.hero{
+    margin-left: 0;
+}
+
+.nav__link {
+    text-decoration: none;
+    color: white;
+}
+
+.match__details{
+    background-color: #FFFFFE;
+    text-align: center;
+    border: 2px solid #FFFAF2;
+    margin-right: 5vw;
+    margin-left: 5vw;
+    word-wrap: break-word;
+    border-radius: 5px;
+}
+
+.pair__photo__container{
+    float: left;
+    position: relative;
+    left: 5%;
+    bottom: 30px;
+    border: 1px solid #FFFAF2;
+}
+
+.pair__photo__container img{
+    display: block;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 2px solid #FFFAF2;
+}
+
+.description__container{
+    width: 100%;
+    border-top: 1px solid #FFFAF2;
+    border-bottom: 1px solid #FFFAF2;
+    background-color: #FFF0DC;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#pair__name{
+    padding-top: 25px;
+}
+
+#pair__description{
+    font-size: 15px;
+}
+
+.found__local__details{
+    text-align: left;
+    margin-right: 45%;
+    margin-left: 5%;
+}
+
+#local__name{
+    padding-top: 10%;
+}
+
+#local__address{
+    padding-bottom: 10%;
+}
+
+.local__photo__container{
+    right: 5%;
+    bottom: 20px;
+    margin-bottom: 5%;
+    margin-left: 5%;
+}
+
+.local__photo__container img{
+    display: block;
+    width: 200px;
+    height: 120px;
+    object-fit: cover;
+}
+
+.hero__footer {
+    text-align: center;
+    margin-top: 50vh;
+}
+
+h5{
+    color: whitesmoke;
+    text-align: center;
+}
+
+h4{
+    color: whitesmoke;
+}
+
+.footer {
+    font-size: 15px;
+}
+
+.footer__copy{
+    color: white;
+    letter-spacing: 1px;
+}

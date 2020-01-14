@@ -1,0 +1,180 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.body-container {
+    background-image: url("https://images.unsplash.com/photo-1457609171594-20fa2108dc41?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1303&q=80");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.hero {
+    margin-left: 5vw;
+    background-repeat: no-repeat;
+}
+
+.logo {
+    margin-left: 15%;
+}
+
+.hero__header {
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+}
+
+    .header__nav {
+        float: right;
+        margin-right: 15%;
+    }
+        .nav__wrapper {
+            font-size: 20px;
+            padding-top: 3vh;
+            list-style: none;
+        }
+
+        .nav__item {
+            display: inline-block;
+            padding: 1vw;
+            letter-spacing: 1px;
+        }
+
+        .nav__link {
+            text-decoration: none;
+            color: white;
+        }
+
+.main__content {
+    margin-top: 15vh;
+}
+
+.wrapper {
+     opacity: 1;
+     background-color: #fafafa;
+     border-radius: 1%;
+     margin: 0 auto;
+     width: 18vw;
+     height: 500px;
+     text-align: center;
+ }
+
+.loglabel {
+    font-size: 25px;
+    font-weight: bold;
+    color: #252525;
+    display:inline-block;
+    margin-top: 15%;
+    margin-bottom: 12%;
+}
+
+.form-input {
+    padding: 5%;
+}
+
+input[type=email]{
+    width: 65%;
+}
+
+input[type=password]{
+    width: 65%;
+}
+
+.form-forgot {
+    color: dimgrey;
+    font-size: 15px;
+    margin-top: 1vh;
+    text-align: center;
+}
+
+
+.form-group {
+    margin-top: 5%;
+    padding: 0.5vh;
+}
+
+input {
+    background-color: #fafafa;
+    border: none;
+    border-bottom: 1px solid #aaaaaa;
+}
+
+.form-control {
+    height: 25px;
+}
+
+.custom-control {
+    margin-left: 0.5vw;
+}
+
+a {
+    color: dodgerblue;
+}
+
+.btn__login {
+    background-image: linear-gradient(#FFEBCD, #FFCBA4);
+    box-shadow: 0.1vw 0.1vh #888888;
+    width: 65%;
+    height: 40px;
+    border-radius: 0.2vw;
+}
+
+h5 {
+    color: whitesmoke;
+    text-align: center;
+}
+
+.footer {
+    font-size: 15px;
+}
+
+.hero__footer {
+    text-align: center;
+}
+
+.footer__copy{
+    margin-top: 15vh;
+    letter-spacing: 1px;
+    color: white;
+}
+
+@media (max-width: 500px){
+
+    .body-container {
+        background-image: linear-gradient(#2B1B17, #0C090A);
+    }
+
+    .logo{
+        margin-left: 0;
+    }
+
+    .nav__item {
+        letter-spacing: 0;
+        padding: 2vw;
+    }
+
+    .hero__header {
+        margin-bottom: 5vh;
+        text-align: center;
+    }
+
+    .hero{
+        margin-left: 0;
+    }
+
+    .main__content {
+        margin-top: 5vh;
+    }
+
+    .header__nav {
+        float: unset;
+        margin-right: 0;
+    }
+
+    .wrapper{
+        margin-left: 5vw;
+        margin-right: 5vw;
+        width: 90vw;
+    }
+}
