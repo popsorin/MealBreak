@@ -1,16 +1,14 @@
 
+<!DOCTYPE html>
 <html lang="EN">
 
 <head>
     <meta charset="utf-8">
-     <title>Mealbreak</title>
-    <link rel="stylesheet" href="css\account.css">
+    <title>Mealbreak</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" media="screen and (min-device-width: 600px)" href="css\account.css">
+    <link rel="stylesheet" media="screen and (max-device-width: 550px)" href="css\mobileaccount.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans&display=swap" rel="stylesheet">
-    <script
-            src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-            crossorigin="anonymous">
-    </script>
 </head>
 
 <body>
@@ -24,13 +22,18 @@
                 <nav class="header__nav nav">
                     <ul class="nav__wrapper">
                         <li class="nav__item">
-                            <a class="nav__link" href="/">
+                            <a class="nav__link" href="mainpage.html">
                                 Home
                             </a>
                         </li>
                         <li class="nav__item">
-                            <a class="nav__link" href="login">
+                            <a class="nav__link" href="login.html">
                                 Account
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="restaurants.html">
+                                Restaurants
                             </a>
                         </li>
                     </ul>
@@ -45,14 +48,11 @@
                                  alt="Avatar">
                         </div>
 
-                        <div class="match__button__container">
-                            <button id ="match" class="match__button">Match me!</button>
-                        </div>
 
                         <div class="btn__group group">
                             <ul class="group__list list">
                                 <li class="list__item">
-                                    <button id="your_profile" class="profile__button" onclick="currentSlide(1)">Your profile
+                                    <button class="profile__button" onclick="currentSlide(1)">Your profile
                                         <span>
                                             &#10095;
                                         </span>
@@ -66,18 +66,24 @@
                                         </span>
                                     </button>
                                 </li>
-
-                                <!---                   TO DO
-                                <li class="list__item"><button class="profile__button" onclick="currentSlide(2)">Match me<span>&#10095;</span></button></li>
-
                                 <hr>
-                                <li class="list__item"><button class="profile__button" onclick="currentSlide(3)">Change password<span>&#10095;</span></button></li>
-                                --->
                                 <li class="list__item">
-                                    <button class="profile__button" id="logout" >Logout<span>&#10095;</span></button>
+                                    <button class="profile__button">Match me
+                                        <span>
+                                            &#10095;
+                                        </span>
+                                    </button>
+                                </li>
+                                <li class="list__item">
+                                    <button class="profile__button">Logout
+                                        <span>
+                                            &#10095;
+                                        </span>
+                                    </button>
                                 </li>
                             </ul>
                         </div>
+
                     </div>
 
                     <div class="slides__container">
@@ -89,31 +95,30 @@
                                          alt="Profile picture">
                                 </div>
 
-                                <div class="details__nickname" id="nickname" data-value="">
-                                    <h3></h3>
+                                <div class="details__nickname">
+                                    <h3>Donald McRoland</h3>
                                 </div>
 
-                                <div class="details__age" id="years">
-                                    <h5></h5>
+                                <div class="details__age">
+                                    <h5>17 years</h5>
                                 </div>
 
-                                <div class="details__description" id="description">
+                                <div class="details__description">
                                     <p>
                                         <img src="https://img.icons8.com/dusk/25/000000/pencil.png">
-
+                                        I don't mind you getting in my swamp
                                     </p>
                                 </div>
 
-                                <div class="details__email" id="email">
+                                <div class="details__email">
                                     <p>
                                         <img src="https://img.icons8.com/doodle/25/000000/email--v1.png">
+                                        perla@harghitei.com
                                     </p>
                                 </div>
 
                             </div>
                         </div>
-
-                        <div id="user_model_details"></div>
 
                         <div class="mySlide fade">
                             <div class="form__slide">
@@ -121,7 +126,9 @@
                                     <h2>Edit what others see about you</h2>
                                 </div>
 
+
                                 <div class="edit__form__container">
+                                    <form method="post" action="#" enctype="multipart/form-data">
                                         <br>
                                         <label for="name">Name</label>
                                         <input class="edit__form" type="text" id="name" name="name" maxlength="40">
@@ -137,7 +144,8 @@
                                         <input class="edit__form" id="profilepic" type="file" name="fileToUpload"
                                                id="fileToUpload">
                                         <br>
-                                        <input class="edit__form" type="submit" value="Save changes" id="save_changes">
+                                        <input class="edit__form" type="submit" value="Save changes">
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -159,11 +167,7 @@
     </header>
 </div>
 
-<script src="AccountSetUp.js" type="text/javascript"></script>
-<script src="account.js" type="text/javascript"></script>
-<script src="Logout.js" type="text/javascript"></script>
-<script src="UpdateProfile.js" type="text/javascript"></script>
-<script src="Match.js" type="text/javascript"></script>
+<script src="js/account.js" type="text/javascript"></script>
 </body>
 
 </html>
