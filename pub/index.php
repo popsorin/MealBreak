@@ -7,6 +7,7 @@
 namespace pub;
 
 use Team1\Api\Controller\ChatterController;
+use Team1\Api\Controller\PubController;
 use Team1\Api\Data\Request\ChatterRequest;
 use Team1\Api\Data\Request\DeleteChatterRequest;
 use Team1\Api\Data\Request\MessageRequest;
@@ -47,6 +48,7 @@ try {
     $accountController = new AccountController();
     $chatterController = new ChatterController();
     $queueController = new QueueController();
+    $pubController = new PubController();
 }
 catch (ConnectionLostException $connectionLostException) {
     echo $connectionLostException->getMessage();
@@ -86,7 +88,7 @@ if($_SERVER["REQUEST_URI"] === "/partner")
 
 if($_SERVER["REQUEST_URI"] === "/") {
     session_start();
-    if ($_SESSION["loggedIn"] === 1) {
+    if (isset($_SESSION)) {
         $registerController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/account.html");
         $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/css/account.css");
     }
@@ -111,6 +113,7 @@ if($_SERVER["REQUEST_URI"] === "/register") {
 //adds the latest message in the database
 if($_SERVER["REQUEST_URI"] === "/updateMessage")
 {
+    session_start();
     try {
         $chatter = $chatterController->searchPartner($_COOKIE['partnerId']);
         $request = new ChatterRequest(
@@ -118,7 +121,8 @@ if($_SERVER["REQUEST_URI"] === "/updateMessage")
             $_POST["message"],
             date('m/d/Y h:i:s a', time()),
             $chatter->getIdAccount(),
-            $chatter->getIdPartener()
+            $chatter->getIdPartener(),
+            $_SESSION["idPub"]
         );
         $chatterController->add($request);
         $chatterController->fetchUserChatHistory( $chatter->getIdAccount(), $chatter->getIdPartener());
@@ -137,13 +141,6 @@ if($_SERVER["REQUEST_URI"] === "/updateMessage")
 if($_SERVER["REQUEST_URI"] === "/getLatestMessage") {
     try {
         $chatter = $chatterController->searchPartner($_COOKIE['partnerId']);
-        $request = new ChatterRequest(
-            $chatter->getName(),
-            "",
-            date('m/d/Y h:i:s a', time()),
-            $chatter->getIdAccount(),
-            $chatter->getIdPartener()
-        );
         $chatterController->fetchUserChatHistory( $chatter->getIdAccount(), $chatter->getIdPartener());
     } catch (AccountNotFoundException $accountNotFoundException) {
         echo $accountNotFoundException->getMessage();
@@ -172,16 +169,32 @@ function connect_to_database()
 }
 
 if ($_SERVER["REQUEST_URI"] === "/php_match_script") {
+    session_start();
+
     $start = microtime(true);
     set_time_limit(60);
     for($i = 0;$i < 60; ++$i) {
         if(count($queueController->getRepo()->getAll()) >=2) {
             if($chatters = $queueController->tryToMatch()) {
                 $account1 = $accountController->searchById($chatters[0]);
-                $chatterRequest = new ChatterRequest($account1->getName(),"",date('m/d/Y h:i:s a', time()),$chatters[0],$chatters[1]);
+                $random = $pubController->randomPub();
+                $chatterRequest = new ChatterRequest($account1->getName(),
+                    "",
+                    date('m/d/Y h:i:s a', time()),
+                    $chatters[0],
+                    $chatters[1],
+                    $random
+                );
                 $chatterController->add($chatterRequest);
                 $account2 = $accountController->searchById($chatters[1]);
-                $chatterRequest = new ChatterRequest($account2->getName(),"",date('m/d/Y h:i:s a', time()),$chatters[1],$chatters[0]);
+                $chatterRequest = new ChatterRequest($account2->getName(),
+                    "",
+                    date('m/d/Y h:i:s a',
+                    time()),
+                    $chatters[1],
+                    $chatters[0],
+                    $random
+                );
                 $chatterController->add($chatterRequest);
                 $queueController->delete($chatters);
             }
@@ -197,16 +210,24 @@ if ($_SERVER["REQUEST_URI"] === "/meeting") {
 }
 
 if ($_SERVER["REQUEST_URI"] === "/postMatch") {
+    session_start();
+
+    $chatter = $chatterController->searchPartner($_COOKIE['partnerId']);
+    $pub = $pubController->getPub($chatter->getPub());
+    $_SESSION["idPub"] = $chatter->getPub();
     echo json_encode(array("id" => $_SESSION['id'],
         "name" => $_COOKIE["partnerName"],
         "description" => $_COOKIE["partnerDescription"],
         "age" => $_COOKIE["partnerAge"],
+        "location" => $pub->getLocation(),
+        "pubName" => $pub->getName()
     ));
 }
 
 if ($_SERVER["REQUEST_URI"] === "/match") {
 
     session_start();
+
     $queuerRequest = new QueuerRequest($_SESSION["id"]);
     $queueController->add($queuerRequest);
 
@@ -308,7 +329,7 @@ if ($_SERVER["REQUEST_URI"] === "/login" || substr($_SERVER["REQUEST_URI"], 0, 7
     }
 }
 
-if($_SERVER["REQUEST_URI"] === "/logout")
+if(substr($_SERVER["REQUEST_URI"], 0, 8) === "/logout?")
 {
     session_start();
     try {
@@ -378,8 +399,9 @@ if($_SERVER["REQUEST_URI"] === "/loginRedirect")
                 $_SESSION["email"] = $account->getEmail();
                 $_SESSION["id"] = $account->getId();
                 $_SESSION["name"] = $account->getName();
+                $_SESSION["loggedIn"] = 1;
                 setcookie("id", $account->getId());
-                setcookie("loggedIn", 1);
+
             }
             else{
 

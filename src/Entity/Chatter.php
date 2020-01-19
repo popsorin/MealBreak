@@ -37,6 +37,11 @@ class Chatter extends HasId
     private $idPartener;
 
     /**
+     * @var int
+     */
+    private $pub;
+
+    /**
      * @return string
      */
     public function getName(): string
@@ -114,5 +119,21 @@ class Chatter extends HasId
     public function setIdPartener($idPartener)
     {
         $this->idPartener = $idPartener;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPub(): int
+    {
+        return $this->pub;
+    }
+
+    /**
+     * @param int $pub
+     */
+    public function setPub(int $pub)
+    {
+        $this->pub = $pub;
     }
 }
