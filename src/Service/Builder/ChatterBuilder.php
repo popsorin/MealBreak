@@ -27,6 +27,7 @@ class ChatterBuilder implements Builder
         $chatter->setMessage($request->getMessage());
         $chatter->setIdAccount($request->getIdAccount());
         $chatter->setIdPartener($request->getIdPartener());
+        $chatter->setPub($request->getPub());
 
         return $chatter;
     }

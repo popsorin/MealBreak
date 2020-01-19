@@ -62,11 +62,12 @@ class ChatterRepository implements InterfaceRepository
             $date = $hasId->getDate();
             $idAccount = $hasId->getIdAccount();
             $idPartener = $hasId->getIdPartener();
+            $pub = $hasId->getPub();
             $sqlQuery = $this->connection->prepare(
-                "INSERT INTO Chatter (name, message, date, idAccount, idPartener) 
-                      VALUES (?, ?, ?, ?, ?);"
+                "INSERT INTO Chatter (name, message, date, idAccount, idPartener, pub) 
+                      VALUES (?, ?, ?, ?, ?, ?);"
             );
-            $queryResult = $sqlQuery->execute(array($name,$message,$date,$idAccount,$idPartener));
+            $queryResult = $sqlQuery->execute(array($name,$message,$date,$idAccount,$idPartener,$pub));
             $id = $this->connection->lastInsertId();
              $hasId->setId($id);
 
@@ -91,7 +92,10 @@ class ChatterRepository implements InterfaceRepository
                 $hasId->setId($row['id']);
                 $hasId->setName($row['name']);
                 $hasId->setMessage($row['password']);
-                $hasId->setDate($row['email']);
+                $hasId->setDate($row['date']);
+                $hasId->setIdAccount();
+                $hasId->setIdPartener();
+                $hasId->setPub($row['pub']);
                 array_push($records, $hasId);
                 $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
             }
@@ -170,6 +174,7 @@ class ChatterRepository implements InterfaceRepository
             $chatter->setDate($row['date']);
             $chatter->setIdAccount($row['idAccount']);
             $chatter->setIdPartener($row['idPartener']);
+            $chatter->setPub($row['pub']);
 
             return $chatter;
         } catch (\PDOException $exception) {

@@ -34,8 +34,12 @@ class ChatterRequest implements Request
     /**
      * @var int
      */
-
     private $idPartener;
+
+    /**
+     * @var int
+     */
+    private $pub;
 
     /**
      * ChatterRequest constructor.
@@ -44,14 +48,16 @@ class ChatterRequest implements Request
      * @param string $date
      * @param int $idAccount
      * @param int $idPartener
+     * @param int $pub
      */
-    public function __construct($name, $message, $date, $idAccount, $idPartener)
+    public function __construct(string $name, string $message, string $date, int $idAccount, int $idPartener, int $pub)
     {
         $this->name = $name;
         $this->message = $message;
         $this->date = $date;
         $this->idAccount = $idAccount;
         $this->idPartener = $idPartener;
+        $this->pub = $pub;
     }
 
     /**
@@ -92,5 +98,13 @@ class ChatterRequest implements Request
     public function getIdPartener()
     {
         return $this->idPartener;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPub(): string
+    {
+        return $this->pub;
     }
 }
