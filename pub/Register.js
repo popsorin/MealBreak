@@ -1,8 +1,14 @@
 function validateRegister()
 {
     const email = document.getElementById('email');
+    const name = document.getElementById('name');
     const password = document.getElementById('psw');
     const reppsw = document.getElementById('pswrepeat')
+
+    if (name.value === "") {
+        window.alert("Please enter a name");
+        return false;
+    }
 
     if (email.value === "") {
         window.alert("Please enter an email address");

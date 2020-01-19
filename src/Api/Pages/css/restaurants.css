@@ -12,7 +12,6 @@
 }
 
 .hero {
-    margin-left: 5vw;
     background-repeat: no-repeat;
 }
 
@@ -62,7 +61,7 @@ iframe{
 
 .hero__footer {
     text-align: center;
-    margin-top: 11.2vh;
+    margin-top: 20vh;
 }
 
 h5{

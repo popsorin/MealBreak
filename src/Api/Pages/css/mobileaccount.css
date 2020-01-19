@@ -46,6 +46,10 @@
     color: white;
 }
 
+br{
+    display: none;
+}
+
 .main__content{
     margin: 5vw;
 }

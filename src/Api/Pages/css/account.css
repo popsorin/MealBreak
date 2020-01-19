@@ -5,9 +5,9 @@
 }
 
 .body-container {
- /*   background-image: url("https://images.unsplash.com/photo-1475090169767-40ed8d18f67d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1489&q=80"); */
- /*   background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwebernautdesigns.com%2Fwp-content%2Fuploads%2F2013%2F07%2FNature-Sunset-Light-Blur-Background.jpg&f=1&nofb=1");*/
- /*   background-image: url("https://i.imgur.com/XqDanlj.png"); */
+    /*   background-image: url("https://images.unsplash.com/photo-1475090169767-40ed8d18f67d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1489&q=80"); */
+    /*   background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwebernautdesigns.com%2Fwp-content%2Fuploads%2F2013%2F07%2FNature-Sunset-Light-Blur-Background.jpg&f=1&nofb=1");*/
+    /*   background-image: url("https://i.imgur.com/XqDanlj.png"); */
     background-image: linear-gradient(#2B1B17, #0C090A);
     background-repeat: no-repeat;
     background-size: cover;
@@ -15,7 +15,6 @@
 }
 
 .hero {
-    margin-left: 5vw;
     background-repeat: no-repeat;
 }
 
@@ -28,26 +27,26 @@
     padding-bottom: 5vh;
 }
 
-    .header__nav {
-        float: right;
-        margin-right: 15%;
-    }
-        .nav__wrapper {
-            font-size: 20px;
-            padding-top: 3vh;
-            list-style: none;
-        }
+.header__nav {
+    float: right;
+    margin-right: 15%;
+}
+.nav__wrapper {
+    font-size: 20px;
+    padding-top: 3vh;
+    list-style: none;
+}
 
-        .nav__item {
-            display: inline-block;
-            padding: 1vw;
-            letter-spacing: 1px;
-        }
+.nav__item {
+    display: inline-block;
+    padding: 1vw;
+    letter-spacing: 1px;
+}
 
-        .nav__link {
-            text-decoration: none;
-            color: white;
-        }
+.nav__link {
+    text-decoration: none;
+    color: white;
+}
 
 .main__wrapper{
     margin-left: 20vw;
@@ -134,8 +133,8 @@ span {
 }
 
 .slides__container {
-    height: inherit;
-    width: 72%;
+    width: 74%;
+    height: 100%;
     float: left;
     position: relative;
     -webkit-box-shadow: 0 3px 15px rgba(0,0,0,0.2);
@@ -145,7 +144,9 @@ span {
 
 .mySlide{
     display: none;
+    height: 70%;
     margin-top: 10%;
+    margin-bottom: 10%;
     text-align: center;
     background-color: #f2f2f2;
     padding-top: 4%;
@@ -153,14 +154,6 @@ span {
 
 .profile__details {
     text-align: center;
-    height: 52vh;
-}
-
-.profile__details label{
-    font-size: 14px;
-    color: #444444;
-    text-align: left;
-    display: inline;
 }
 
 .profile__picture {
@@ -176,42 +169,54 @@ span {
 }
 
 .details__nickname {
-    color: #888888;
+    color: black;
     position: relative;
     text-align: center;
     word-wrap: break-word;
+    font-size: 20px;
 }
 
 .details__age {
-    color: #888888;
+    color: black;
+    font-size: 20px;
     text-align: center;
 }
 
+.details__description::before{
+    float: left;
+    left: revert;
+    position: relative;
+}
+
 .details__description {
-    color: #888888;
+    color: black;
     position: relative;
     width: inherit;
     height: 10%;
     padding-top: 5%;
+    font-size: 18px;
     word-wrap: break-word;
+    margin-bottom: 5%;
 }
+
 
 p img{
     vertical-align: middle;
 }
 
 .details__email {
-    color: #888888;
+    color: black;
+    font-size: 18px;
     position: relative;
 }
 
 .mySlide__title {
-    color: #444444;
+    color: black;
 }
 
 .edit__form__container label {
-    font-size: 14px;
-    color: #444444;
+    font-size: 16px;
+    color: black;
     display: block;
     float: top;
     text-align: left;
@@ -261,13 +266,13 @@ textarea:focus {
 input[type=submit] {
     background-color: #FDC15E;
     border: none;
-    font-size: 14px;
+    font-size: 20px;
     color: white;
     border-radius: 25px;
-    padding: 16px 32px;
     text-decoration: none;
     cursor: pointer;
     height: 50px;
+    margin-bottom: 7%;
 }
 
 input[type=submit]:hover {
@@ -310,3 +315,4 @@ h5#contact__email{
     font-size: 20px;
     letter-spacing: 1px;
 }
+

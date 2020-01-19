@@ -4,14 +4,18 @@
  */
 namespace Team1\Service\Repository;
 
+use Team1\Api\Data\Request\DeleteChatterRequest;
+use Team1\Api\Data\Request\DeleteRequest;
 use Team1\Entity\Account;
 use Team1\Entity\Chatter;
 use Team1\Entity\HasId;
 use Team1\Entity\User;
 use Team1\Exception\Persistency\AccountNotFoundException;
+use Team1\Exception\Persistency\ChattersNotFoundException;
 use Team1\Exception\Persistency\ConnectionLostException;
 use Team1\Exception\Persistency\DeletionFailedException;
 use Team1\Exception\Persistency\EmailAlreadyUsedException;
+use Team1\Exception\Persistency\FailedToDeletChatterException;
 use Team1\Exception\Persistency\GetMessagesException;
 use Team1\Exception\Persistency\InsertionFailedException;
 use Team1\Exception\Persistency\NameAlreadyExistsException;
@@ -173,6 +177,11 @@ class ChatterRepository implements InterfaceRepository
         }
     }
 
+    /**
+     * @param $idAccount
+     * @return mixed
+     * @throws PartnerNotFoundException
+     */
     public function checkIfChatGenerated($idAccount)
     {
 
@@ -203,13 +212,16 @@ class ChatterRepository implements InterfaceRepository
 
             $output = '<ul class="list-unstyled">';
             foreach ($row as $chatter) {
-                $userName = '';
-                if ($chatter["idAccount"] == $fromUserId) {
-                    $userName = '<b class="text-success">You</b>';
+                if ($chatter["message"] == "") {
+                    continue;
                 } else {
-                    $userName = '<b class="text-danger">' . $chatter['name'] . '</b>';
-                }
-                $output .= '
+                    $userName = '';
+                    if ($chatter["idAccount"] == $fromUserId) {
+                        $userName = '<b class="text-success">You</b>';
+                    } else {
+                        $userName = '<b class="text-danger">' . $chatter['name'] . '</b>';
+                    }
+                    $output .= '
                       <li style="border-bottom:1px dotted #ccc">
                        <p>' . $userName . ' - ' . $chatter["message"] . '
                         <div align="right">
@@ -218,8 +230,10 @@ class ChatterRepository implements InterfaceRepository
                        </p>
                       </li>
                       ';
+
+                    $output .= '</ul>';
+                }
             }
-            $output .= '</ul>';
         } catch (\PDOException $exception) {
             throw new GetMessagesException();
         }
@@ -228,42 +242,28 @@ class ChatterRepository implements InterfaceRepository
     }
 
     /**
-     * @param int $id
-     * @param string $username
+     * @param int $idAccount
+     * @param int $idPartner
      */
-    public function getChatPage(int $id, string $username)
+    public function deleteChatters(DeleteChatterRequest $request)
     {
-        $statement = $this->connection->prepare("SELECT * FROM Chatter WHERE idAccount = ?");
-        $statement->execute(array($id));
-        $result = $statement->fetchAll();
-
-        foreach ($result as $row) {
-            $output .= '
-               <div id="user_dialog_';
-            $output .= $id;
-            $output .= '"';
-            $output .= '
-               class="user_dialog" title="You have a chat with ';
-            $output .= $username;
-            $output .= '"';
-            $output .= '
-               <div style="height:400px; border:1px solid #ccc; overflow-y: scroll; margin-bottom:24px; padding:16px;" class="chat_history" data-touserid="';
-            $output .= $id;
-            $output .='" id="chat_history_';
-            $output .= $id;
-            $output .='"
-                </div>;
-               <div class="form-group">;
-               <textarea name="chat_message_';
-            $output .= $id;
-            $output .='" id="chat_message_';
-            $output .= $id;
-            $output .='" class="form-control"></textarea>;
-               </div><div class="form-group" align="right">;
-               <button type="button" name="send_chat" id="send_chat" class="btn btn-info send_chat">Send</button></div></div>;
-                 ';
+        try {
+            $idAccount = $request->getIdAccount();
+            $idPartner = $request->getIdPartner();
+            $sqlQuery = $this->connection->prepare(
+                "SELECT id FROM Chatter WHERE (idAccount=? AND idPartener=?) OR (idAccount=? AND idPartener = ?);"
+            );
+            $queryResult = $sqlQuery->execute(array($idAccount, $idPartner, $idPartner, $idAccount));
+            $row = $sqlQuery->fetch(\PDO::FETCH_ASSOC);
+            if ($row === false) {
+                throw new ChattersNotFoundException();
+            }
+            $sqlQuery = $this->connection->prepare(
+                "DELETE FROM Chatter  WHERE (idAccount=? AND idPartener=?) OR (idAccount=? AND idPartener = ?);"
+            );
+            $sqlQuery->execute(array($idAccount, $idPartner, $idPartner, $idAccount));
+        } catch (FailedToDeletChatterException $exception) {
+            throw new $exception;
         }
-
-        echo $output;
     }
 }
