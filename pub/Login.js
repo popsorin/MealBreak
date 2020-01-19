@@ -1,4 +1,4 @@
-function validateLogin()
+/*function validateLogin()
 {
     const email = document.getElementById('email');
     const password = document.getElementById('password');
@@ -29,4 +29,4 @@ function validateLogin()
     }
 
     return true;
-}
+}*/

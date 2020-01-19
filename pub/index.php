@@ -15,6 +15,11 @@ use Team1\Exception\Persistency\AlreadyOnlineException;
 use Team1\Exception\Persistency\EmailNullException;
 use Team1\Exception\Persistency\GetMessagesException;
 use Team1\Exception\Persistency\ReturnAllFailedException;
+use Team1\Exception\Index\PasswordIsNotTheSameException;
+use Team1\Exception\Validator\NameNullError;
+use Team1\Exception\Validator\EmailNullError;
+use Team1\Exception\Validator\PasswordNullError;
+use Team1\Exception\Validator\PasswordRepeatNullError;
 use Team1\Exception\Validator\PasswordTooShortException;
 use PDO;
 use PDOException;
@@ -25,7 +30,6 @@ use Team1\Api\Data\Request\CreateRequest;
 use Team1\Api\Data\Request\LoginRequest;
 use Team1\Api\Data\Request\UpdateRquest;
 use Team1\Api\Data\Request\QueuerRequest;
-use Team1\Exception\Index\PasswordIsNotTheSameException;
 use Team1\Exception\Index\TermsAndConditionsNotCheckedException;
 use Team1\Exception\Persistency\AccountNotFoundException;
 use Team1\Exception\Persistency\ConnectionLostException;
@@ -37,8 +41,8 @@ use Team1\Exception\Validator\WrongEmailFormatException;
 use Team1\Service\Validator\CreateUserValidator;
 use Team1\Service\Validator\UpdateUserValidator;
 
-require "/home/sorin/Proiect-Colectiv/vendor/autoload.php";
-//require "/var/www/html/my_project/mealbreak/vendor/autoload.php";
+//1require "/home/alex/my_project/vendor/autoload.php";
+require "/var/www/html/my_project/mealbreak/vendor/autoload.php";
 
 
 
@@ -84,6 +88,37 @@ if($_SERVER["REQUEST_URI"] === "/partner")
     }
 }
 
+if($_SERVER["REQUEST_URI"] === "/try_to_add") {
+    try {
+        $createRequest = new CreateRequest($_POST["name"], $_POST["password"], $_POST["email"]);
+        CreateUserValidator::validateUser($createRequest);
+        if($_POST["password_repeat"] === "") {
+            throw new PasswordRepeatNullError();
+        }
+        if($_POST["password"] !== $_POST["password_repeat"])
+            throw new PasswordIsNotTheSameException();
+        $registerController->add($createRequest);
+    }catch(NameNullError $exception){
+        echo $exception->getMessage()."/name";
+    }catch (NameAlreadyExistsException $exception) {
+        echo $exception->getMessage()."/name";
+    }catch(EmailNullError $exception){
+        echo $exception->getMessage()."/email";
+    }catch(WrongEmailFormatException $exception){
+        echo $exception->getMessage()."/email";
+    }catch(EmailAlreadyUsedException $exception){
+        echo $exception->getMessage()."/email";
+    }catch(PasswordNullError $exception){
+        echo $exception->getMessage()."/password";
+    }catch(PasswordTooShortException $exception){
+        echo $exception->getMessage()."/password";
+    }catch(PasswordIsNotTheSameException $exception){
+        echo $exception->getMessage()."/password_repeat";
+    }catch(PasswordRepeatNullError $exception){
+        echo $exception->getMessage()."/password_repeat";
+    }
+}
+
 if($_SERVER["REQUEST_URI"] === "/") {
     session_start();
     if ($_SESSION["loggedIn"] === 1) {
@@ -93,16 +128,11 @@ if($_SERVER["REQUEST_URI"] === "/") {
     else {
         $registerController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/mainpage.html");
         $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/css/mainpage.css");
-        if (isset($_POST)) {
-            $createRequest = new CreateRequest($_POST["name"], $_POST["psw"], $_POST["email"]);
-            CreateUserValidator::validateUser($createRequest);
-            $registerController->add($createRequest);
-        }
     }
 }
 
 if($_SERVER["REQUEST_URI"] === "/register") {
- //
+    //header("Location: http://alexx.localhost/");
     $registerController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/Register.html");
     $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/css/register.css");
 
@@ -397,30 +427,12 @@ if($_SERVER["REQUEST_URI"] === "/loginRedirect")
 
 
 if ($_SERVER["REQUEST_URI"] === "/Ajax_request") {
-    function connect_to_database()
-    {
-        $host = 'localhost';
-        $db = 'MealBreak';
-        $username = 'root';
-        $password = 'root';
-        try {
-            $connection = new PDO("mysql:host=$host;dbname=$db", $username, $password);
-            // set the PDO error mode to exception
-            $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            //echo "Connected successfully";
-            return $connection;
-        } catch (PDOException $e) {
-            echo "Connection failed: " . $e->getMessage();
-            return FALSE;
-        }
-
-    }
     if (isset($_POST["type"])) {
         switch ($_POST["type"]) {
-            case "username":
+            case "name":
                 try {
                     $connection = connect_to_database();
-                    $query = $connection->prepare("select * from Users where username = ?;");
+                    $query = $connection->prepare("select * from User where name = ?;");
                     $query->execute(array($_POST["data"]));
                     $result = $query->fetch(PDO::FETCH_ASSOC);
                     if (!empty($result)) {
@@ -433,7 +445,7 @@ if ($_SERVER["REQUEST_URI"] === "/Ajax_request") {
             case "email":
                 try {
                     $conn = connect_to_database();
-                    $query = $conn->prepare("select * from Users where email = ?;");
+                    $query = $conn->prepare("select * from User where email = ?;");
                     $query->execute(array($_POST["data"]));
                     $result = $query->fetch(PDO::FETCH_ASSOC);
                     if (!empty($result)) {
@@ -452,7 +464,7 @@ if ($_SERVER["REQUEST_URI"] === "/Ajax_request") {
                     echo $passwordTooShortException->getMessage();
                 }
                 break;
-            case "password_confirm":
+            case "password_repeat":
                 try {
                     if ($_POST["password"] !== $_POST["data"]) {
                         throw new PasswordIsNotTheSameException();

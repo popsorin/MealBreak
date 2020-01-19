@@ -38,7 +38,7 @@ class AccountRepository extends UserRepository
             $this->connection = new \PDO(
                 'mysql:host=localhost;dbname=MealBreak',
                 'root',
-                '123456789',
+                'root',
                 array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION)
             );
         } catch (PDOException $exception) {

@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <title>Mealbreak</title>
-    <link rel="stylesheet" href="css\register.css">
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <link rel="stylesheet" href="css\Register.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Playfair+Display&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -40,29 +41,37 @@
 
             <main class="main__content content">
                 <div class="content__wrapper wrapper">
-                    <form class="form" method="POST" novalidate="" action="/" onsubmit="return validateRegister()">
+                    <form id="register_form" class="form" method="POST" novalidate="" onsubmit="return submitValidation()">
 
                         <h2 class="reglabel">Register</h2>
 
                         <div class="form-input">
-                            <input id="name" type="text" class="form-control" maxlength="25" placeholder="    Name" size="30" name="name" value="" required
-                                   autofocus>
+                            <input id="name" type="text" class="form-control" maxlength="25" placeholder="    Name" size="30" name="name" value="" onkeyup="display_er(this.id)" autofocus>
+                        </div>
+                        <div id="name-error" class="error_message validation-error" style="display:none; height:0;" >
+                            <!----> <span id="name-message" style="left:310px;top:-50px;" ></span>
                         </div>
 
                         <div class="form-input">
-                            <input id="email" type="text" class="form-control" maxlength="25" placeholder="    Email" size="30" name="email" value="" required
-                                   autofocus>
+                            <input id="email" type="text" class="form-control" maxlength="25" placeholder="    Email" size="30" name="email" value="" onkeyup="display_er(this.id)">
+                        </div>
+                        <div id="email-error" class="error_message validation-error" style="display:none; height:0;">
+                            <!----> <span id="email-message" style="left:310px;top:-50px;"></span>
                         </div>
 
                         <div class="form-input">
 
-                            <input id="psw" type="password" maxlength="25" class="form-control" placeholder="    Password" size="30" name="psw" required
-                                   data-eye>
+                            <input id="password" type="password" maxlength="25" class="form-control" placeholder="    Password" size="30" name="psw" onkeyup="display_er(this.id)">
+                        </div>
+                        <div id="password-error" class="error_message validation-error" style="display:none; height:0;">
+                            <!----> <span id="password-message" style="left:310px;top:-50px;"></span>
                         </div>
 
                         <div class="form-input">
-                            <input id="pswrepeat" type="password" maxlength="25" class="form-control" placeholder="    Repeat password" size="30" name="pswrepeat" required
-                                   data-eye>
+                            <input id="password_repeat" type="password" maxlength="25" class="form-control" placeholder="    Repeat password" size="30" name="pswrepeat" onkeyup="display_er(this.id)">
+                        </div>
+                        <div id="password_repeat-error" class="error_message validation-error" style="display:none; height:0;">
+                            <!----> <span id="password_repeat-message" style="left:310px;top:-50px;"></span>
                         </div>
 
                         <p>By creating an account you agree to our
@@ -99,8 +108,8 @@
     </header>
 </div>
 
-<script type="text/javascript" src="validator.min.js"></script>
-<script src="Register.js"></script>
+<script src="submitValidation.js"></script>
+<script src="Functions.js"></script>
 </body>
 
 </html>

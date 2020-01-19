@@ -1,4 +1,4 @@
-function validateRegister(){
+/*function validateRegister(){
     const email = document.getElementById('email');
     const password = document.getElementById('psw');
     const reppsw = document.getElementById('pswrepeat')
@@ -34,4 +34,4 @@ function validateRegister(){
     }
 
     return true;
-}
+}*/

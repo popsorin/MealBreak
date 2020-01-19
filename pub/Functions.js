@@ -11,11 +11,12 @@ function display_er(type)
             password: password
         },
         success: function (response) {
-            //alert(response);
             if (response ==="") {
-                $("#"+type+"-error").addClass("d-none");
+                //$("#"+type+"-error").addClass("d-none");
+                document.getElementById(type+"-error").style.display = 'none';
             } else {
-                $("#"+type+"-error").removeClass("d-none");
+                //$("#"+type+"-error").removeClass("d-none");
+                document.getElementById(type+"-error").style.display = 'block';
                 document.getElementById(type+"-message").innerHTML = response;
             }
 
