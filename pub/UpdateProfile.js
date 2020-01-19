@@ -10,7 +10,7 @@ function updateValues()
         success:function () {
             $('#name').val('');
             $('#desc').val('');
-             $('#age').val('');
+            $('#age').val('');
         }
     });
 }
@@ -25,8 +25,8 @@ function updateProfile()
             idChatter = names.id;
             nameChatter = names.name;
             let descriptionChatter = names.description;
-            emailChatter = names.email;
-            ageChatter = names.age;
+            let emailChatter = names.email;
+            let ageChatter = names.age;
             $('#nickname').data('value',idChatter);
             $('#nickname').text(nameChatter);
             $('#email').text(emailChatter);

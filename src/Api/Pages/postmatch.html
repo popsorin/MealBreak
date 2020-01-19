@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mealbreak</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" media="screen and (min-device-width: 600px)" href="css\postmatch.css">
+    <link rel="stylesheet" media="screen and (max-device-width: 550px)" href="css\postmobile.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Playfair+Display&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+</head>
+<body>
+
+<div class="body-container">
+    <header class="page__header">
+        <div class="hero">
+            <header class="hero__header header">
+                <a class="headerlogo logo" href="#" title="MB Logo">
+                    <img class="logoimage" src="https://i.imgur.com/qeTnZJW.png" alt="Mealbreak">
+                </a>
+                <nav class="header__nav nav">
+                    <ul class="nav__wrapper">
+                        <li class="nav__item">
+                            <a class="nav__link" href="restaurants.html">
+                                Restaurants
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+
+            <main class="main__content content">
+
+                <div id="page__message">
+                    <h1>You have a match!</h1>
+                </div>
+
+                <div class="main__wrapper">
+
+                    <div class="match__details">
+
+                        <div class="pair__photo__container">
+                            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.ytimg.com%2Fvi%2FENhR9FHf_0c%2Fmaxresdefault.jpg&f=1&nofb=1" id="pair__photo"height="200" width="200">
+                        </div>
+
+                        <h4 id="pair__name" style="color: dimgrey; margin-top: 5%;" data-value="">
+
+                        </h4>
+
+                        <p id="pair__age" style="color: dimgrey;">
+                        </p>
+
+                        <div class="description__container">
+                            <p id="pair__description" style="color: dimgrey;">
+                            </p>
+                        </div>
+
+                        <div class="found__local__container" >
+
+                            <div class="found__local__details">
+                                <h4 id="local__name" style="color: dimgrey;">Los Corazones</h4>
+
+                                <br>
+
+                                <p id="local__address" style="color: dimgrey;">Strada Putorii nr 5</p>
+                            </div>
+
+                            <div class="local__photo__container">
+
+                                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.centarahotelsresorts.com%2Fcentara%2Fchy%2Fimages%2Fuploads%2Fgallery%2Fthumb%2Fhat-yai-ginger-restaurant-01-640x457.jpg&f=1&nofb=1" height="200" width="200">
+
+                            </div>
+
+                            <div class="done__button__container">
+                                <button id="arrived" class="done__button" style="font-size: 18px;">I've arrived</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="chat__window">
+                    <div class="chat__header">
+                        <span id="pair__details">
+                        </span>
+
+                    </div>
+                    <div class="chats" id="chats">
+                        <!--*********************************************************************************-->
+                    </div>
+
+                    <div class="new-chat">
+                        <input type="text" id="message"/>
+                        <button id="send">Send</button>
+                    </div>
+                </div>
+
+
+            </main>
+
+            <footer class="hero__footer footer">
+                <div class="footer__copy">
+                    <h4>Copyright &copy;2019 Mealbreak.</h4>
+                </div>
+
+                <div class="footer_contact">
+                    <h5>Contact: support@mealbreak.com</h5>
+                </div>
+            </footer>
+        </div>
+    </header>
+</div>
+
+
+
+
+
+
+<script src="PostMatchSetUp.js" type="text/javascript"></script>
+<script src="Arrived.js" type="text/javascript"></script>
+<script src="GetLatestMessage.js" type="text/javascript"></script>
+<script src="SaveMessage.js" type="text/javascript"></script>
+<script src="Chat.js" type="text/javascript"></script>
+</body>
+</html>

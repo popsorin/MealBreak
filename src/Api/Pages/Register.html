@@ -4,6 +4,9 @@
 <head>
     <meta charset="utf-8">
     <title>Mealbreak</title>
+    <link rel="stylesheet" href="css\register.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Playfair+Display&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
@@ -17,13 +20,18 @@
                 <nav class="header__nav nav">
                     <ul class="nav__wrapper">
                         <li class="nav__item">
-                            <a class="nav__link" href="mainpage.html">
+                            <a class="nav__link" href="/">
                                 Home
                             </a>
                         </li>
                         <li class="nav__item">
-                            <a class="nav__link" href="login.html">
+                            <a class="nav__link" href="login">
                                 Account
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a class="nav__link" href="restaurants">
+                                Restaurants
                             </a>
                         </li>
                     </ul>
@@ -32,32 +40,34 @@
 
             <main class="main__content content">
                 <div class="content__wrapper wrapper">
-                    <form class="form" method="POST" novalidate="" action="/register">
+                    <form class="form" method="POST" novalidate="" action="/" onsubmit="return validateRegister()">
 
-                        <label class="reglabel">Register</label>
+                        <h2 class="reglabel">Register</h2>
 
                         <div class="form-input">
-                            <input id="username" type="text" class="form-control" placeholder="Username" size="30" name="username" value="" required
+                            <input id="name" type="text" class="form-control" maxlength="25" placeholder="    Name" size="30" name="name" value="" required
                                    autofocus>
                         </div>
 
                         <div class="form-input">
-                            <input id="email" type="text" class="form-control" placeholder="Email" size="30" name="email" value="" required
+                            <input id="email" type="text" class="form-control" maxlength="25" placeholder="    Email" size="30" name="email" value="" required
                                    autofocus>
                         </div>
 
                         <div class="form-input">
-                            <input id="psw" type="password" class="form-control" placeholder="Password" size="30" name="psw" required
+
+                            <input id="psw" type="password" maxlength="25" class="form-control" placeholder="    Password" size="30" name="psw" required
                                    data-eye>
                         </div>
 
                         <div class="form-input">
-                            <input id="pswrepeat" type="password" class="form-control" placeholder="Repeat password" size="30" name="pswrepeat" required
+                            <input id="pswrepeat" type="password" maxlength="25" class="form-control" placeholder="    Repeat password" size="30" name="pswrepeat" required
                                    data-eye>
                         </div>
 
                         <p>By creating an account you agree to our
-                            <a href="#">Terms & Privacy
+                            <br>
+                            <a href="#">Terms & Conditions
                             </a>
                         </p>
 
@@ -67,7 +77,7 @@
                             </button>
                         </div>
 
-                        <div class="wrapper login">
+                        <div class="wrapper__login">
                             <p1>Already have an account? <a href="login">Sign in</a>.</p1>
                         </div>
 
@@ -89,7 +99,8 @@
     </header>
 </div>
 
-
+<script type="text/javascript" src="validator.min.js"></script>
+<script src="Register.js"></script>
 </body>
 
 </html>

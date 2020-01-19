@@ -77,19 +77,4 @@ function getChatData()
     })
 }
 
-//gets the latest chat messages
-function getLatestChatData()
-{
-    var chat_message = $('#chat_message_'+ idChatter).val();
-    $.ajax({
-        url:"/getLatestMessage",
-        method:"POST",
-        data:{to_user_id:idChatter, chat_message:chat_message,to_user_name:nameChatter},
-        success:function (data) {
-            $('#chat_history_'+ idChatter).html(data);
-        },
-        error:function () {
-            alert("ERROR");
-        }
-    })
-}
+

@@ -1,0 +1,284 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.body-container {
+    background-image: linear-gradient(#2B1B17, #0C090A);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.logo {
+    margin-left: 0;
+}
+
+.nav__item {
+    display: inline-block;
+    padding: 2vw;
+    letter-spacing: 0;
+}
+
+.hero__header {
+    padding-top: 5vh;
+    text-align: center;
+    padding-bottom: 15vh;
+}
+
+.header__nav {
+    float: unset;
+    margin-left: 15vw;
+}
+
+.nav__wrapper {
+    font-size: 20px;
+    padding-top: 3vh;
+    list-style: none;
+}
+
+.hero{
+    margin-left: 0;
+}
+
+.nav__link {
+    text-decoration: none;
+    color: white;
+}
+
+br{
+    display: none;
+}
+
+.main__content{
+    margin: 5vw;
+}
+
+.main_wrapper{
+    background-image: linear-gradient(white, #eeeeee);
+    border-radius: 3px;
+    border: 2px solid #f2f2f2;
+}
+
+.wrapper__profile{
+    position: relative;
+    border-radius: 1px;
+    float: top;
+}
+
+.profile__picture__container {
+    display: none;
+}
+
+.btn__group {
+    -webkit-box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+    position: absolute;
+    background-color: #333;
+    width: 100%;
+}
+
+.list__item{
+    border-right: 1px solid #bbb;
+    width: 20%;
+}
+
+.group__list{
+}
+
+ul {
+    width: 100%;
+}
+
+li{
+    float: left;
+    list-style: none;
+}
+
+.btn__group button{
+    display: block;
+    height: 48px;
+    color: #bbb;
+    text-align: center;
+    background-color: inherit;
+    font-size: 18px;
+    padding: 0 10%; /* Some padding */
+    cursor: pointer; /* Pointer/hand icon */
+    border: none; /* Prevent double borders */
+}
+
+button:hover {
+    background-color: #111;
+}
+
+span{
+    display: none;
+}
+
+hr {
+    display: none;
+}
+
+.slides__container {
+    text-align: center;
+    padding-top: 7vh;
+    height: 65vh;
+    background-color: whitesmoke;
+    border: 2px solid #333;
+}
+
+.profile__picture {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    text-align: center;
+}
+
+.profile__picture img{
+    object-fit: cover;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.details__nickname {
+    color: #888888;
+    position: relative;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.details__age {
+    color: #888888;
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+.details__description {
+    color: #888888;
+    position: relative;
+    width: inherit;
+    height: 10%;
+    margin-top: 15%;
+    word-wrap: break-word;
+}
+
+.details__email {
+    color: #888888;
+    margin-top: 5%;
+    position: relative;
+}
+
+p img{
+    vertical-align: middle;
+}
+
+.mySlide__title {
+    color: #444444;
+    margin: 5%;
+}
+
+.edit__form__container label {
+    font-size: 14px;
+    color: #444444;
+    display: block;
+    float: top;
+    text-align: left;
+    margin-left: 20%;
+}
+
+.edit__form#age {
+    width: 15%;
+    margin-right: 45%;
+}
+
+input[type=text] {
+    font-size: 10px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    padding: 8px 12px;
+    border: 2px solid #ccc;
+    display: inline-block;
+    width: 60%
+}
+
+input[type=text]:focus {
+    border: 2px solid #555;
+}
+
+textarea {
+    height: 85px;
+    font-size: 10px;
+    padding: 8px 12px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+    width: 60%;
+}
+
+textarea:focus {
+    border: 2px solid #555;
+}
+
+input[type=submit] {
+    background-color: #FDC15E;
+    border: none;
+    font-size: 10px;
+    color: white;
+    border-radius: 25px;
+    padding: 8px 12px;
+    text-decoration: none;
+    cursor: pointer;
+    height: 40px;
+    width: 50%;
+    margin-top: 5%;
+}
+
+input[type=submit]:hover {
+    background-color: #F1B452;
+}
+
+input{
+    height: 20px;
+}
+
+input[type=file]{
+    width: inherit;
+    padding: 8px 12px;
+    resize: none;
+    margin-left: 15%;
+}
+
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+}
+
+@keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+}
+
+.hero__footer {
+    padding-top: 10vh;
+    text-align: center;
+}
+
+h5#contact__email{
+    color: whitesmoke;
+    text-align: center;
+}
+
+.footer__copy{
+    color: white;
+    font-size: 20px;
+    letter-spacing: 1px;
+}

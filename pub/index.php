@@ -8,6 +8,7 @@ namespace pub;
 
 use Team1\Api\Controller\ChatterController;
 use Team1\Api\Data\Request\ChatterRequest;
+use Team1\Api\Data\Request\DeleteChatterRequest;
 use Team1\Api\Data\Request\MessageRequest;
 use Team1\Api\Data\Request\UpdateProfileRequest;
 use Team1\Exception\Persistency\AlreadyOnlineException;
@@ -85,49 +86,42 @@ if($_SERVER["REQUEST_URI"] === "/partner")
 
 if($_SERVER["REQUEST_URI"] === "/") {
     session_start();
-    $registerController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/mainpage.html");
-    $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/css/mainpage.css");
+    if ($_SESSION["loggedIn"] === 1) {
+        $registerController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/account.html");
+        $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/css/account.css");
+    }
+    else {
+        $registerController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/mainpage.html");
+        $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/css/mainpage.css");
+        if (isset($_POST)) {
+            $createRequest = new CreateRequest($_POST["name"], $_POST["psw"], $_POST["email"]);
+            CreateUserValidator::validateUser($createRequest);
+            $registerController->add($createRequest);
+        }
+    }
 }
+
 if($_SERVER["REQUEST_URI"] === "/register") {
  //
     $registerController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/Register.html");
     $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/css/register.css");
-    if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST["register_sub"])) {
-        $createRequest = new CreateRequest($_POST["username"], $_POST["psw"], $_POST["email"]);
-        CreateUserValidator::validateUser($createRequest);
-        $registerController->add($createRequest);
-    }
-
-}
-/**
 
 }
 
-if($_SERVER["REQUEST_URI"] === "/chat") {
-    try {
-        if($_POST['email'] === null || $_POST['password'] === null)
-            throw new EmailNullException();
-        $registerController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/Chat.html");
-        }
-        catch (EmailNullException $exception){
-            echo $exception->getMessage();
-        }
-}
-*/
 //adds the latest message in the database
 if($_SERVER["REQUEST_URI"] === "/updateMessage")
 {
     try {
-        $chatter = $chatterController->searchPartner($_POST['to_user_id']);
+        $chatter = $chatterController->searchPartner($_COOKIE['partnerId']);
         $request = new ChatterRequest(
-            $_POST["to_user_name"],
-            $_POST["chat_message"],
+            $chatter->getName(),
+            $_POST["message"],
             date('m/d/Y h:i:s a', time()),
-            $chatter->getIdPartener(),
-            $chatter->getIdAccount()
+            $chatter->getIdAccount(),
+            $chatter->getIdPartener()
         );
         $chatterController->add($request);
-        $chatterController->fetchUserChatHistory($chatter->getIdPartener(), $chatter->getIdAccount());
+        $chatterController->fetchUserChatHistory( $chatter->getIdAccount(), $chatter->getIdPartener());
     }
     catch (AccountNotFoundException $accountNotFoundException){
         echo $accountNotFoundException->getMessage();
@@ -142,15 +136,15 @@ if($_SERVER["REQUEST_URI"] === "/updateMessage")
 
 if($_SERVER["REQUEST_URI"] === "/getLatestMessage") {
     try {
-        $chatter = $chatterController->searchPartner($_POST['to_user_id']);
+        $chatter = $chatterController->searchPartner($_COOKIE['partnerId']);
         $request = new ChatterRequest(
-            $_POST["to_user_name"],
-            $_POST["chat_message"],
+            $chatter->getName(),
+            "",
             date('m/d/Y h:i:s a', time()),
-            $chatter->getIdPartener(),
-            $chatter->getIdAccount()
+            $chatter->getIdAccount(),
+            $chatter->getIdPartener()
         );
-        $chatterController->fetchUserChatHistory($chatter->getIdPartener(), $chatter->getIdAccount());
+        $chatterController->fetchUserChatHistory( $chatter->getIdAccount(), $chatter->getIdPartener());
     } catch (AccountNotFoundException $accountNotFoundException) {
         echo $accountNotFoundException->getMessage();
     } catch (GetMessagesException $getMessagesException) {
@@ -196,6 +190,20 @@ if ($_SERVER["REQUEST_URI"] === "/php_match_script") {
     }
 
 }
+
+if ($_SERVER["REQUEST_URI"] === "/meeting") {
+    $registerController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/postmatch.html");
+    $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/css/postmatch.css");
+}
+
+if ($_SERVER["REQUEST_URI"] === "/postMatch") {
+    echo json_encode(array("id" => $_SESSION['id'],
+        "name" => $_COOKIE["partnerName"],
+        "description" => $_COOKIE["partnerDescription"],
+        "age" => $_COOKIE["partnerAge"],
+    ));
+}
+
 if ($_SERVER["REQUEST_URI"] === "/match") {
 
     session_start();
@@ -212,23 +220,32 @@ if ($_SERVER["REQUEST_URI"] === "/match") {
     }
 
     try {
-        $account = $chatterController->searchPartner($_SESSION['id']);
+        $chatter = $chatterController->searchPartner($_SESSION['id']);
+        $account = $accountController->searchById($chatter->getIdAccount());
         echo json_encode(array("id" => $account->getId(),
-            "name" => $account->getName()
+            "uri" => "/meeting",
         ));
+        setcookie("partnerName", $account->getName());
+        setcookie("partnerDescription", $account->getDescription());
+        setcookie("partnerAge", $account->getAge());
+        setcookie("partnerId", $account->getId());
     } catch (AccountNotFoundException $e) {
         echo $e->getMessage();
     } catch (SearchAccountFailedException $e) {
         echo $e->getMessage();
     }
 }
+if ($_SERVER["REQUEST_URI"] === "/restaurants"){
+    $registerController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/restaurants.html");
+    $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/css/restaurants.css");
 
+}
 if ($_SERVER["REQUEST_URI"] === "/updateProfile"){
     session_start();
 
     if(isset($_POST)){
         $account = $accountController->searchById($_SESSION['id']);
-        if($_POST['age'] !== '')
+            if($_POST['age'] !== '')
             $age = intval($_POST['age']);
         else
             $age = $account->getAge();
@@ -263,48 +280,33 @@ if ($_SERVER["REQUEST_URI"] === "/updateProfile"){
     }
 }
 
-if ($_SERVER["REQUEST_URI"] === "/Dummy.html") {
-    // I guess we should delete this
-    //Its not useful and the functions are not up to date
-    var_dump($_SESSION["account_id"]);
-    $queueController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/loginRedirect.html");
-    $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/Dummy.css");
-    if(isset($_POST["generate"])) {
-        if($match = $queueController->tryToMatch($_SESSION['account_id'])) {
-            //create a chat with the $match->getAccountId() and $_SESSION("account_id") (the account id's of the ppl that were matched)
-            $queueController->delete($match->getAccountId());
-            //the generation button shall be removed from this user
-
+if ($_SERVER["REQUEST_URI"] === "/login" || substr($_SERVER["REQUEST_URI"], 0, 7) === "/login?") {
+    session_start();
+    if ($_SESSION["loggedIn"] === 1) {
+        $registerController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/account.html");
+        $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/css/account.css");
         }
-        else {
-            $queueController->add($_SESSION["account_id"]);
-            //the generation button shall be removed from this user
-
+    else{
+        $registerController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/login.html");
+        $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/css/login.css");
+        if (isset($_GET["token"])) {
+            $user_array = $registerController->getRepo()->get_user_from_token($_GET["token"]);
+            if ($registerController->getRepo()->getIsConfirmed($user_array['name']) == 0) {
+                $current_time = strtotime(date("Y-m-d H:i:s"));
+                $user_time = strtotime($registerController->getRepo()->getDate($user_array['name']));
+                if ($current_time - $user_time < 7200) {
+                    $registerController->getRepo()->setIsConfirmed($user_array['name']);
+                    $UpdateRquest = new UpdateRquest($user_array["id"], $user_array["name"], $user_array["email"], $user_array["password"], "", "", "", 0, 0);
+                    UpdateUserValidator::validateAccount($UpdateRquest);
+                    $accountController->addAcc($UpdateRquest);
+                } else {
+                    //we should redirect them to a page to resent an activation mail
+                    //echo "Your token is no longer valid.To get a new one please go to and complete your email<a href=\"token.php\">Click Here!</a>";
+                }
+            }
         }
     }
 }
-
-if ($_SERVER["REQUEST_URI"] === "/login" || substr($_SERVER["REQUEST_URI"], 0, 7) === "/login?") {
-    $registerController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/login.html");
-    $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/css/login.css");
-    if (isset($_GET["token"])) {
-        $user_array = $registerController->getRepo()->get_user_from_token($_GET["token"]);
-        if ($registerController->getRepo()->getIsConfirmed($user_array['name']) == 0) {
-            $current_time = strtotime(date("Y-m-d H:i:s"));
-            $user_time = strtotime($registerController->getRepo()->getDate($user_array['name']));
-            if ($current_time - $user_time < 7200) {
-                $registerController->getRepo()->setIsConfirmed($user_array['name']);
-                $UpdateRquest = new UpdateRquest($user_array["id"], $user_array["name"], $user_array["email"], $user_array["password"], "", "", "", 0, 0);
-                UpdateUserValidator::validateAccount($UpdateRquest);
-                $accountController->addAcc($UpdateRquest);
-            }
-            else{
-                //we should redirect them to a page to resent an activation mail
-                //echo "Your token is no longer valid.To get a new one please go to and complete your email<a href=\"token.php\">Click Here!</a>";
-            }
-        }
-        }
-    }
 
 if($_SERVER["REQUEST_URI"] === "/logout")
 {
@@ -330,39 +332,67 @@ if($_SERVER["REQUEST_URI"] === "/logout")
     }
     session_unset();
 
+    setcookie("partnerName", time() - 3600);
+    setcookie("partnerDescription", time() - 3600);
+    setcookie("partnerAge", time() - 3600);
+    setcookie("partnerId", time() - 3600);
+    setcookie("id", time() - 3600);
+    setcookie("loggedIn", time() - 3600);
     $_SESSION['email'] = null;
     $_SESSION['id'] = null;
     $_SESSION['name'] = null;
+}
+
+if($_SERVER["REQUEST_URI"] === "/arrived") {
+    try {
+        $chatter = $chatterController->searchPartner($_COOKIE['partnerId']);
+    } catch (AccountNotFoundException $e) {
+        $registerController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/account.html");
+        $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/css/account.css");
+    }
+    $request = new DeleteChatterRequest(
+        $chatter->getIdAccount(),
+        $chatter->getIdPartener()
+    );
+    $chatterController->deleteChatters($request);
+
+    $registerController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/account.html");
+    $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/css/account.css");
 }
 
 if($_SERVER["REQUEST_URI"] === "/loginRedirect")
 {
     session_start();
 
-    try{
-        $_SESSION["email"] = $_POST['email'];
-        $loginRequest = new LoginRequest($_POST['email'], $_POST['password']);
-        $account = $accountController->logIn($loginRequest);
-        $registerController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/account.html");
-        $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/css/account.css");
-        $_SESSION["id"] = $account->getId();
-        $_SESSION["name"] = $account->getName();
-        $_SESSION['loggedIn'] = 1;
-    }
-    catch(AccountNotFoundException $exc)
+    try {
+        if ($_COOKIE["loggedIn"] === 1) {
+            $registerController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/account.html");
+            $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/css/account.css");
+        }
+        else
+            if (isset($_POST['email'])) {
+                $loginRequest = new LoginRequest($_POST['email'], $_POST['password']);
+                $account = $accountController->logIn($loginRequest);
+                $registerController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/account.html");
+                $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/css/account.css");
+                $_SESSION["email"] = $account->getEmail();
+                $_SESSION["id"] = $account->getId();
+                $_SESSION["name"] = $account->getName();
+                setcookie("id", $account->getId());
+                setcookie("loggedIn", 1);
+            }
+            else{
+
+                $registerController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/account.html");
+                $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/css/account.css");
+            }
+
+
+    } catch(AccountNotFoundException $exc)
     {
                 //we should redirect them to a page to resent an activation mail
                 //echo "Your token is no longer valid.To get a new one please go to and complete your email<a href=\"token.php\">Click Here!</a>";
     }
-    /*
-    $registerController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/login.html");
-    $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/login.css");
-    if(isset($_POST['login1'])) {
-        $_SESSION['account_id'] = $registerController->getRepo()->getIdFromMail($_POST['email']);
-        //redirected here so I can test the functionality
-        //we have to redirect to another page
-        header("location:/Dummy.html");
-    }*/
 }
 
 

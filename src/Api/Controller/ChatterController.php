@@ -7,6 +7,7 @@ namespace Team1\Api\Controller;
 use Team1\Api\Data\Request\ConfirmRequest;
 use Team1\Api\Data\Request\CreateRequest;
 use Team1\Api\Data\Request\ChatterRequest;
+use Team1\Api\Data\Request\DeleteChatterRequest;
 use Team1\Api\Data\Request\MessageRequest;
 use Team1\Entity\HasId;
 use Team1\Entity\User;
@@ -16,6 +17,7 @@ use Team1\Exception\Persistency\EmailAlreadyUsedException;
 use Team1\Exception\Persistency\GetMessagesException;
 use Team1\Exception\Persistency\InsertionFailedException;
 use Team1\Exception\Persistency\NameAlreadyExistsException;
+use Team1\Exception\Persistency\PartnerNotFoundException;
 use Team1\Exception\Persistency\UpdateFailedException;
 use Team1\Service\Builder\ChatterBuilder;
 use Team1\Service\Builder\MessageBuilder;
@@ -102,12 +104,22 @@ class ChatterController extends Controller
         return $this->repository->searchPartner($idAccount);
     }
 
-    public function getChatPage(int $id, string $username)
+    /**
+     * @param $idAccount
+     * @return mixed
+     * @throws PartnerNotFoundException
+     */
+    public function checkIfChatGenerated($idAccount)
     {
-        echo $this->repository->getChatPage($id, $username);
+        return $this->repository->checkIfChatGenerated($idAccount);
     }
 
-    public function checkIfChatGenerated($idAccount) {
-        return $this->repository->checkIfChatGenerated($idAccount);
+    /**
+     * @param int $idAccount
+     * @param int $idPartner
+     */
+    public function deleteChatters(DeleteChatterRequest $request)
+    {
+        $this->repository->deleteChatters($request);
     }
 }
