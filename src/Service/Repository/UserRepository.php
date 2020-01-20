@@ -33,7 +33,7 @@ class UserRepository implements InterfaceRepository
             $host = 'localhost';
             $db = 'MealBreak';
             $username = 'root';
-            $password = 'root';
+            $password = '123456789';
             $this->connection = new PDO("mysql:host=$host;dbname=$db", $username, $password);
                 // set the PDO error mode to exception
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

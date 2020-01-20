@@ -42,8 +42,8 @@ use Team1\Exception\Validator\WrongEmailFormatException;
 use Team1\Service\Validator\CreateUserValidator;
 use Team1\Service\Validator\UpdateUserValidator;
 
-//1require "/home/alex/my_project/vendor/autoload.php";
-require "/var/www/html/my_project/mealbreak/vendor/autoload.php";
+//require "/home/alex/my_project/vendor/autoload.php";
+require "/home/sorin/Proiect-Colectiv/vendor/autoload.php";
 
 
 
@@ -123,7 +123,7 @@ if($_SERVER["REQUEST_URI"] === "/try_to_add") {
 
 if($_SERVER["REQUEST_URI"] === "/") {
     session_start();
-    if (isset($_SESSION)) {
+    if (isset($_SESSION["isLogged"])) {
         $registerController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/account.html");
         $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/css/account.css");
     }
@@ -179,12 +179,13 @@ if($_SERVER["REQUEST_URI"] === "/getLatestMessage") {
 
     }
 }
+
 function connect_to_database()
 {
     $host = 'localhost';
     $db = 'MealBreak';
     $username = 'root';
-    $password = 'root';
+    $password = '123456789';
     try {
         $connection = new PDO("mysql:host=$host;dbname=$db", $username, $password);
         // set the PDO error mode to exception

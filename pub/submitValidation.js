@@ -5,8 +5,8 @@ function submitValidation()
     var password = document.getElementById("password").value;
     var password_repeat = document.getElementById("password_repeat").value;
     $.ajax({
-        type: 'post',
-        url: '/try_to_add',
+        type: "post",
+        url: "/try_to_add",
         data: {
             name:name,
             email:email,
