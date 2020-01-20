@@ -33,9 +33,7 @@ class UserRepository implements InterfaceRepository
             $host = 'localhost';
             $db = 'MealBreak';
             $username = 'root';
-            //alex
-            //$password = 'root';
-            $password = '123456789';
+            $password = 'root';
             $this->connection = new PDO("mysql:host=$host;dbname=$db", $username, $password);
                 // set the PDO error mode to exception
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -88,7 +86,7 @@ class UserRepository implements InterfaceRepository
     {
         $to = $email;
         $subject = "Activating your Account";
-        $body = "Hello, in order to activate your account please visit https://".$_SERVER['HTTP_HOST'] . "/login?token=" . $token . "\n This code is valid for 2 hours";
+        $body = "Hello, in order to activate your account please visit http://".$_SERVER['HTTP_HOST'] . "/login?token=" . $token . "\n This code is valid for 2 hours";
         mail($to, $subject, $body);
     }
 

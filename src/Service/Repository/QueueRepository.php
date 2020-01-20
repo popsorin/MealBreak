@@ -41,7 +41,7 @@ class QueueRepository
             $host = 'localhost';
             $db = 'MealBreak';
             $username = 'root';
-            $password = '123456789';
+            $password = 'root';
             try {
                 $this->connection = new PDO("mysql:host=$host;dbname=$db", $username, $password);
                 // set the PDO error mode to exception
