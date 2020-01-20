@@ -88,7 +88,7 @@ if($_SERVER["REQUEST_URI"] === "/partner")
 
 if($_SERVER["REQUEST_URI"] === "/") {
     session_start();
-    if (isset($_SESSION)) {
+    if (isset($_SESSION["loggedIn"])) {
         $registerController->displayHTML(dirname(__DIR__) . "/src/Api/Pages/account.html");
         $registerController->displayCSS(dirname(__DIR__) . "/src/Api/Pages/css/account.css");
     }
