@@ -1,0 +1,318 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.body-container {
+    /*   background-image: url("https://images.unsplash.com/photo-1475090169767-40ed8d18f67d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1489&q=80"); */
+    /*   background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwebernautdesigns.com%2Fwp-content%2Fuploads%2F2013%2F07%2FNature-Sunset-Light-Blur-Background.jpg&f=1&nofb=1");*/
+    /*   background-image: url("https://i.imgur.com/XqDanlj.png"); */
+    background-image: linear-gradient(#2B1B17, #0C090A);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.hero {
+    background-repeat: no-repeat;
+}
+
+.logo {
+    margin-left: 15%;
+}
+
+.hero__header {
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+}
+
+.header__nav {
+    float: right;
+    margin-right: 15%;
+}
+.nav__wrapper {
+    font-size: 20px;
+    padding-top: 3vh;
+    list-style: none;
+}
+
+.nav__item {
+    display: inline-block;
+    padding: 1vw;
+    letter-spacing: 1px;
+}
+
+.nav__link {
+    text-decoration: none;
+    color: white;
+}
+
+.main__wrapper{
+    margin-left: 20vw;
+    margin-right: 20vw;
+    border-radius: 3px;
+    border: 2px solid #f2f2f2;
+    height: 70vh;
+    background-image: linear-gradient(white, #eeeeee);
+}
+
+.wrapper__profile {
+    position: relative;
+    -webkit-box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+    float: left;
+    border-radius: 1px;
+    background-color: white;
+    width: 15vw;
+    height: inherit;
+    text-align: center;
+    max-width: 100%;
+}
+
+.profile__picture__container {
+    width: inherit;
+    position: absolute;
+    top: 10%;
+    margin-bottom: 5%;
+}
+
+.profile__picture__container img {
+    object-fit: cover;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+.btn__group {
+    position: absolute;
+    bottom: 3%;
+    width: inherit;
+}
+
+.btn__group button{
+    height: 25px;
+    color: #444444;
+    background-color: inherit;
+    font-size: 18px;
+    padding: 0 10%; /* Some padding */
+    cursor: pointer; /* Pointer/hand icon */
+    border: none; /* Prevent double borders */
+}
+
+hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border: 0.5px solid #aaaaaa;
+    width: 90%;
+}
+
+.group__list {
+    list-style: none;
+}
+
+.list__item:nth-last-child(1) {
+    padding-top: 50%;
+}
+
+.profile__button {
+    width: 100%;
+    text-align: left;
+}
+
+span {
+    float: right;
+    color: #aaaaaa;
+}
+
+/* Add a background color on hover */
+.btn__group button:hover {
+    background-color: #FDC15E;
+}
+
+.slides__container {
+    width: 74%;
+    height: 100%;
+    float: left;
+    position: relative;
+    -webkit-box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+    border-radius: 1px;
+    background-color: white;
+}
+
+.mySlide{
+    display: none;
+    height: 70%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    text-align: center;
+    background-color: #f2f2f2;
+    padding-top: 4%;
+}
+
+.profile__details {
+    text-align: center;
+}
+
+.profile__picture {
+    margin-bottom: 5%;
+    text-align: center;
+}
+
+.profile__picture img{
+    object-fit: cover;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.details__nickname {
+    color: black;
+    position: relative;
+    text-align: center;
+    word-wrap: break-word;
+    font-size: 20px;
+}
+
+.details__age {
+    color: black;
+    font-size: 20px;
+    text-align: center;
+}
+
+.details__description::before{
+    float: left;
+    left: revert;
+    position: relative;
+}
+
+.details__description {
+    color: black;
+    position: relative;
+    width: inherit;
+    height: 10%;
+    padding-top: 5%;
+    font-size: 18px;
+    word-wrap: break-word;
+    margin-bottom: 5%;
+}
+
+
+p img{
+    vertical-align: middle;
+}
+
+.details__email {
+    color: black;
+    font-size: 18px;
+    position: relative;
+}
+
+.mySlide__title {
+    color: black;
+}
+
+.edit__form__container label {
+    font-size: 16px;
+    color: black;
+    display: block;
+    float: top;
+    text-align: left;
+    padding-left: 23%;
+}
+
+.edit__form {
+    margin: 13px;
+    width: 55%;
+}
+
+.edit__form#age {
+    width: 8%;
+    margin-right: 49%;
+}
+
+input[type=text] {
+    font-size: 14px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    padding: 16px 12px;
+    border: 2px solid #ccc;
+    display: inline-block;
+}
+
+input[type=text]:focus {
+    border: 2px solid #555;
+}
+
+textarea {
+    width: inherit;
+    height: 85px;
+    font-size: 14px;
+    padding: 12px 12px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+}
+
+textarea:focus {
+    border: 2px solid #555;
+}
+
+input[type=submit] {
+    background-color: #FDC15E;
+    border: none;
+    font-size: 20px;
+    color: white;
+    border-radius: 25px;
+    text-decoration: none;
+    cursor: pointer;
+    height: 50px;
+    margin-bottom: 7%;
+}
+
+input[type=submit]:hover {
+    background-color: #F1B452;
+}
+
+input{
+    height: 20px;
+}
+
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+}
+
+@keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+}
+
+.hero__footer {
+    padding-top: 10vh;
+    text-align: center;
+}
+
+h5#contact__email{
+    color: whitesmoke;
+    text-align: center;
+}
+
+.footer__copy{
+    color: white;
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+

@@ -1,0 +1,295 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.body-container {
+    background-image: linear-gradient(#2B1B17, #0C090A);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.hero {
+    margin-left: 5vw;
+    background-repeat: no-repeat;
+}
+
+.logo {
+    margin-left: 15%;
+}
+
+.hero__header {
+    padding-top: 5vh;
+    margin-bottom: 5vh;
+}
+
+.header__nav {
+    float: right;
+    margin-right: 15%;
+}
+
+.nav__wrapper {
+    font-size: 20px;
+    padding-top: 3vh;
+    list-style: none;
+}
+
+.nav__item {
+    display: inline-block;
+    padding: 1vw;
+    letter-spacing: 1px;
+}
+
+.nav__link {
+    text-decoration: none;
+    color: white;
+}
+
+.main__wrapper{
+    float: left;
+    position: relative;
+    margin-left: 10vw;
+    border-radius: 5px;
+    word-wrap: break-word;
+    width: 30vw;
+}
+
+#page__message{
+    text-align: center;
+    padding-bottom: 10vh;
+    color: whitesmoke;
+}
+
+h3{
+    color: whitesmoke;
+    margin-left: 10%;
+}
+
+.match__details{
+    background-color: #FFFFFE;
+    text-align: center;
+    border: 2px solid #FFFAF2;
+    border-radius: 5px;
+    padding-bottom: 30px;
+}
+
+.pair__photo__container{
+    float: left;
+    position: relative;
+    bottom: 30px;
+    left: 3%;
+    -webkit-box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+    background-color: #ddd;
+    border: 1px solid #FFFAF2;
+}
+
+.pair__photo__container img{
+    display: block;
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+}
+
+#pair__age{
+    padding: 2%;
+}
+
+.separation__bar{
+    width: 100%;
+    border-top: 1px solid #FFFAF2;
+    border-bottom: 1px solid #FFFAF2;
+    height: 15px;
+    background-color: #FFF0DC;
+    margin-bottom: 5%;
+    margin-top: 20px;
+    padding-bottom: 5px;
+}
+
+#restaurant__line{
+    color: black;
+}
+
+#pair__description{
+    font-size: 15px;
+    position: relative;
+    margin-top: 5%;
+}
+
+#pair__name{
+    color: black;
+    padding-top: 50px;
+}
+
+.found__local__details{
+    text-align: left;
+    margin-left: 15%;
+    margin-right: 45%;
+}
+
+.local__photo__container{
+    position: relative;
+    width: 200px;
+    float: right;
+    right: 10%;
+    bottom: 80px;
+    height: auto;
+    -webkit-box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+    background-color: #ddd;
+    border: 1px solid #FFFAF2;
+}
+
+.local__photo__container img{
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+#local__name{
+    padding-top: 10%;
+}
+
+.done__button__container{
+    padding-top: 3vh;
+    text-align: left;
+    margin-left: 15%;
+}
+
+.done__button{
+    width: 30%;
+    height: 30px;
+    color: white;
+    background-color: #555555;
+    border: 1px solid lightgrey;
+    position: relative;
+    -webkit-box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+}
+
+.chat__window {
+    border: 1px solid #000;
+    border-radius: 10px;
+    background: #fff;
+    width: 550px;
+    height: 600px;
+    padding: 10px;
+    margin-right: 15vw;
+    box-sizing: border-box;
+    position: relative;
+    float: right;
+}
+
+.chats{
+    height: 480px;
+    overflow-y: auto;
+    background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fs-media-cache-ak0.pinimg.com%2F564x%2Fb5%2Faa%2F95%2Fb5aa95d4a623ecb90a609d5a002f286c.jpg&f=1&nofb=1");
+}
+
+.chat__header{
+    background: #ededed;
+    padding: 10px;
+    margin: -10px -10px 8px -10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+}
+
+span#pair__details img{
+    width: 50px;
+    height: 50px;
+    vertical-align: middle;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.chat{
+    background: white;
+    border-radius: 20px;
+    display: inline-block;
+    padding: 10px;
+    color: black;
+    font-weight: lighter;
+    font-size: small;
+    box-shadow: 1px 1px 2px rgba(0,0,0,.3);
+    margin: 5px;
+    position: relative;
+}
+
+.chat.u1{
+    float: left;
+    clear: both;
+    border-top-left-radius: 0px;
+}
+
+.chat.u2{
+    float: right;
+    clear: both;
+    border-top-right-radius: 0px;
+    background: #FFD371;
+}
+
+.new-chat{
+    position: absolute;
+    z-index: 1000;
+    bottom: 0;
+    width: 100%;
+    background: #ededed;
+    height: 40px;
+    left: 0;
+    border-top: 1px solid #ddd;
+}
+
+.new-chat input{
+    outline: none;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 18px;
+    width: 74%;
+    height: 40px;
+    border: none;
+    display: inline-block;
+    color: #999;
+    font-weight: 100;
+    background: #ddd;
+}
+.new-chat button{
+    width: 25%;
+    height: 30px;
+    padding: 0;
+    display: inline-block;
+    border: none;
+    color: black;
+    background: #FFD371;
+    position: relative;
+    top: -3px;
+    outline: none;
+    cursor: pointer;
+}
+
+.new-chat button:active{
+    color: #555;
+}
+
+.hero__footer {
+    text-align: center;
+    margin-top: 90vh;
+}
+
+h5#contact__email{
+    color: whitesmoke;
+    text-align: center;
+}
+
+h4#copyright{
+    color: whitesmoke;
+}
+
+.footer {
+    font-size: 15px;
+}
+
+.footer__copy{
+    color: white;
+    letter-spacing: 1px;
+}

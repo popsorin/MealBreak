@@ -1,0 +1,6 @@
+<IFModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{DOCUMENT_ROOT}/$1 !-d
+RewriteCond %{DOCUMENT_ROOT}/$1 !-f
+RewriteRule ^/?(.*)$ index.php
+</IFModule>

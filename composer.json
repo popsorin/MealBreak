@@ -1,5 +1,5 @@
 {
-    "name":"Team1/proiect-colectiv",
+    "name":"team1/proiect-colectiv",
     "description": "A site for random meetings",
     "authors": [
              {
@@ -14,14 +14,15 @@
     "autoload":
     {
       "psr-4": {
-                "Popsorin\\": "src"
+                "Team1\\": "src"
                }
     },
-
   "require": {
     "ext-json": "*",
     "ext-mysqli": "*",
     "ext-pdo": "*",
-    "ext-curl": "*"
+    "ext-curl": "*",
+        "twbs/bootstrap": "^4.3",
+    "ext-mysql_xdevapi": "*"
   }
 }
